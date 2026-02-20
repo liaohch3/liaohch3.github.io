@@ -34,7 +34,7 @@ Agent 的模型认知来源于预训练知识（training data cutoff）。训练
 
 ### SKILL.md 修复前
 
-Agent 用预训练知识生成的 SKILL.md，直接硬编码了具体模型版本。以下是实际的 SKILL.md 原文片段：
+Agent 用预训练知识生成的 SKILL.md，直接硬编码了具体模型版本。以下是 `article-to-podcast/SKILL.md` 的实际片段：
 
 ```markdown
 ## 模型
@@ -43,10 +43,6 @@ Agent 用预训练知识生成的 SKILL.md，直接硬编码了具体模型版�
 - 翻译/改写: `anthropic/claude-sonnet-4`
 - TTS: `gemini-2.5-flash-preview-tts`（Vertex AI）
 ```
-
-<p style="background-color: #fff3cd; padding: 12px 16px; border-left: 4px solid #ffc107; border-radius: 4px; font-size: 1.05em;">
-⚠️ 注意上面的 <code>gemini-2.0-flash-001</code> 和 <code>claude-sonnet-4</code> — 这两个就是 Agent 从过时的预训练知识里"记住"的模型名，写入时已经不是最新版本。
-</p>
 
 脚本中也是同样的硬编码：
 
@@ -66,25 +62,26 @@ def translate_faithful(english_text, prev_context=""):
 
 ### SKILL.md 修复后
 
-用语义描述替代具体版本号。以下是修复后的 SKILL.md 实际原文：
+修复后的 SKILL.md 不再出现任何具体模型名，改为语义化描述。以下是 `article-to-podcast/SKILL.md` 修复后的实际片段：
 
 ```markdown
 ## 模型选择策略（不要硬编码具体版本号！）
 
 执行时根据当前可用模型动态选择，参考 TOOLS.md 里的最新模型列表：
 
-| 用途 | 选择标准 | 示例（会过时，以实际为准） |
-|------|---------|--------------------------|
-| 音频转录 | Gemini 系列最强 Flash 模型（需支持音频输入） | google/gemini-2.5-flash |
-| 翻译/改写 | Claude 系列最强性价比模型（Sonnet 级别） | anthropic/claude-sonnet-4 |
-| TTS 生成 | Gemini 最强 TTS 模型（Vertex AI） | gemini-2.5-flash-preview-tts |
+| 用途 | 选择标准 |
+|------|---------|
+| 音频转录 | Gemini 系列最强 Flash 模型（需支持音频输入） |
+| 翻译/改写 | Claude 系列最强性价比模型（Sonnet 级别） |
+| TTS 生成 | Gemini 最强 TTS 模型（Vertex AI） |
 
-原则：脚本中的默认模型可能过时，执行前先检查 TOOLS.md
-确认当前最优模型，通过 --model 参数覆盖。
+原则：脚本中的默认模型可能过时，执行前先检查 TOOLS.md 中的
+「旗舰选型」表确认当前最优模型，通过 --model 参数覆盖。
+如果 TOOLS.md 信息也过时，可通过 OpenRouter Models 查询各家最新模型。
 ```
 
 <p style="background-color: #d4edda; padding: 12px 16px; border-left: 4px solid #28a745; border-radius: 4px; font-size: 1.05em;">
-✅ <strong>关键变化：</strong>「选择标准」列写的是 <strong>语义描述</strong>（"Gemini 系列最强 Flash 模型"），而不是具体版本号。「示例」列明确标注"会过时，以实际为准"。Agent 执行时会去 TOOLS.md 查最新的具体模型名。
+✅ <strong>关键变化：</strong>表格里只有语义描述（"Gemini 系列最强 Flash 模型"），完全没有具体版本号。Agent 执行时去 TOOLS.md 查最新模型名，TOOLS.md 过时则去 OpenRouter 查。
 </p>
 
 ### TOOLS.md 模型注册表

@@ -18,3 +18,8 @@ weight = 1
 url = "/tags"
 name = "分类"
 weight = 2
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

@@ -30,6 +30,12 @@ Agent 的模型认知来源于预训练知识（training data cutoff）。训练
 
 ![解决方案架构图：踩坑 vs 解决方案对比](/images/model-version-rot/solution.png)
 
+## 实践成果：定时任务首次运行
+
+定时任务创建完成后的首次运行报告截图。任务自动拉取 OpenRouter 最新模型列表，识别出新增的 Gemini 3.1 Pro、GPT-5.2 等模型，完成连通性测试后更新 TOOLS.md。
+
+![定时任务首次运行报告](/images/model-version-rot/cron-report.jpg)
+
 ## 修复前后对比
 
 ### SKILL.md 修复前

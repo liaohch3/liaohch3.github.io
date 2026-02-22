@@ -3,6 +3,7 @@ title: "我给 OpenClaw🦞 装了高德 API，方便找合适的租房位置"
 date: 2026-02-22
 draft: false
 tags: ["AI", "Agent", "MCP", "高德地图", "OpenClaw"]
+description: "给 OpenClaw 接入高德地图 API 做租房通勤规划，发现直接调 API + 文件系统比 MCP 好用得多。"
 ---
 
 今天想通过 OpenClaw 找深圳地图上适合租房的位置。需求是两个人在不同地方上班，一个开车一个坐地铁，要找一个对两边通勤都合理的片区。但发现 Agent 自己无法准确输出通勤时间——全靠估算，数据不靠谱。所以就想给 Agent 接上高德地图 API，让它基于真实行程数据来回答。

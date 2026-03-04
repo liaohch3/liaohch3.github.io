@@ -4,10 +4,25 @@ title = 'liaohch3 的个人博客'
 theme = 'diary'
 enableEmoji = true
 DefaultContentLanguage = "zh"
-googleAnalytics = "G-BTHTZ3RQ3M"
+# googleAnalytics = "G-BTHTZ3RQ3M"  # 已用 Cloudflare Web Analytics 替代，更隐私
 
 [params]
 cloudflareToken = "cU9Z_VM-lskry80spcTKiFuOUvvnjOcFKAaUjQh7"
+enableGiscus = true
+
+[params.giscus]
+data_repo = "liaohch3/liaohch3.github.io"
+data_repo_id = "MDEwOlJlcG9zaXRvcnkyMzMzNTA3Mjc="
+data_category = "General"
+data_category_id = "DIC_kwDODeimR84C3pE6"
+data_mapping = "pathname"
+data_strict = "0"
+data_reactions_enabled = "1"
+data_emit_metadata = "0"
+data_input_position = "top"
+data_theme = "preferred_color_scheme"
+data_lang = "zh-CN"
+crossorigin = "anonymous"
 
 [[menu.main]]
 url = "/posts"

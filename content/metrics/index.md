@@ -6,8 +6,7 @@ toc = false
 comments = false
 +++
 
-这页就简单记一下我最近和 AI 一起写代码时的一些使用情况。
-
+<p>这页就简单记一下我最近和 AI 一起写代码时的一些使用情况。</p>
 <div class="public-metrics">
   <div class="metric-hero">
     <div class="metric-hero-copy">
@@ -17,27 +16,23 @@ comments = false
     </div>
     <div class="metric-updated" data-usage-field="updated_at">--</div>
   </div>
-
   <div class="metric-summary-grid">
     <div class="metric-card">
       <span>近 24 小时 token</span>
       <strong data-usage-field="total_tokens">--</strong>
       <em data-usage-field="token_breakdown">--</em>
     </div>
-
     <div class="metric-card metric-card-models">
       <span>最近在用的模型</span>
       <strong data-usage-field="model_count">--</strong>
       <div class="model-chip-list" id="usage-model-chips"></div>
     </div>
-
     <div class="metric-card">
       <span>活跃天数</span>
       <strong data-usage-field="active_days">--</strong>
       <em data-usage-field="active_days_copy">--</em>
     </div>
   </div>
-
   <div class="metric-panel heatmap-card">
     <div class="metric-head">
       <div>
@@ -46,7 +41,6 @@ comments = false
       </div>
       <div class="metric-caption">最近 18 周</div>
     </div>
-
     <div class="heatmap-shell">
       <div class="heatmap-weekdays">
         <span></span>
@@ -62,7 +56,6 @@ comments = false
         <div class="heatmap-grid" id="usage-heatmap-grid"></div>
       </div>
     </div>
-
     <div class="heatmap-legend">
       <span>less</span>
       <i class="legend-swatch heat-l0"></i>
@@ -73,7 +66,6 @@ comments = false
       <span>more</span>
     </div>
   </div>
-
   <div class="metric-chart-grid">
     <div class="metric-panel chart-panel">
       <div class="metric-overline">最近 7 天</div>
@@ -82,7 +74,6 @@ comments = false
       <svg class="trend-chart" id="usage-trend-chart" viewBox="0 0 640 180" preserveAspectRatio="none"></svg>
       <div class="axis-row" id="usage-trend-axis"></div>
     </div>
-
     <div class="metric-panel chart-panel">
       <div class="metric-overline">模型分布</div>
       <h3>最近用哪些模型最多</h3>
@@ -90,7 +81,6 @@ comments = false
       <div class="model-bars" id="usage-model-bars"></div>
     </div>
   </div>
-
   <div class="metric-panel chart-panel">
     <div class="metric-overline">一天里的节奏</div>
     <h3>一天里通常什么时候最常和 AI 一起写代码</h3>

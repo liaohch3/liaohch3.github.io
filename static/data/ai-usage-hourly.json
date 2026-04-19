@@ -13,7 +13,7 @@
       "total_tokens": 28870,
       "avg_latency_ms": 4276.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T16:29:39.312955Z"
+      "generated_at": "2026-04-19T16:49:48.590895Z"
     },
     {
       "hour": "2026-04-19T09:00:00Z",
@@ -28,7 +28,22 @@
       "total_tokens": 28874,
       "avg_latency_ms": 2948.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T16:29:39.312955Z"
+      "generated_at": "2026-04-19T16:49:48.590895Z"
+    },
+    {
+      "hour": "2026-04-19T16:00:00Z",
+      "source": "cx",
+      "client": "codex",
+      "model": "gpt-5.4",
+      "requests": 2,
+      "success_requests": 2,
+      "failed_requests": 0,
+      "input_tokens": 58185,
+      "output_tokens": 372,
+      "total_tokens": 58557,
+      "avg_latency_ms": 6175.5,
+      "window_label": "hourly_v1",
+      "generated_at": "2026-04-19T16:49:48.590895Z"
     }
   ]
 }

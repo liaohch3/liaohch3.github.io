@@ -1,0 +1,23 @@
+{
+  "window_hours": 24,
+  "updated_at": "2026-04-19T09:18:23.776186Z",
+  "requests": 2,
+  "success_requests": 2,
+  "failed_requests": 0,
+  "input_tokens": 57682,
+  "output_tokens": 62,
+  "total_tokens": 57744,
+  "avg_latency_ms": 3612.0,
+  "sources": [
+    "cx"
+  ],
+  "clients": [
+    "codex"
+  ],
+  "source_breakdown": {
+    "cx": 2
+  },
+  "client_breakdown": {
+    "codex": 2
+  }
+}

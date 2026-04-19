@@ -1,0 +1,141 @@
+{{ if .IsHome }}
+<style>
+  .usage-dashboard-wrapper {
+    cursor: default;
+    background:
+      radial-gradient(circle at top right, rgba(25, 118, 210, 0.12), transparent 38%),
+      linear-gradient(180deg, rgba(25, 118, 210, 0.04), rgba(25, 118, 210, 0.02));
+  }
+
+  .usage-dashboard-card {
+    align-items: stretch;
+  }
+
+  .usage-dashboard-summary {
+    max-width: 760px;
+  }
+
+  .usage-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 22px 0 14px;
+  }
+
+  .usage-metric {
+    border: 1px solid rgba(25, 118, 210, 0.12);
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .usage-metric-label {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.72;
+    margin-bottom: 8px;
+  }
+
+  .usage-metric-value {
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 600;
+  }
+
+  .usage-dashboard-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    opacity: 0.72;
+    margin-bottom: 18px;
+  }
+
+  .usage-chart {
+    border-top: 1px solid rgba(25, 118, 210, 0.12);
+    padding-top: 18px;
+  }
+
+  .usage-chart-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .usage-chart-subtitle {
+    opacity: 0.64;
+  }
+
+  .usage-bars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+    gap: 10px;
+    align-items: end;
+    min-height: 180px;
+  }
+
+  .usage-bar-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .usage-bar {
+    width: 100%;
+    max-width: 56px;
+    border-radius: 10px 10px 4px 4px;
+    background: linear-gradient(180deg, #1976d2, #0e4377);
+    box-shadow: 0 12px 24px rgba(25, 118, 210, 0.18);
+  }
+
+  .usage-bar-label,
+  .usage-bar-value,
+  .usage-dashboard-footnote,
+  .usage-empty {
+    font-size: 12px;
+    text-align: center;
+    opacity: 0.72;
+  }
+
+  .usage-dashboard-footnote {
+    margin-top: 16px;
+    text-align: left;
+  }
+
+  @media screen and (max-width: 1020px) {
+    .usage-dashboard-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .usage-dashboard-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .usage-metric-value {
+      font-size: 24px;
+    }
+  }
+
+  body.night .usage-dashboard-wrapper {
+    background:
+      radial-gradient(circle at top right, rgba(55, 143, 231, 0.16), transparent 42%),
+      linear-gradient(180deg, rgba(55, 143, 231, 0.08), rgba(255, 255, 255, 0.02));
+  }
+
+  body.night .usage-metric {
+    background: rgba(40, 40, 40, 0.8);
+    border-color: rgba(55, 143, 231, 0.18);
+  }
+
+  body.night .usage-bar {
+    background: linear-gradient(180deg, #378fe7, #92c2f2);
+    box-shadow: 0 12px 24px rgba(55, 143, 231, 0.16);
+  }
+</style>
+{{ end }}

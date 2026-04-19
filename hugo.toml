@@ -1,54 +1,134 @@
-baseURL = 'https://liaohch3.com/'
-languageCode = 'en-us'
-title = 'liaohch3'
-theme = 'diary'
+baseURL = "https://liaohch3.com/"
+languageCode = "zh-cn"
+title = "liaohch3"
+theme = "hugo-theme-stack"
 enableEmoji = true
 DefaultContentLanguage = "zh"
-# googleAnalytics = "G-BTHTZ3RQ3M"  # 已用 Cloudflare Web Analytics 替代，更隐私
+hasCJKLanguage = true
+
+[pagination]
+  pagerSize = 6
+
+[permalinks]
+  posts = "/posts/:contentbasename/"
 
 [params]
-cloudflareToken = "cU9Z_VM-lskry80spcTKiFuOUvvnjOcFKAaUjQh7"
-enableGiscus = true
-subtitle = "Backend engineer · AI tooling · trace infrastructure"
+  mainSections = ["posts"]
+  rssFullContent = true
+  cloudflareToken = "cU9Z_VM-lskry80spcTKiFuOUvvnjOcFKAaUjQh7"
 
-[params.giscus]
-data_repo = "liaohch3/liaohch3.github.io"
-data_repo_id = "MDEwOlJlcG9zaXRvcnkyMzMzNTA3Mjc="
-data_category = "General"
-data_category_id = "DIC_kwDODeimR84C3pE6"
-data_mapping = "pathname"
-data_strict = "0"
-data_reactions_enabled = "1"
-data_emit_metadata = "0"
-data_input_position = "top"
-data_theme = "preferred_color_scheme"
-data_lang = "zh-CN"
-crossorigin = "anonymous"
+  [params.footer]
+    since = 2024
+    customText = "写作优先，公开指标只是侧面的长期信号。"
+
+  [params.dateFormat]
+    published = "2006-01-02"
+    lastUpdated = "2006-01-02"
+
+  [params.sidebar]
+    compact = false
+    emoji = "⌘"
+    subtitle = "后端工程师，关注 AI tooling、trace infrastructure 和 API-first workflows。"
+    avatar = ""
+
+  [params.article]
+    headingAnchor = false
+    math = false
+    toc = true
+    readingTime = true
+
+    [params.article.list]
+      showTags = true
+
+    [params.article.license]
+      enabled = false
+
+  [params.widgets]
+    homepage = []
+    page = [{ type = "toc" }]
+
+  [params.opengraph.twitter]
+    site = ""
+    card = "summary_large_image"
+
+  [params.colorScheme]
+    toggle = true
+    default = "auto"
+
+  [params.comments]
+    enabled = true
+    provider = "giscus"
+
+    [params.comments.giscus]
+      repo = "liaohch3/liaohch3.github.io"
+      repoID = "MDEwOlJlcG9zaXRvcnkyMzMzNTA3Mjc="
+      category = "General"
+      categoryID = "DIC_kwDODeimR84C3pE6"
+      mapping = "pathname"
+      lightTheme = "light"
+      darkTheme = "dark_dimmed"
+      reactionsEnabled = 1
+      emitMetadata = 0
+      inputPosition = "top"
+      lang = "zh-CN"
+      strict = 0
+      loading = "lazy"
+
+  [params.cookies]
+    enabled = false
+    showSettings = true
+
+    [params.cookies.categories]
+      analytics = true
+      functional = true
 
 [[menu.main]]
-url = "/"
-name = "首页"
-weight = 1
+  identifier = "home"
+  name = "首页"
+  url = "/"
+  weight = 10
 
 [[menu.main]]
-url = "/posts"
-name = "写作"
-weight = 2
+  identifier = "posts"
+  name = "写作"
+  url = "/posts/"
+  weight = 20
 
 [[menu.main]]
-url = "/lab"
-name = "实验室"
-weight = 3
+  identifier = "lab"
+  name = "实验室"
+  url = "/lab/"
+  weight = 30
 
 [[menu.main]]
-url = "/metrics"
-name = "指标"
-weight = 4
+  identifier = "metrics"
+  name = "指标"
+  url = "/metrics/"
+  weight = 40
 
 [[menu.main]]
-url = "/about"
-name = "关于"
-weight = 5
+  identifier = "about"
+  name = "关于"
+  url = "/about/"
+  weight = 50
+
+[[menu.social]]
+  identifier = "github"
+  name = "GitHub"
+  url = "https://github.com/liaohch3"
+
+  [menu.social.params]
+    icon = "brand-github"
+    newTab = true
+
+[[menu.social]]
+  identifier = "rss"
+  name = "RSS"
+  url = "/index.xml"
+
+  [menu.social.params]
+    icon = "rss"
+    newTab = true
 
 [markup]
   [markup.goldmark]

@@ -7,7 +7,7 @@
     <div class="article-shell">
         <article class="article-frame">
             <header class="article-head">
-                <div class="article-kicker">Article</div>
+                <div class="eyebrow">Article</div>
                 <h1 class="article-title">{{ .Title }}</h1>
                 {{ if .Params.description }}
                     <p class="article-lead">{{ .Params.description }}</p>
@@ -34,24 +34,24 @@
             <nav class="article-pagination">
                 {{ if .Next }}
                     <a class="article-page-link" href="{{ .Next.RelPermalink }}">
-                        <div class="article-page-label">Next</div>
+                        <div class="eyebrow">Next</div>
                         <div class="article-page-title">{{ .Next.Title }}</div>
                     </a>
                 {{ else }}
                     <div class="article-page-link muted">
-                        <div class="article-page-label">Next</div>
+                        <div class="eyebrow">Next</div>
                         <div class="article-page-title">No newer post</div>
                     </div>
                 {{ end }}
 
                 {{ if .Prev }}
                     <a class="article-page-link" href="{{ .Prev.RelPermalink }}">
-                        <div class="article-page-label">Previous</div>
+                        <div class="eyebrow">Previous</div>
                         <div class="article-page-title">{{ .Prev.Title }}</div>
                     </a>
                 {{ else }}
                     <div class="article-page-link muted">
-                        <div class="article-page-label">Previous</div>
+                        <div class="eyebrow">Previous</div>
                         <div class="article-page-title">No older post</div>
                     </div>
                 {{ end }}

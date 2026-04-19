@@ -6,19 +6,18 @@
 
     <div class="section-shell">
         <section class="section-hero">
-            <div class="section-kicker">Writing</div>
+            <div class="eyebrow">Writing</div>
             <h1 class="section-title">写作</h1>
             <p class="section-lead">
-                这里主要是工程笔记、AI Agent 工具链、真实 API 接入、以及一些后端实现细节。内容不追求“大而全”，只记录真正做过、修过、跑过的东西。
+                这里主要是工程笔记、AI tooling、真实 API 接入和后端实现细节。
+                只写真正做过、修过、跑过的东西。
             </p>
         </section>
 
-        <section class="section-panel">
-            <div class="panel-topline">
-                <div>
-                    <div class="panel-kicker">Archive</div>
-                    <h2 class="panel-title">All posts</h2>
-                </div>
+        <section class="content-panel">
+            <div class="section-heading">
+                <div class="eyebrow">Archive</div>
+                <h2>所有文章</h2>
             </div>
             <div class="writing-list">
                 {{ range .Paginator.Pages }}

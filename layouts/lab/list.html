@@ -8,61 +8,58 @@
 
     <div class="section-shell">
         <section class="section-hero">
-            <div class="section-kicker">Lab</div>
+            <div class="eyebrow">Lab</div>
             <h1 class="section-title">{{ .Title }}</h1>
             <p class="section-lead">
-                这里放的是我正在做、刚验证过、或者值得继续推进的工程问题。
-                不只是“项目展示”，更像一个持续公开的工作台。
+                这里放的是仍在推进中的工程系统。重点不是“展示项目”，而是记录一个系统如何从想法、实现、修正，
+                逐步变成能每天使用的东西。
             </p>
         </section>
 
-        <section class="lab-grid">
-            <article class="lab-card featured">
-                <div class="lab-card-kicker">Current system</div>
-                <h2 class="lab-card-title">Personal AI telemetry stack</h2>
-                <p class="lab-card-copy">
-                    从 `cc/cx` alias 开始捕获 trace，异步入队，原始数据进私有云存储，公开指标经过白名单扫描后再发布到博客。
+        <section class="card-grid">
+            <article class="card-panel card-panel-wide">
+                <div class="eyebrow">Current focus</div>
+                <h2 class="card-title">Personal AI telemetry stack</h2>
+                <p class="card-copy">
+                    从 `cc/cx` alias 开始捕获 trace，异步入队，原始数据进入私有云存储，经过白名单过滤后的聚合指标再发布到公开页面。
                 </p>
-                <ul class="lab-points">
-                    <li>Durable queue + eventual consistency</li>
-                    <li>Private raw traces in GCS</li>
-                    <li>Public-safe hourly snapshots for the homepage</li>
-                    <li>Upload-side and export-side allowlist enforcement</li>
+                <ul class="bullet-list">
+                    <li>Durable queue and retry-based worker</li>
+                    <li>Private raw archive in cloud storage</li>
+                    <li>Public metrics generated from allowlisted payloads only</li>
+                    <li>Homepage consumes static snapshots instead of direct warehouse queries</li>
                 </ul>
             </article>
 
-            <article class="lab-card">
-                <div class="lab-card-kicker">Tooling</div>
-                <h2 class="lab-card-title">claude-tap</h2>
-                <p class="lab-card-copy">
-                    本地 trace 捕获器。重点不是“抓到了”，而是不同 CLI、不同代理模式、不同协议下都能稳定记录真实请求行为。
+            <article class="card-panel">
+                <div class="eyebrow">Tooling</div>
+                <h2 class="card-title">claude-tap</h2>
+                <p class="card-copy">
+                    一个本地 trace 捕获器，目标不是只支持单一路径，而是在真实命令行工作流里稳定记录请求与响应。
                 </p>
             </article>
 
-            <article class="lab-card">
-                <div class="lab-card-kicker">Cloud</div>
-                <h2 class="lab-card-title">Usage hub</h2>
-                <p class="lab-card-copy">
-                    负责异步上传、聚合、公开快照和安全边界。把“我每天实际用了多少 AI”变成一个能持续发布的系统。
+            <article class="card-panel">
+                <div class="eyebrow">Publishing</div>
+                <h2 class="card-title">Usage hub</h2>
+                <p class="card-copy">
+                    负责异步上传、聚合、白名单扫描和公开快照。它让 metrics 成为一个受约束的副产品，而不是泄露风险。
                 </p>
             </article>
 
-            <article class="lab-card">
-                <div class="lab-card-kicker">Method</div>
-                <h2 class="lab-card-title">API-first agent workflows</h2>
-                <p class="lab-card-copy">
-                    当 Agent 开始参与真实决策时，优先接入真实 API、文件系统和脚本，而不是只靠 schema 描述和估算逻辑。
+            <article class="card-panel">
+                <div class="eyebrow">Method</div>
+                <h2 class="card-title">API-first workflows</h2>
+                <p class="card-copy">
+                    当 Agent 开始影响真实工程工作时，我更倾向于让它接入真实 API、脚本和文件系统，而不是停留在抽象描述层。
                 </p>
             </article>
         </section>
 
-        <section class="section-panel">
-            <div class="panel-topline">
-                <div>
-                    <div class="panel-kicker">Related writing</div>
-                    <h2 class="panel-title">Notes from the lab</h2>
-                </div>
-                <a class="panel-link" href="/posts">All posts</a>
+        <section class="content-panel">
+            <div class="section-heading">
+                <div class="eyebrow">Related writing</div>
+                <h2>和这些系统相关的文章</h2>
             </div>
             <div class="writing-list">
                 {{ range $posts }}

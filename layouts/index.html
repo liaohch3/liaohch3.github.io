@@ -1,140 +1,208 @@
 {{ define "main" }}
 
-    {{ $posts := first 4 (where .Site.RegularPages "Params.hidden" "!=" true) }}
+    {{ $posts := first 5 (where .Site.RegularPages "Params.hidden" "!=" true) }}
+    {{ $featured := first 2 (where .Site.RegularPages "Params.hidden" "!=" true) }}
+
+    <script>
+      document.body.classList.add("home-remix");
+    </script>
 
     <div class="home-shell">
-        <section class="home-hero">
-            <div class="home-hero-copy">
-                <div class="home-eyebrow">liaohch3.com</div>
-                <h1 class="home-title">Shipping AI tooling, agent infra, and practical notes from real usage.</h1>
-                <p class="home-lead">
-                    这里不是个人简介页，也不是纯文章列表。
-                    这是一个把日常 AI 工具使用、工程实验、以及写下来的技术判断放在同一张桌子上的主页。
+        <section class="hero-stage">
+            <div class="hero-copy">
+                <div class="hero-kicker">Personal blog / engineering notebook / live telemetry</div>
+                <h1 class="hero-title">
+                    liaohch3
+                    <span>Building practical AI tooling with real traces, real APIs, and less hand-wavy infra.</span>
+                </h1>
+                <p class="hero-lead">
+                    我是一个后端工程师，正在把 AI Agent、真实使用数据、云端 trace 基础设施，和能长期维护的工程方法论连成一套系统。
+                    这个主页不是简历，也不是单纯的博客索引，而是我现在在推进的东西的公开界面。
                 </p>
-                <div class="home-actions">
-                    <a class="home-action primary" href="/posts">Read Posts</a>
-                    <a class="home-action" href="#usage-dashboard">Live Metrics</a>
+                <div class="hero-actions">
+                    <a class="hero-action hero-action-primary" href="/posts">Read the writing</a>
+                    <a class="hero-action" href="#metrics">Open live metrics</a>
                 </div>
-                <div class="home-chips">
-                    <span class="home-chip">Codex</span>
-                    <span class="home-chip">Tracing</span>
-                    <span class="home-chip">Infra</span>
-                    <span class="home-chip">Agents</span>
+                <div class="hero-notes">
+                    <div class="hero-note">
+                        <div class="hero-note-title">Current direction</div>
+                        <div class="hero-note-copy">AI workflow telemetry, trace capture, and safe public metrics.</div>
+                    </div>
+                    <div class="hero-note">
+                        <div class="hero-note-title">Bias</div>
+                        <div class="hero-note-copy">Prefer real API calls, reproducible scripts, and systems that survive daily use.</div>
+                    </div>
+                    <div class="hero-note">
+                        <div class="hero-note-title">Stack</div>
+                        <div class="hero-note-copy">Golang, APIs, cloud infra, agent tooling, and boring reliability work.</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="home-hero-panel" id="usage-dashboard">
-                <div class="dashboard-panel">
-                    <div class="dashboard-header">
+            <aside class="hero-aside" id="metrics">
+                <div class="metrics-card">
+                    <div class="metrics-card-top">
                         <div>
-                            <div class="dashboard-kicker">Public usage snapshot</div>
-                            <div class="dashboard-title">AI Usage Dashboard</div>
+                            <div class="metrics-kicker">Live public metrics</div>
+                            <div class="metrics-title">AI usage snapshot</div>
                         </div>
-                        <div class="dashboard-badge">hourly</div>
+                        <div class="metrics-pill">hourly</div>
                     </div>
-                    <div class="dashboard-copy">
-                        脱敏后的公开指标，来自原始 trace 的安全聚合。
+                    <div class="metrics-summary">
+                        只展示脱敏后的聚合指标。原始 trace 进入私有云存储，公开页面只读安全快照。
                     </div>
-                    <div class="dashboard-grid">
-                        <div class="dashboard-metric">
-                            <div class="dashboard-label">24h Requests</div>
-                            <div class="dashboard-value" data-usage-field="requests">--</div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-box accent">
+                            <div class="metric-label">24h tokens</div>
+                            <div class="metric-value" data-usage-field="total_tokens">--</div>
                         </div>
-                        <div class="dashboard-metric">
-                            <div class="dashboard-label">24h Tokens</div>
-                            <div class="dashboard-value" data-usage-field="total_tokens">--</div>
+                        <div class="metric-box">
+                            <div class="metric-label">24h requests</div>
+                            <div class="metric-value" data-usage-field="requests">--</div>
                         </div>
-                        <div class="dashboard-metric">
-                            <div class="dashboard-label">Success Rate</div>
-                            <div class="dashboard-value" data-usage-field="success_rate">--</div>
+                        <div class="metric-box">
+                            <div class="metric-label">success rate</div>
+                            <div class="metric-value" data-usage-field="success_rate">--</div>
                         </div>
-                        <div class="dashboard-metric">
-                            <div class="dashboard-label">Avg Latency</div>
-                            <div class="dashboard-value" data-usage-field="avg_latency_ms">--</div>
+                        <div class="metric-box">
+                            <div class="metric-label">avg latency</div>
+                            <div class="metric-value" data-usage-field="avg_latency_ms">--</div>
                         </div>
                     </div>
-                    <div class="dashboard-meta">
-                        <span>Last updated</span>
+
+                    <div class="metrics-meta">
+                        <span>Updated</span>
                         <span data-usage-field="updated_at">--</span>
                     </div>
-                    <div class="dashboard-chart-header">
-                        <span>Hourly token trend</span>
-                        <span class="dashboard-chart-subtitle" id="usage-model-line">loading</span>
+
+                    <div class="metrics-bars-head">
+                        <span>Recent hourly buckets</span>
+                        <span id="usage-model-line">loading</span>
                     </div>
-                    <div class="dashboard-bars" id="usage-bars"></div>
-                    <div class="dashboard-status" id="usage-dashboard-status">Loading public metrics...</div>
+                    <div class="metrics-bars" id="usage-bars"></div>
+                    <div class="metrics-status" id="usage-dashboard-status">Loading public metrics...</div>
                 </div>
+            </aside>
+        </section>
+
+        <section class="signal-ribbon">
+            <div class="signal-ribbon-label">What this site is about</div>
+            <div class="signal-ribbon-track">
+                <span>Codex</span>
+                <span>Claude-tap</span>
+                <span>Trace infrastructure</span>
+                <span>Public-safe metrics</span>
+                <span>API-first agents</span>
+                <span>Backend engineering</span>
             </div>
         </section>
 
-        <section class="home-strip">
-            <div class="home-strip-card">
-                <div class="strip-title">What I am building</div>
-                <div class="strip-copy">
-                    Personal telemetry systems for AI workflows, cloud-backed trace storage, and tooling that stays honest under real usage.
+        <section class="feature-grid">
+            <article class="feature-panel manifesto-panel">
+                <div class="panel-kicker">Why this page exists</div>
+                <h2 class="panel-title">A personal lab, not a polished brochure</h2>
+                <p class="panel-copy">
+                    我更关心一个工具在连续几周真实使用之后会不会开始漏数、变慢、漂移，还是只在 demo 里看起来很漂亮。
+                    所以这里会同时放三种东西：正在做的工程、从真实 trace 长出来的公开信号、以及写下来的判断。
+                </p>
+                <div class="manifesto-list">
+                    <div class="manifesto-item">
+                        <div class="manifesto-index">01</div>
+                        <div>
+                            <div class="manifesto-title">No fake evidence</div>
+                            <div class="manifesto-copy">截图、trace、和数据都应该来自真实运行，而不是为了展示临时捏出来的样子。</div>
+                        </div>
+                    </div>
+                    <div class="manifesto-item">
+                        <div class="manifesto-index">02</div>
+                        <div>
+                            <div class="manifesto-title">Infra should be observable</div>
+                            <div class="manifesto-copy">如果我每天都在用一套 AI 工具链，那它就应该能被追踪、汇总、对外解释。</div>
+                        </div>
+                    </div>
+                    <div class="manifesto-item">
+                        <div class="manifesto-index">03</div>
+                        <div>
+                            <div class="manifesto-title">APIs over vibes</div>
+                            <div class="manifesto-copy">当 Agent 开始影响真实决策时，估算和幻觉都不够，必须接入真实 API 和可复现脚本。</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="home-strip-card">
-                <div class="strip-title">What I optimize for</div>
-                <div class="strip-copy">
-                    Reliable traces, low-friction developer UX, and metrics that are useful enough to publish without exposing sensitive content.
-                </div>
-            </div>
-            <div class="home-strip-card">
-                <div class="strip-title">What shows up here</div>
-                <div class="strip-copy">
-                    New posts, live usage signals, and engineering work that moved from experiment to something you can actually run.
-                </div>
-            </div>
-        </section>
+            </article>
 
-        <section class="home-content-grid">
-            <div class="home-section-card latest-posts-card">
-                <div class="section-header">
+            <article class="feature-panel experiments-panel">
+                <div class="panel-topline">
                     <div>
-                        <div class="section-kicker">Writing</div>
-                        <div class="section-title">Latest posts</div>
+                        <div class="panel-kicker">Recent experiments</div>
+                        <h2 class="panel-title">Things that actually moved</h2>
                     </div>
-                    <a class="section-link" href="/posts">All posts</a>
+                    <a class="panel-link" href="/posts">All posts</a>
                 </div>
-                <div class="latest-posts-list">
+                <div class="experiment-cards">
+                    {{ range $featured }}
+                        <a class="experiment-card" href="{{ .RelPermalink }}">
+                            <div class="experiment-meta">{{ .Date.Format "2006-01-02" }}</div>
+                            <div class="experiment-title">{{ .Title }}</div>
+                            <div class="experiment-copy">
+                                {{ if .Description }}
+                                    {{ .Description }}
+                                {{ else }}
+                                    {{ .Summary }}
+                                {{ end }}
+                            </div>
+                        </a>
+                    {{ end }}
+                </div>
+            </article>
+        </section>
+
+        <section class="home-columns">
+            <div class="column-panel writings-panel">
+                <div class="panel-topline">
+                    <div>
+                        <div class="panel-kicker">Writing</div>
+                        <h2 class="panel-title">Latest notes</h2>
+                    </div>
+                </div>
+                <div class="writing-list">
                     {{ range $posts }}
-                        <a href="{{ .RelPermalink }}" class="latest-post-link">
-                            <article class="latest-post-item">
-                                <div class="latest-post-meta">{{ .Date.Format "2006-01-02" }}</div>
-                                <div class="latest-post-title">{{ .Title }}</div>
-                                <div class="latest-post-summary">
+                        <a class="writing-row" href="{{ .RelPermalink }}">
+                            <div class="writing-date">{{ .Date.Format "2006-01-02" }}</div>
+                            <div class="writing-body">
+                                <div class="writing-title">{{ .Title }}</div>
+                                <div class="writing-summary">
                                     {{ if .Description }}
                                         {{ .Description }}
                                     {{ else }}
                                         {{ .Summary }}
                                     {{ end }}
                                 </div>
-                            </article>
+                            </div>
                         </a>
                     {{ end }}
                 </div>
             </div>
 
-            <div class="home-section-card live-signal-card">
-                <div class="section-header">
-                    <div>
-                        <div class="section-kicker">Signals</div>
-                        <div class="section-title">Current public activity</div>
+            <div class="column-panel now-panel">
+                <div class="panel-kicker">Now</div>
+                <h2 class="panel-title">Public activity strip</h2>
+                <div class="now-stack">
+                    <div class="now-block">
+                        <div class="now-label">Sources</div>
+                        <div class="now-value" id="usage-source-list">--</div>
                     </div>
-                </div>
-                <div class="signal-grid">
-                    <div class="signal-block">
-                        <div class="signal-label">Sources</div>
-                        <div class="signal-list" id="usage-source-list">--</div>
+                    <div class="now-block">
+                        <div class="now-label">Clients</div>
+                        <div class="now-value" id="usage-client-list">--</div>
                     </div>
-                    <div class="signal-block">
-                        <div class="signal-label">Clients</div>
-                        <div class="signal-list" id="usage-client-list">--</div>
+                    <div class="now-block">
+                        <div class="now-label">Hourly buckets</div>
+                        <div class="now-value compact" id="usage-hour-list">--</div>
                     </div>
-                    <div class="signal-block wide">
-                        <div class="signal-label">Recent hourly buckets</div>
-                        <div class="signal-list signal-hours" id="usage-hour-list">--</div>
+                    <div class="now-block">
+                        <div class="now-label">Publishing rule</div>
+                        <div class="now-copy">Homepage reads static JSON snapshots refreshed by GitHub Actions, not live BigQuery queries.</div>
                     </div>
                 </div>
             </div>
@@ -182,19 +250,19 @@
         const maxTokens = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
         rows.forEach((row) => {
           const column = document.createElement("div");
-          column.className = "dashboard-bar-column";
+          column.className = "metrics-bar-column";
 
           const value = document.createElement("div");
-          value.className = "dashboard-bar-value";
+          value.className = "metrics-bar-value";
           value.textContent = formatInt(row.total_tokens);
 
           const bar = document.createElement("div");
-          bar.className = "dashboard-bar";
-          bar.style.height = `${Math.max(18, (Number(row.total_tokens || 0) / maxTokens) * 120)}px`;
+          bar.className = "metrics-bar-shape";
+          bar.style.height = `${Math.max(20, (Number(row.total_tokens || 0) / maxTokens) * 134)}px`;
           bar.title = `${row.hour}: ${formatInt(row.total_tokens)} tokens`;
 
           const label = document.createElement("div");
-          label.className = "dashboard-bar-label";
+          label.className = "metrics-bar-label";
           label.textContent = String(row.hour || "").slice(11, 16);
 
           column.appendChild(value);
@@ -206,41 +274,37 @@
 
       const requireJson = async (url) => {
         const response = await fetch(url, { cache: "no-store" });
-        if (!response.ok) {
-          throw new Error(`${response.status} ${response.statusText}`);
-        }
+        if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
         return response.json();
       };
 
       Promise.all([requireJson(summaryUrl), requireJson(hourlyUrl)])
         .then(([summary, hourly]) => {
           const rows = Array.isArray(hourly.rows) ? hourly.rows : [];
-
           setField("requests", formatInt(summary.requests));
           setField("total_tokens", formatInt(summary.total_tokens));
           setField("success_rate", formatRate(summary.success_requests, summary.requests));
           setField("avg_latency_ms", formatLatency(summary.avg_latency_ms));
           setField("updated_at", formatTime(summary.updated_at));
-
-          renderBars(rows);
           setText("usage-source-list", (summary.sources || []).join(" / ") || "--");
           setText("usage-client-list", (summary.clients || []).join(" / ") || "--");
-          setText("usage-hour-list", rows.map((row) => String(row.hour || "").slice(11, 16)).join("  •  ") || "--");
+          setText("usage-hour-list", rows.map((row) => String(row.hour || "").slice(11, 16)).join(" • ") || "--");
 
-          const modelLine = rows.map((row) => row.model).filter(Boolean);
-          setText("usage-model-line", [...new Set(modelLine)].join(", ") || "recent hours");
+          const modelLine = [...new Set(rows.map((row) => row.model).filter(Boolean))];
+          setText("usage-model-line", modelLine.join(", ") || "recent hours");
+          renderBars(rows);
 
           const status = document.getElementById("usage-dashboard-status");
           if (status) {
-            status.textContent = `Window: ${summary.window_hours}h | Public-safe aggregates only`;
+            status.textContent = `Window ${summary.window_hours}h · Public-safe aggregates only`;
           }
         })
         .catch((error) => {
+          setText("usage-model-line", "unavailable");
           const status = document.getElementById("usage-dashboard-status");
           if (status) {
             status.textContent = `Public metrics unavailable: ${error.message}`;
           }
-          setText("usage-model-line", "unavailable");
           renderBars([]);
         });
     })();

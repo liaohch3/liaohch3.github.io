@@ -12,6 +12,84 @@ PROJECT_ID = "liaohch3-trace-vault-260419"
 TABLE_ID = f"{PROJECT_ID}.usage_public.hourly_metrics_v1"
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "static" / "data"
+ROW_KEYS = {
+    "hour",
+    "source",
+    "client",
+    "model",
+    "requests",
+    "success_requests",
+    "failed_requests",
+    "input_tokens",
+    "output_tokens",
+    "total_tokens",
+    "avg_latency_ms",
+    "window_label",
+    "generated_at",
+}
+SUMMARY_KEYS = {
+    "window_hours",
+    "updated_at",
+    "requests",
+    "success_requests",
+    "failed_requests",
+    "input_tokens",
+    "output_tokens",
+    "total_tokens",
+    "avg_latency_ms",
+    "sources",
+    "clients",
+    "source_breakdown",
+    "client_breakdown",
+}
+
+
+def _validate_row(row: dict) -> dict:
+    unexpected = set(row) - ROW_KEYS
+    missing = ROW_KEYS - set(row)
+    if unexpected or missing:
+        raise ValueError(f"public hourly row failed allowlist scan: unexpected={unexpected} missing={missing}")
+    return {
+        "hour": str(row["hour"]),
+        "source": str(row["source"]),
+        "client": str(row["client"]),
+        "model": str(row["model"]),
+        "requests": int(row["requests"]),
+        "success_requests": int(row["success_requests"]),
+        "failed_requests": int(row["failed_requests"]),
+        "input_tokens": int(row["input_tokens"]),
+        "output_tokens": int(row["output_tokens"]),
+        "total_tokens": int(row["total_tokens"]),
+        "avg_latency_ms": float(row["avg_latency_ms"]),
+        "window_label": str(row["window_label"]),
+        "generated_at": str(row["generated_at"]),
+    }
+
+
+def _validate_summary(summary: dict) -> dict:
+    unexpected = set(summary) - SUMMARY_KEYS
+    missing = SUMMARY_KEYS - set(summary)
+    if unexpected or missing:
+        raise ValueError(f"public summary failed allowlist scan: unexpected={unexpected} missing={missing}")
+    return {
+        "window_hours": int(summary["window_hours"]),
+        "updated_at": str(summary["updated_at"]) if summary["updated_at"] else None,
+        "requests": int(summary["requests"]),
+        "success_requests": int(summary["success_requests"]),
+        "failed_requests": int(summary["failed_requests"]),
+        "input_tokens": int(summary["input_tokens"]),
+        "output_tokens": int(summary["output_tokens"]),
+        "total_tokens": int(summary["total_tokens"]),
+        "avg_latency_ms": float(summary["avg_latency_ms"]),
+        "sources": [str(item) for item in summary["sources"]],
+        "clients": [str(item) for item in summary["clients"]],
+        "source_breakdown": {
+            str(key): int(value) for key, value in dict(summary["source_breakdown"]).items()
+        },
+        "client_breakdown": {
+            str(key): int(value) for key, value in dict(summary["client_breakdown"]).items()
+        },
+    }
 
 
 def fetch_rows() -> list[dict]:
@@ -112,14 +190,14 @@ def build_summary(rows: list[dict]) -> dict:
 
 
 def main() -> None:
-    rows = fetch_rows()
+    rows = [_validate_row(row) for row in fetch_rows()]
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     summary_path = OUTPUT_DIR / "ai-usage-summary.json"
     hourly_path = OUTPUT_DIR / "ai-usage-hourly.json"
 
     summary_path.write_text(
-        json.dumps(build_summary(rows), ensure_ascii=False, indent=2) + "\n",
+        json.dumps(_validate_summary(build_summary(rows)), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     hourly_path.write_text(

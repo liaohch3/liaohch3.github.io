@@ -1,0 +1,87 @@
+{{ define "main" }}
+
+    {{ $posts := first 6 (where .Site.RegularPages "Params.hidden" "!=" true) }}
+
+    <script>
+      document.body.classList.add("section-remix");
+    </script>
+
+    <div class="section-shell">
+        <section class="section-hero">
+            <div class="section-kicker">Lab</div>
+            <h1 class="section-title">{{ .Title }}</h1>
+            <p class="section-lead">
+                这里放的是我正在做、刚验证过、或者值得继续推进的工程问题。
+                不只是“项目展示”，更像一个持续公开的工作台。
+            </p>
+        </section>
+
+        <section class="lab-grid">
+            <article class="lab-card featured">
+                <div class="lab-card-kicker">Current system</div>
+                <h2 class="lab-card-title">Personal AI telemetry stack</h2>
+                <p class="lab-card-copy">
+                    从 `cc/cx` alias 开始捕获 trace，异步入队，原始数据进私有云存储，公开指标经过白名单扫描后再发布到博客。
+                </p>
+                <ul class="lab-points">
+                    <li>Durable queue + eventual consistency</li>
+                    <li>Private raw traces in GCS</li>
+                    <li>Public-safe hourly snapshots for the homepage</li>
+                    <li>Upload-side and export-side allowlist enforcement</li>
+                </ul>
+            </article>
+
+            <article class="lab-card">
+                <div class="lab-card-kicker">Tooling</div>
+                <h2 class="lab-card-title">claude-tap</h2>
+                <p class="lab-card-copy">
+                    本地 trace 捕获器。重点不是“抓到了”，而是不同 CLI、不同代理模式、不同协议下都能稳定记录真实请求行为。
+                </p>
+            </article>
+
+            <article class="lab-card">
+                <div class="lab-card-kicker">Cloud</div>
+                <h2 class="lab-card-title">Usage hub</h2>
+                <p class="lab-card-copy">
+                    负责异步上传、聚合、公开快照和安全边界。把“我每天实际用了多少 AI”变成一个能持续发布的系统。
+                </p>
+            </article>
+
+            <article class="lab-card">
+                <div class="lab-card-kicker">Method</div>
+                <h2 class="lab-card-title">API-first agent workflows</h2>
+                <p class="lab-card-copy">
+                    当 Agent 开始参与真实决策时，优先接入真实 API、文件系统和脚本，而不是只靠 schema 描述和估算逻辑。
+                </p>
+            </article>
+        </section>
+
+        <section class="section-panel">
+            <div class="panel-topline">
+                <div>
+                    <div class="panel-kicker">Related writing</div>
+                    <h2 class="panel-title">Notes from the lab</h2>
+                </div>
+                <a class="panel-link" href="/posts">All posts</a>
+            </div>
+            <div class="writing-list">
+                {{ range $posts }}
+                    <a class="writing-row" href="{{ .RelPermalink }}">
+                        <div class="writing-date">{{ .Date.Format "2006-01-02" }}</div>
+                        <div class="writing-body">
+                            <div class="writing-title">{{ .Title }}</div>
+                            <div class="writing-summary">
+                                {{ if .Description }}
+                                    {{ .Description }}
+                                {{ else }}
+                                    {{ .Summary }}
+                                {{ end }}
+                            </div>
+                        </div>
+                    </a>
+                {{ end }}
+            </div>
+        </section>
+    </div>
+
+{{ end }}

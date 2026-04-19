@@ -102,7 +102,7 @@ hasCJKLanguage = true
 
 [[menu.main]]
   identifier = "metrics"
-  name = "指标"
+  name = "AI 日常"
   url = "/metrics/"
   weight = 40
 

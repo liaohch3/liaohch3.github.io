@@ -1,67 +1,112 @@
 +++
-title = "指标"
-description = "公开的 AI 工作流技术指标，只展示脱敏后的安全聚合。"
+title = "AI 日常"
+description = "最近和 AI 一起写代码时的一些使用记录。"
 draft = false
 toc = false
 comments = false
 +++
 
-这是公开可见的 AI 工作流信号页。它只展示脱敏后的聚合数据，不展示 prompt、response、文件路径、原始 trace 或任何未列入白名单的字段。
+这页就简单记一下我最近和 AI 一起写代码时的一些使用情况。
 
 <div class="public-metrics">
   <div class="metric-hero">
     <div class="metric-hero-copy">
-      <div class="metric-overline">Public usage snapshot</div>
-      <h2>公开信号，不是原始数据</h2>
-      <p>数据来源于私有原始 trace 的公开快照层。上传前、发布前、导出前都过白名单扫描。</p>
+      <div class="metric-overline">最近在用</div>
+      <h2>最近和 AI 一起写代码</h2>
+      <p>看几个简单的数字和图，大概就知道我这阵子用了多少、常用什么模型、通常在什么时候写。</p>
     </div>
     <div class="metric-updated" data-usage-field="updated_at">--</div>
   </div>
 
-  <div class="metric-grid">
+  <div class="metric-summary-grid">
     <div class="metric-card">
-      <span>24h tokens</span>
+      <span>近 24 小时 token</span>
       <strong data-usage-field="total_tokens">--</strong>
+      <em data-usage-field="token_breakdown">--</em>
     </div>
-    <div class="metric-card">
-      <span>24h requests</span>
-      <strong data-usage-field="requests">--</strong>
+
+    <div class="metric-card metric-card-models">
+      <span>最近在用的模型</span>
+      <strong data-usage-field="model_count">--</strong>
+      <div class="model-chip-list" id="usage-model-chips"></div>
     </div>
+
     <div class="metric-card">
-      <span>success rate</span>
-      <strong data-usage-field="success_rate">--</strong>
-    </div>
-    <div class="metric-card">
-      <span>avg latency</span>
-      <strong data-usage-field="avg_latency_ms">--</strong>
+      <span>活跃天数</span>
+      <strong data-usage-field="active_days">--</strong>
+      <em data-usage-field="active_days_copy">--</em>
     </div>
   </div>
 
-  <div class="metric-bars-head">
-    <span>Hourly token buckets</span>
-    <span id="usage-model-line">loading</span>
+  <div class="metric-panel heatmap-card">
+    <div class="metric-head">
+      <div>
+        <div class="metric-overline">Token 墙</div>
+        <h3>每天消耗多少 token，一眼看出来</h3>
+      </div>
+      <div class="metric-caption">最近 18 周</div>
+    </div>
+
+    <div class="heatmap-shell">
+      <div class="heatmap-weekdays">
+        <span></span>
+        <span>Mon</span>
+        <span></span>
+        <span>Wed</span>
+        <span></span>
+        <span>Fri</span>
+        <span></span>
+      </div>
+      <div class="heatmap-month-block">
+        <div class="heatmap-months" id="usage-heatmap-months"></div>
+        <div class="heatmap-grid" id="usage-heatmap-grid"></div>
+      </div>
+    </div>
+
+    <div class="heatmap-legend">
+      <span>less</span>
+      <i class="legend-swatch heat-l0"></i>
+      <i class="legend-swatch heat-l1"></i>
+      <i class="legend-swatch heat-l2"></i>
+      <i class="legend-swatch heat-l3"></i>
+      <i class="legend-swatch heat-l4"></i>
+      <span>more</span>
+    </div>
   </div>
-  <div class="metric-bars" id="usage-bars"></div>
-  <div class="metric-status" id="usage-dashboard-status">Loading public metrics...</div>
+
+  <div class="metric-chart-grid">
+    <div class="metric-panel chart-panel">
+      <div class="metric-overline">最近 7 天</div>
+      <h3>最近 7 天 token 趋势</h3>
+      <p class="chart-copy">有时候会突然高很多，通常就是那几天在集中写东西或者改东西。</p>
+      <svg class="trend-chart" id="usage-trend-chart" viewBox="0 0 640 180" preserveAspectRatio="none"></svg>
+      <div class="axis-row" id="usage-trend-axis"></div>
+    </div>
+
+    <div class="metric-panel chart-panel">
+      <div class="metric-overline">模型分布</div>
+      <h3>最近用哪些模型最多</h3>
+      <p class="chart-copy">基本就是最近这段时间最常开的几个模型。</p>
+      <div class="model-bars" id="usage-model-bars"></div>
+    </div>
+  </div>
+
+  <div class="metric-panel chart-panel">
+    <div class="metric-overline">一天里的节奏</div>
+    <h3>一天里通常什么时候最常和 AI 一起写代码</h3>
+    <p class="chart-copy">只是看看我平时大概在什么时段用得比较多。</p>
+    <div class="hour-bars" id="usage-hour-bars"></div>
+  </div>
 </div>
-
-## 安全边界
-
-- Upload-side scan：上传到 usage API 前，事件会先过 schema allowlist，只允许非敏感指标字段通过。
-- Publish-side scan：公开 BigQuery 行和 summary 在写出前再次校验，字段不匹配就直接失败。
-- Homepage JSON scan：站点导出脚本只允许白名单字段落到 `static/data/*.json`，防止 UI 层误暴露额外信息。
 
 <script>
 (() => {
   const summaryUrl = "/data/ai-usage-summary.json";
   const hourlyUrl = "/data/ai-usage-hourly.json";
+  const dailyUrl = "/data/ai-usage-daily.json";
+  const insightUrl = "/data/ai-usage-insights.json";
 
   const formatInt = (value) => new Intl.NumberFormat("en-US").format(Number(value || 0));
-  const formatRate = (success, requests) => {
-    if (!requests) return "--";
-    return `${((success / requests) * 100).toFixed(1)}%`;
-  };
-  const formatLatency = (value) => `${Math.round(Number(value || 0))} ms`;
   const formatTime = (value) => {
     if (!value) return "--";
     const dt = new Date(value);
@@ -79,72 +124,164 @@ comments = false
     if (node) node.textContent = value;
   };
 
-  const renderBars = (rows) => {
-    const container = document.getElementById("usage-bars");
-    if (!container) return;
-    container.innerHTML = "";
-
-    if (!rows.length) {
-      container.innerHTML = '<div class="usage-empty">No public usage data yet.</div>';
-      return;
-    }
-
-    const maxTokens = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
-    rows.forEach((row) => {
-      const column = document.createElement("div");
-      column.className = "metric-bar-column";
-
-      const value = document.createElement("div");
-      value.className = "metric-bar-value";
-      value.textContent = formatInt(row.total_tokens);
-
-      const bar = document.createElement("div");
-      bar.className = "metric-bar-shape";
-      bar.style.height = `${Math.max(20, (Number(row.total_tokens || 0) / maxTokens) * 148)}px`;
-      bar.title = `${row.hour}: ${formatInt(row.total_tokens)} tokens`;
-
-      const label = document.createElement("div");
-      label.className = "metric-bar-label";
-      label.textContent = String(row.hour || "").slice(11, 16);
-
-      column.appendChild(value);
-      column.appendChild(bar);
-      column.appendChild(label);
-      container.appendChild(column);
-    });
-  };
-
   const requireJson = async (url) => {
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
     return response.json();
   };
 
-  Promise.all([requireJson(summaryUrl), requireJson(hourlyUrl)])
-    .then(([summary, hourly]) => {
-      const rows = Array.isArray(hourly.rows) ? hourly.rows : [];
-      setField("requests", formatInt(summary.requests));
-      setField("total_tokens", formatInt(summary.total_tokens));
-      setField("success_rate", formatRate(summary.success_requests, summary.requests));
-      setField("avg_latency_ms", formatLatency(summary.avg_latency_ms));
-      setField("updated_at", formatTime(summary.updated_at));
+  const renderModelChips = (models) => {
+    const container = document.getElementById("usage-model-chips");
+    if (!container) return;
+    container.innerHTML = "";
+    if (!models.length) {
+      container.innerHTML = '<span class="usage-empty">暂时还没有模型数据。</span>';
+      return;
+    }
+    models.forEach((model) => {
+      const chip = document.createElement("span");
+      chip.className = "model-chip";
+      chip.textContent = model;
+      container.appendChild(chip);
+    });
+  };
 
-      const modelLine = [...new Set(rows.map((row) => row.model).filter(Boolean))];
-      setText("usage-model-line", modelLine.join(", ") || "recent hours");
-      renderBars(rows);
+  const renderHeatmap = (rows) => {
+    const monthContainer = document.getElementById("usage-heatmap-months");
+    const grid = document.getElementById("usage-heatmap-grid");
+    if (!monthContainer || !grid) return;
+    monthContainer.innerHTML = "";
+    grid.innerHTML = "";
 
-      const status = document.getElementById("usage-dashboard-status");
-      if (status) {
-        status.textContent = `Window ${summary.window_hours}h · Allowlisted public aggregates only`;
+    if (!rows.length) {
+      grid.innerHTML = '<div class="usage-empty">暂时还没有每日数据。</div>';
+      return;
+    }
+
+    const maxTokens = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
+    let lastMonth = "";
+
+    rows.forEach((row, index) => {
+      const date = new Date(`${row.date}T00:00:00Z`);
+      if (date.getUTCDay() === 0) {
+        const month = date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" });
+        const node = document.createElement("span");
+        node.textContent = month === lastMonth ? "" : month;
+        lastMonth = month;
+        monthContainer.appendChild(node);
       }
+
+      const value = Number(row.total_tokens || 0);
+      let level = 0;
+      if (value > maxTokens * 0.15) level = 1;
+      if (value > maxTokens * 0.35) level = 2;
+      if (value > maxTokens * 0.6) level = 3;
+      if (value > maxTokens * 0.82) level = 4;
+
+      const cell = document.createElement("div");
+      cell.className = `heat-cell heat-l${level}`;
+      cell.title = `${row.date}: ${formatInt(value)} tokens`;
+      grid.appendChild(cell);
+    });
+  };
+
+  const renderTrend = (rows) => {
+    const svg = document.getElementById("usage-trend-chart");
+    const axis = document.getElementById("usage-trend-axis");
+    if (!svg || !axis) return;
+
+    if (!rows.length) {
+      svg.innerHTML = "";
+      axis.innerHTML = "";
+      return;
+    }
+
+    const recent = rows.slice(-7);
+    const width = 640;
+    const baseline = 156;
+    const paddingX = 18;
+    const maxValue = Math.max(...recent.map((item) => Number(item.total_tokens || 0)), 1);
+    const step = (width - paddingX * 2) / Math.max(recent.length - 1, 1);
+
+    const points = recent.map((item, index) => {
+      const x = paddingX + index * step;
+      const y = baseline - (Number(item.total_tokens || 0) / maxValue) * 112;
+      return { ...item, x, y };
+    });
+
+    const linePath = points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ");
+    const areaPath = `${linePath} L ${points.at(-1).x} ${baseline} L ${points[0].x} ${baseline} Z`;
+    svg.innerHTML = `
+      <path class="trend-area" d="${areaPath}"></path>
+      <path class="trend-line" d="${linePath}"></path>
+      ${points.map((point) => `<circle class="trend-dot" cx="${point.x}" cy="${point.y}" r="4"></circle>`).join("")}
+    `;
+    axis.innerHTML = recent
+      .map((item) => `<span>${new Date(`${item.date}T00:00:00Z`).toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" })}</span>`)
+      .join("");
+  };
+
+  const renderBars = (containerId, rows, fillClass) => {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+    if (!rows.length) {
+      container.innerHTML = '<div class="usage-empty">暂时还没有图表数据。</div>';
+      return;
+    }
+
+    const maxValue = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
+    rows.forEach((row) => {
+      const item = document.createElement("div");
+      item.className = containerId === "usage-hour-bars" ? "hour-bar-row" : "model-bar-row";
+      const label = row.model || row.hour || "--";
+      const share = row.share != null ? `${row.share}%` : formatInt(row.total_tokens);
+      const width = row.share != null ? Number(row.share) : (Number(row.total_tokens || 0) / maxValue) * 100;
+      item.innerHTML = `
+        <div class="row-label">${label}</div>
+        <div class="bar-track"><div class="bar-fill ${fillClass}" style="width:${width}%"></div></div>
+        <div class="row-value">${share}</div>
+      `;
+      container.appendChild(item);
+    });
+  };
+
+  Promise.all([requireJson(summaryUrl), requireJson(hourlyUrl), requireJson(dailyUrl), requireJson(insightUrl)])
+    .then(([summary, hourly, daily, insights]) => {
+      const hourlyRows = Array.isArray(hourly.rows) ? hourly.rows : [];
+      const dailyRows = Array.isArray(daily.rows) ? daily.rows : [];
+      const modelMix = Array.isArray(insights.model_mix) ? insights.model_mix : [];
+      const hourMix = Array.isArray(insights.hour_mix) ? insights.hour_mix : [];
+
+      setField("total_tokens", formatInt(summary.total_tokens));
+      setField("token_breakdown", `Input ${formatInt(summary.input_tokens)} · Output ${formatInt(summary.output_tokens)}`);
+      setField("updated_at", formatTime(insights.updated_at || summary.updated_at));
+
+      const models = [...new Set(hourlyRows.map((row) => row.model).filter(Boolean))];
+      setField("model_count", models.length ? String(models.length) : "--");
+      renderModelChips(models);
+
+      const activeDays = dailyRows.filter((row) => Number(row.total_tokens || 0) > 0).length;
+      setField("active_days", String(activeDays));
+      setField("active_days_copy", `最近 ${dailyRows.length || 0} 天里，有记录的天数`);
+
+      renderHeatmap(dailyRows);
+      renderTrend(dailyRows);
+      renderBars("usage-model-bars", modelMix, "model-fill");
+      renderBars("usage-hour-bars", hourMix, "hour-fill");
     })
     .catch((error) => {
-      setText("usage-model-line", "unavailable");
-      const status = document.getElementById("usage-dashboard-status");
-      if (status) {
-        status.textContent = `Public metrics unavailable: ${error.message}`;
-      }
-      renderBars([]);
+      setField("updated_at", "数据暂时不可用");
+      setField("total_tokens", "--");
+      setField("token_breakdown", "--");
+      setField("model_count", "--");
+      setField("active_days", "--");
+      setField("active_days_copy", "--");
+      renderModelChips([]);
+      renderHeatmap([]);
+      renderTrend([]);
+      renderBars("usage-model-bars", [], "model-fill");
+      renderBars("usage-hour-bars", [], "hour-fill");
     });
 })();
 </script>

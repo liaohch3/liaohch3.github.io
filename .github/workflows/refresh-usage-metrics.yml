@@ -35,12 +35,12 @@ jobs:
 
       - name: Commit refreshed data
         run: |
-          if git diff --quiet -- static/data/ai-usage-summary.json static/data/ai-usage-hourly.json; then
+          if git diff --quiet -- static/data/ai-usage-summary.json static/data/ai-usage-hourly.json static/data/ai-usage-daily.json static/data/ai-usage-insights.json; then
             echo "No metric changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add static/data/ai-usage-summary.json static/data/ai-usage-hourly.json
+          git add static/data/ai-usage-summary.json static/data/ai-usage-hourly.json static/data/ai-usage-daily.json static/data/ai-usage-insights.json
           git commit -m "chore(data): refresh public usage metrics"
           git push

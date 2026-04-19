@@ -1,93 +1,150 @@
 {{ define "main" }}
 
-    <div class="post-list-container post-list-container-no-background">
-        <div class="post-item-wrapper post-item-wrapper-no-hover usage-dashboard-wrapper">
-            <div class="post-item post-item-no-divider post-item-no-gaps usage-dashboard-card">
-                <div class="post-item-info-wrapper">
-                    <div class="post-item-title">
-                        AI Usage Dashboard
+    {{ $posts := first 4 (where .Site.RegularPages "Params.hidden" "!=" true) }}
+
+    <div class="home-shell">
+        <section class="home-hero">
+            <div class="home-hero-copy">
+                <div class="home-eyebrow">liaohch3.com</div>
+                <h1 class="home-title">Shipping AI tooling, agent infra, and practical notes from real usage.</h1>
+                <p class="home-lead">
+                    这里不是个人简介页，也不是纯文章列表。
+                    这是一个把日常 AI 工具使用、工程实验、以及写下来的技术判断放在同一张桌子上的主页。
+                </p>
+                <div class="home-actions">
+                    <a class="home-action primary" href="/posts">Read Posts</a>
+                    <a class="home-action" href="#usage-dashboard">Live Metrics</a>
+                </div>
+                <div class="home-chips">
+                    <span class="home-chip">Codex</span>
+                    <span class="home-chip">Tracing</span>
+                    <span class="home-chip">Infra</span>
+                    <span class="home-chip">Agents</span>
+                </div>
+            </div>
+
+            <div class="home-hero-panel" id="usage-dashboard">
+                <div class="dashboard-panel">
+                    <div class="dashboard-header">
+                        <div>
+                            <div class="dashboard-kicker">Public usage snapshot</div>
+                            <div class="dashboard-title">AI Usage Dashboard</div>
+                        </div>
+                        <div class="dashboard-badge">hourly</div>
                     </div>
-                    <div class="post-item-summary usage-dashboard-summary">
-                        最近 24 小时的 Codex / Claude 使用指标，每小时自动刷新，只展示脱敏后的技术统计。
+                    <div class="dashboard-copy">
+                        脱敏后的公开指标，来自原始 trace 的安全聚合。
                     </div>
-                    <div class="usage-dashboard-grid">
-                        <div class="usage-metric">
-                            <div class="usage-metric-label">24h Requests</div>
-                            <div class="usage-metric-value" data-usage-field="requests">--</div>
+                    <div class="dashboard-grid">
+                        <div class="dashboard-metric">
+                            <div class="dashboard-label">24h Requests</div>
+                            <div class="dashboard-value" data-usage-field="requests">--</div>
                         </div>
-                        <div class="usage-metric">
-                            <div class="usage-metric-label">24h Tokens</div>
-                            <div class="usage-metric-value" data-usage-field="total_tokens">--</div>
+                        <div class="dashboard-metric">
+                            <div class="dashboard-label">24h Tokens</div>
+                            <div class="dashboard-value" data-usage-field="total_tokens">--</div>
                         </div>
-                        <div class="usage-metric">
-                            <div class="usage-metric-label">Success Rate</div>
-                            <div class="usage-metric-value" data-usage-field="success_rate">--</div>
+                        <div class="dashboard-metric">
+                            <div class="dashboard-label">Success Rate</div>
+                            <div class="dashboard-value" data-usage-field="success_rate">--</div>
                         </div>
-                        <div class="usage-metric">
-                            <div class="usage-metric-label">Avg Latency</div>
-                            <div class="usage-metric-value" data-usage-field="avg_latency_ms">--</div>
+                        <div class="dashboard-metric">
+                            <div class="dashboard-label">Avg Latency</div>
+                            <div class="dashboard-value" data-usage-field="avg_latency_ms">--</div>
                         </div>
                     </div>
-                    <div class="usage-dashboard-meta">
+                    <div class="dashboard-meta">
                         <span>Last updated</span>
                         <span data-usage-field="updated_at">--</span>
                     </div>
-                    <div class="usage-chart">
-                        <div class="usage-chart-header">
-                            <span>Hourly token trend</span>
-                            <span class="usage-chart-subtitle">recent buckets</span>
-                        </div>
-                        <div class="usage-bars" id="usage-bars"></div>
+                    <div class="dashboard-chart-header">
+                        <span>Hourly token trend</span>
+                        <span class="dashboard-chart-subtitle" id="usage-model-line">loading</span>
                     </div>
-                    <div class="usage-dashboard-footnote" id="usage-dashboard-status">
-                        Loading public metrics...
+                    <div class="dashboard-bars" id="usage-bars"></div>
+                    <div class="dashboard-status" id="usage-dashboard-status">Loading public metrics...</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-strip">
+            <div class="home-strip-card">
+                <div class="strip-title">What I am building</div>
+                <div class="strip-copy">
+                    Personal telemetry systems for AI workflows, cloud-backed trace storage, and tooling that stays honest under real usage.
+                </div>
+            </div>
+            <div class="home-strip-card">
+                <div class="strip-title">What I optimize for</div>
+                <div class="strip-copy">
+                    Reliable traces, low-friction developer UX, and metrics that are useful enough to publish without exposing sensitive content.
+                </div>
+            </div>
+            <div class="home-strip-card">
+                <div class="strip-title">What shows up here</div>
+                <div class="strip-copy">
+                    New posts, live usage signals, and engineering work that moved from experiment to something you can actually run.
+                </div>
+            </div>
+        </section>
+
+        <section class="home-content-grid">
+            <div class="home-section-card latest-posts-card">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Writing</div>
+                        <div class="section-title">Latest posts</div>
+                    </div>
+                    <a class="section-link" href="/posts">All posts</a>
+                </div>
+                <div class="latest-posts-list">
+                    {{ range $posts }}
+                        <a href="{{ .RelPermalink }}" class="latest-post-link">
+                            <article class="latest-post-item">
+                                <div class="latest-post-meta">{{ .Date.Format "2006-01-02" }}</div>
+                                <div class="latest-post-title">{{ .Title }}</div>
+                                <div class="latest-post-summary">
+                                    {{ if .Description }}
+                                        {{ .Description }}
+                                    {{ else }}
+                                        {{ .Summary }}
+                                    {{ end }}
+                                </div>
+                            </article>
+                        </a>
+                    {{ end }}
+                </div>
+            </div>
+
+            <div class="home-section-card live-signal-card">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Signals</div>
+                        <div class="section-title">Current public activity</div>
+                    </div>
+                </div>
+                <div class="signal-grid">
+                    <div class="signal-block">
+                        <div class="signal-label">Sources</div>
+                        <div class="signal-list" id="usage-source-list">--</div>
+                    </div>
+                    <div class="signal-block">
+                        <div class="signal-label">Clients</div>
+                        <div class="signal-list" id="usage-client-list">--</div>
+                    </div>
+                    <div class="signal-block wide">
+                        <div class="signal-label">Recent hourly buckets</div>
+                        <div class="signal-list signal-hours" id="usage-hour-list">--</div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        {{ $paginator := .Paginate (where .Site.RegularPages "Params.hidden" "!=" true) }}
-        {{range $paginator.Pages }}
-            <a href="{{.RelPermalink}}" class="a-block">
-                <div class="post-item-wrapper">
-                    <div class="post-item post-item-no-divider">
-                        <div class="post-item-info-wrapper">
-                            <div class="post-item-title">
-                                {{.Title}}
-                            </div>
-                            <div class="post-item-summary">
-                                {{ if .Description }}
-                                    {{ .Description }}
-                                {{ else }}
-                                    {{ .Summary }}
-                                {{ end }}
-                            </div>
-                            {{ partial "post-item-meta.html" . }}
-                        </div>
-                        {{ $featured_image := .Params.featured_image }}
-                        {{ if $featured_image }}
-                            {{ $image := .Resources.GetMatch (.Params.featured_image) }}
-                            <div class="post-item-image-wrapper">
-                            <div class="post-item-image"
-                            {{ if $image }}
-                                {{ $thumbnail := $image.Resize "690x360" }}
-                                 style="background-image: url('{{ $thumbnail.RelPermalink }}')"
-                            {{ else }}
-                                style="background-image: url('{{ $featured_image | absURL}}')"
-                            {{ end }}
-                            ></div>
-                            </div>
-                        {{ end }}
-                    </div>
-                </div>
-        {{ end }}
-        </a>
+        </section>
     </div>
 
     <script>
     (() => {
-      const summaryUrl = {{ "data/ai-usage-summary.json" | relURL | jsonify }};
-      const hourlyUrl = {{ "data/ai-usage-hourly.json" | relURL | jsonify }};
+      const summaryUrl = '{{ "data/ai-usage-summary.json" | relURL }}';
+      const hourlyUrl = '{{ "data/ai-usage-hourly.json" | relURL }}';
 
       const formatInt = (value) => new Intl.NumberFormat("en-US").format(Number(value || 0));
       const formatRate = (success, requests) => {
@@ -107,6 +164,11 @@
         if (node) node.textContent = value;
       };
 
+      const setText = (id, value) => {
+        const node = document.getElementById(id);
+        if (node) node.textContent = value;
+      };
+
       const renderBars = (rows) => {
         const container = document.getElementById("usage-bars");
         if (!container) return;
@@ -119,21 +181,22 @@
 
         const maxTokens = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
         rows.forEach((row) => {
+          const column = document.createElement("div");
+          column.className = "dashboard-bar-column";
+
+          const value = document.createElement("div");
+          value.className = "dashboard-bar-value";
+          value.textContent = formatInt(row.total_tokens);
+
           const bar = document.createElement("div");
-          bar.className = "usage-bar";
-          bar.style.height = `${Math.max(12, (Number(row.total_tokens || 0) / maxTokens) * 140)}px`;
+          bar.className = "dashboard-bar";
+          bar.style.height = `${Math.max(18, (Number(row.total_tokens || 0) / maxTokens) * 120)}px`;
           bar.title = `${row.hour}: ${formatInt(row.total_tokens)} tokens`;
 
           const label = document.createElement("div");
-          label.className = "usage-bar-label";
+          label.className = "dashboard-bar-label";
           label.textContent = String(row.hour || "").slice(11, 16);
 
-          const value = document.createElement("div");
-          value.className = "usage-bar-value";
-          value.textContent = formatInt(row.total_tokens);
-
-          const column = document.createElement("div");
-          column.className = "usage-bar-column";
           column.appendChild(value);
           column.appendChild(bar);
           column.appendChild(label);
@@ -141,21 +204,35 @@
         });
       };
 
-      Promise.all([
-        fetch(summaryUrl).then((response) => response.json()),
-        fetch(hourlyUrl).then((response) => response.json()),
-      ])
+      const requireJson = async (url) => {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`${response.status} ${response.statusText}`);
+        }
+        return response.json();
+      };
+
+      Promise.all([requireJson(summaryUrl), requireJson(hourlyUrl)])
         .then(([summary, hourly]) => {
+          const rows = Array.isArray(hourly.rows) ? hourly.rows : [];
+
           setField("requests", formatInt(summary.requests));
           setField("total_tokens", formatInt(summary.total_tokens));
           setField("success_rate", formatRate(summary.success_requests, summary.requests));
           setField("avg_latency_ms", formatLatency(summary.avg_latency_ms));
           setField("updated_at", formatTime(summary.updated_at));
-          renderBars(Array.isArray(hourly.rows) ? hourly.rows : []);
+
+          renderBars(rows);
+          setText("usage-source-list", (summary.sources || []).join(" / ") || "--");
+          setText("usage-client-list", (summary.clients || []).join(" / ") || "--");
+          setText("usage-hour-list", rows.map((row) => String(row.hour || "").slice(11, 16)).join("  •  ") || "--");
+
+          const modelLine = rows.map((row) => row.model).filter(Boolean);
+          setText("usage-model-line", [...new Set(modelLine)].join(", ") || "recent hours");
 
           const status = document.getElementById("usage-dashboard-status");
           if (status) {
-            status.textContent = `Window: ${summary.window_hours}h | Source coverage: ${summary.sources.join(", ") || "n/a"} | Client coverage: ${summary.clients.join(", ") || "n/a"}`;
+            status.textContent = `Window: ${summary.window_hours}h | Public-safe aggregates only`;
           }
         })
         .catch((error) => {
@@ -163,6 +240,7 @@
           if (status) {
             status.textContent = `Public metrics unavailable: ${error.message}`;
           }
+          setText("usage-model-line", "unavailable");
           renderBars([]);
         });
     })();

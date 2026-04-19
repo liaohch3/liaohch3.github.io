@@ -13,7 +13,7 @@
       "total_tokens": 28870,
       "avg_latency_ms": 4276.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T17:45:14.908605Z"
+      "generated_at": "2026-04-19T19:00:49.291415Z"
     },
     {
       "hour": "2026-04-19T09:00:00Z",
@@ -28,7 +28,7 @@
       "total_tokens": 28874,
       "avg_latency_ms": 2948.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T17:45:14.908605Z"
+      "generated_at": "2026-04-19T19:00:49.291415Z"
     },
     {
       "hour": "2026-04-19T16:00:00Z",
@@ -43,7 +43,7 @@
       "total_tokens": 166881,
       "avg_latency_ms": 5710.666666666667,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T17:45:14.908605Z"
+      "generated_at": "2026-04-19T19:00:49.291415Z"
     },
     {
       "hour": "2026-04-19T17:00:00Z",
@@ -58,7 +58,7 @@
       "total_tokens": 80474,
       "avg_latency_ms": 11782.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T17:45:14.908605Z"
+      "generated_at": "2026-04-19T19:00:49.291415Z"
     }
   ]
 }

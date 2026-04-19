@@ -1,6 +1,6 @@
 baseURL = 'https://liaohch3.com/'
 languageCode = 'en-us'
-title = 'liaohch3 的个人博客'
+title = 'liaohch3'
 theme = 'diary'
 enableEmoji = true
 DefaultContentLanguage = "zh"
@@ -9,6 +9,7 @@ DefaultContentLanguage = "zh"
 [params]
 cloudflareToken = "cU9Z_VM-lskry80spcTKiFuOUvvnjOcFKAaUjQh7"
 enableGiscus = true
+subtitle = "Backend engineer · AI tooling · trace infrastructure"
 
 [params.giscus]
 data_repo = "liaohch3/liaohch3.github.io"
@@ -45,8 +46,8 @@ name = "指标"
 weight = 4
 
 [[menu.main]]
-url = "/tags"
-name = "分类"
+url = "/about"
+name = "关于"
 weight = 5
 
 [markup]

@@ -1,11 +1,14 @@
-{{ if or .IsHome (eq .Section "lab") (eq .Section "metrics") }}
+{{ if or .IsHome (eq .Section "lab") (eq .Section "metrics") (eq .Section "posts") (eq .Section "about") .IsPage }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   body.home-remix,
   body.section-remix,
-  body:has(.home-shell) {
+  body.article-remix,
+  body:has(.home-shell),
+  body:has(.section-shell),
+  body:has(.article-shell) {
     background:
       radial-gradient(circle at top left, rgba(240, 116, 80, 0.14), transparent 28%),
       radial-gradient(circle at top right, rgba(25, 118, 210, 0.18), transparent 32%),
@@ -16,20 +19,32 @@
   body.home-remix #extraContainer,
   body.section-remix #sideContainer,
   body.section-remix #extraContainer,
+  body.article-remix #sideContainer,
+  body.article-remix #extraContainer,
   body:has(.home-shell) #sideContainer,
-  body:has(.home-shell) #extraContainer {
+  body:has(.home-shell) #extraContainer,
+  body:has(.section-shell) #sideContainer,
+  body:has(.section-shell) #extraContainer,
+  body:has(.article-shell) #sideContainer,
+  body:has(.article-shell) #extraContainer {
     display: none !important;
   }
 
   body.home-remix #content,
   body.section-remix #content,
-  body:has(.home-shell) #content {
+  body.article-remix #content,
+  body:has(.home-shell) #content,
+  body:has(.section-shell) #content,
+  body:has(.article-shell) #content {
     background: transparent;
   }
 
   body.home-remix .stream-container,
   body.section-remix .stream-container,
-  body:has(.home-shell) .stream-container {
+  body.article-remix .stream-container,
+  body:has(.home-shell) .stream-container,
+  body:has(.section-shell) .stream-container,
+  body:has(.article-shell) .stream-container {
     padding-left: 0 !important;
     padding-right: 0 !important;
     max-width: 100%;
@@ -43,7 +58,13 @@
     padding: 34px 40px 56px;
   }
 
-  .home-shell * {
+  .article-shell {
+    padding: 40px 40px 70px;
+  }
+
+  .home-shell *,
+  .section-shell *,
+  .article-shell * {
     font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
@@ -509,6 +530,136 @@
     padding-left: 18px;
   }
 
+  .article-frame {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 34px 40px 44px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(15,30,52,.08);
+    box-shadow: 0 26px 80px rgba(15,30,52,.08);
+  }
+
+  .article-head {
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(15,30,52,.08);
+  }
+
+  .article-kicker {
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .7;
+  }
+
+  .article-title {
+    margin: 12px 0 16px;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: .96;
+    letter-spacing: -.06em;
+  }
+
+  .article-lead {
+    max-width: 42rem;
+    margin: 0 0 14px;
+    font-size: 20px;
+    line-height: 1.6;
+    opacity: .82;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .64;
+  }
+
+  .article-body {
+    padding-top: 26px;
+  }
+
+  .article-content {
+    font-size: 18px;
+    line-height: 1.86;
+  }
+
+  .article-content h2,
+  .article-content h3,
+  .article-content h4 {
+    margin-top: 34px;
+    margin-bottom: 14px;
+    line-height: 1.08;
+    letter-spacing: -.04em;
+  }
+
+  .article-content h2 {
+    font-size: 34px;
+  }
+
+  .article-content h3 {
+    font-size: 28px;
+  }
+
+  .article-content p,
+  .article-content li {
+    font-size: 18px;
+    line-height: 1.86;
+  }
+
+  .article-content img {
+    display: block;
+    max-width: 100%;
+    margin: 28px auto;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(15,30,52,.12);
+  }
+
+  .article-pagination {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 32px;
+  }
+
+  .article-page-link {
+    display: block;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(16,42,67,.04);
+    text-decoration: none !important;
+    border: 1px solid rgba(15,30,52,.08);
+  }
+
+  .article-page-link.muted {
+    opacity: .55;
+  }
+
+  .article-page-label {
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .7;
+  }
+
+  .article-page-title {
+    margin-top: 8px;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .article-comments {
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(15,30,52,.08);
+  }
+
+  .article-comments-disabled {
+    opacity: .65;
+  }
+
   .metrics-page-grid .section-panel,
   .home-columns .column-panel,
   .feature-grid .feature-panel {
@@ -527,7 +678,8 @@
 
   @media screen and (max-width: 1020px) {
     .home-shell,
-    .section-shell {
+    .section-shell,
+    .article-shell {
       padding: 18px 0 30px;
     }
 
@@ -536,7 +688,8 @@
     .feature-panel,
     .column-panel,
     .lab-card,
-    .section-panel {
+    .section-panel,
+    .article-frame {
       border-radius: 22px;
     }
 
@@ -548,13 +701,18 @@
     .feature-panel,
     .column-panel,
     .lab-card,
-    .section-panel {
+    .section-panel,
+    .article-frame {
       padding: 22px 18px;
     }
 
     .hero-notes,
     .metrics-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .article-pagination {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -581,10 +739,22 @@
     .writing-title {
       font-size: 22px;
     }
+
+    .article-title {
+      font-size: 34px;
+    }
+
+    .article-lead,
+    .article-content,
+    .article-content p,
+    .article-content li {
+      font-size: 17px;
+    }
   }
 
   body.night.home-remix,
   body.night.section-remix,
+  body.night.article-remix,
   body.night:has(.home-shell) {
     background:
       radial-gradient(circle at top left, rgba(240, 116, 80, 0.12), transparent 28%),
@@ -598,6 +768,7 @@
   body.night .column-panel,
   body.night .lab-card,
   body.night .section-panel,
+  body.night .article-frame,
   body.night .signal-ribbon,
   body.night .hero-note,
   body.night .manifesto-item,

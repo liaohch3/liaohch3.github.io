@@ -1,0 +1,43 @@
+{{ define "main" }}
+
+    <script>
+      document.body.classList.add("section-remix");
+    </script>
+
+    <div class="section-shell">
+        <section class="section-hero">
+            <div class="section-kicker">Writing</div>
+            <h1 class="section-title">写作</h1>
+            <p class="section-lead">
+                这里主要是工程笔记、AI Agent 工具链、真实 API 接入、以及一些后端实现细节。内容不追求“大而全”，只记录真正做过、修过、跑过的东西。
+            </p>
+        </section>
+
+        <section class="section-panel">
+            <div class="panel-topline">
+                <div>
+                    <div class="panel-kicker">Archive</div>
+                    <h2 class="panel-title">All posts</h2>
+                </div>
+            </div>
+            <div class="writing-list">
+                {{ range .Paginator.Pages }}
+                    <a class="writing-row" href="{{ .RelPermalink }}">
+                        <div class="writing-date">{{ .Date.Format "2006-01-02" }}</div>
+                        <div class="writing-body">
+                            <div class="writing-title">{{ .Title }}</div>
+                            <div class="writing-summary">
+                                {{ if .Description }}
+                                    {{ .Description }}
+                                {{ else }}
+                                    {{ .Summary }}
+                                {{ end }}
+                            </div>
+                        </div>
+                    </a>
+                {{ end }}
+            </div>
+        </section>
+    </div>
+
+{{ end }}

@@ -1,0 +1,77 @@
+{{ define "main" }}
+
+    <script>
+      document.body.classList.add("section-remix");
+    </script>
+
+    <div class="section-shell">
+        <section class="section-hero">
+            <div class="section-kicker">About</div>
+            <h1 class="section-title">{{ .Title }}</h1>
+            <p class="section-lead">
+                我叫 liaohch3，是一名偏后端和基础设施方向的工程师。过去主要做在线表格和 SaaS 相关开发，现在把越来越多精力放在 AI tooling、真实 trace、以及“如何把 Agent 用成可靠系统”这类问题上。
+            </p>
+        </section>
+
+        <section class="feature-grid">
+            <article class="feature-panel">
+                <div class="panel-kicker">What I do</div>
+                <h2 class="panel-title">Backend, APIs, and systems that stay useful after the demo</h2>
+                <p class="panel-copy">
+                    我对那种“现场演示很好看，但连续用两周就开始漂移”的系统兴趣不大。
+                    我更在意一套工具在真实工作流里会不会漏数、会不会慢、会不会因为上下文不稳定而开始产生幻觉。
+                </p>
+                <div class="manifesto-list">
+                    <div class="manifesto-item">
+                        <div class="manifesto-index">01</div>
+                        <div>
+                            <div class="manifesto-title">Backend engineering</div>
+                            <div class="manifesto-copy">Golang、数据存储、异步处理、服务稳定性和可维护的工程边界。</div>
+                        </div>
+                    </div>
+                    <div class="manifesto-item">
+                        <div class="manifesto-index">02</div>
+                        <div>
+                            <div class="manifesto-title">AI workflow infra</div>
+                            <div class="manifesto-copy">trace capture、指标聚合、公开快照、安全导出和日常 CLI 工作流。</div>
+                        </div>
+                    </div>
+                    <div class="manifesto-item">
+                        <div class="manifesto-index">03</div>
+                        <div>
+                            <div class="manifesto-title">API-first agents</div>
+                            <div class="manifesto-copy">真实接口、文件系统和脚本优先，而不是把一切都包成看起来优雅的空壳。</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="feature-panel">
+                <div class="panel-kicker">Why this blog exists</div>
+                <h2 class="panel-title">A place to accumulate judgement</h2>
+                <p class="panel-copy">
+                    这里记录的不是泛泛而谈的技术观点，而是我在做系统、跑实验、修 bug、以及把一套链路真的接到线上之后形成的判断。
+                    我希望这个站点逐渐变成一份长期可复用的工程笔记，而不只是零散文章的仓库。
+                </p>
+                <div class="experiment-cards">
+                    <div class="experiment-card">
+                        <div class="experiment-meta">Writing</div>
+                        <div class="experiment-title">写作</div>
+                        <div class="experiment-copy">把坑、修复路径、架构取舍和实际代价写下来，避免只剩“我记得我以前做过”。</div>
+                    </div>
+                    <div class="experiment-card">
+                        <div class="experiment-meta">Lab</div>
+                        <div class="experiment-title">实验室</div>
+                        <div class="experiment-copy">持续沉淀还在推进的系统，而不是等项目“完成”之后才回头总结。</div>
+                    </div>
+                    <div class="experiment-card">
+                        <div class="experiment-meta">Metrics</div>
+                        <div class="experiment-title">指标</div>
+                        <div class="experiment-copy">把 AI 工作流的公开信号做成一等公民，让系统行为可以被解释，而不是只靠主观体感。</div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
+
+{{ end }}

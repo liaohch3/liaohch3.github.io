@@ -1,0 +1,76 @@
+name: Monitor Usage Metrics Freshness
+
+on:
+  schedule:
+    - cron: "37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check live metrics freshness
+        id: freshness
+        run: |
+          python scripts/check_usage_metrics_freshness.py \
+            --summary-url "https://liaohch3.com/data/ai-usage-summary.json" \
+            --threshold-hours 2 \
+            --github-output "$GITHUB_OUTPUT"
+
+      - name: Create or update stale alert issue
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Alert: usage metrics freshness stale"
+          issue_number="$(gh issue list --state open --json number,title --jq '.[] | select(.title == "'"${title}"'") | .number' | head -n 1)"
+          body="$(cat <<EOF
+          The live usage metrics summary looks stale.
+
+          - Summary URL: \`${{ steps.freshness.outputs.summary_url }}\`
+          - Checked at: \`${{ steps.freshness.outputs.checked_at }}\`
+          - Last updated at: \`${{ steps.freshness.outputs.updated_at }}\`
+          - Age: \`${{ steps.freshness.outputs.age_minutes }} minutes\`
+          - Threshold: \`${{ steps.freshness.outputs.threshold_minutes }} minutes\`
+          - Status: \`${{ steps.freshness.outputs.status }}\`
+          - Detail: \`${{ steps.freshness.outputs.detail }}\`
+
+          This alert is emitted by \`.github/workflows/monitor-usage-metrics-freshness.yml\`.
+          EOF
+          )"
+
+          if [ -n "${issue_number}" ]; then
+            gh issue comment "${issue_number}" --body "${body}"
+          else
+            gh issue create --title "${title}" --body "${body}"
+          fi
+
+      - name: Close stale alert issue after recovery
+        if: steps.freshness.outputs.stale != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Alert: usage metrics freshness stale"
+          issue_number="$(gh issue list --state open --json number,title --jq '.[] | select(.title == "'"${title}"'") | .number' | head -n 1)"
+          if [ -n "${issue_number}" ]; then
+            gh issue close "${issue_number}" --comment "Live usage metrics freshness recovered at \`${{ steps.freshness.outputs.checked_at }}\`. Latest summary timestamp: \`${{ steps.freshness.outputs.updated_at }}\`."
+          fi
+
+      - name: Fail when the live summary is stale
+        if: steps.freshness.outputs.stale == 'true'
+        run: |
+          echo "Usage metrics summary is stale."
+          echo "Detail: ${{ steps.freshness.outputs.detail }}"
+          exit 1

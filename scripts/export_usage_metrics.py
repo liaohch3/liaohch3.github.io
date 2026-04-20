@@ -12,7 +12,7 @@ PROJECT_ID = "liaohch3-trace-vault-260419"
 TABLE_ID = f"{PROJECT_ID}.usage_public.hourly_metrics_v1"
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "static" / "data"
-HEATMAP_DAYS = 7 * 18
+HEATMAP_DAYS = 30
 ROW_KEYS = {
     "hour",
     "source",

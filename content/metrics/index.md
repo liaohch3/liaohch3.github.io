@@ -39,7 +39,7 @@ comments = false
         <div class="metric-overline">Token 墙</div>
         <h3>每天消耗多少 token，一眼看出来</h3>
       </div>
-      <div class="metric-caption">最近 18 周</div>
+      <div class="metric-caption">最近 30 天</div>
     </div>
     <div class="heatmap-shell">
       <div class="heatmap-weekdays">

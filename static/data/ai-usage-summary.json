@@ -1,13 +1,13 @@
 {
   "window_hours": 24,
-  "updated_at": "2026-04-19T23:48:00.920562Z",
-  "requests": 11,
+  "updated_at": "2026-04-20T03:44:52.295189Z",
+  "requests": 12,
   "success_requests": 8,
-  "failed_requests": 3,
-  "input_tokens": 304310,
-  "output_tokens": 789,
-  "total_tokens": 305099,
-  "avg_latency_ms": 6179.17,
+  "failed_requests": 4,
+  "input_tokens": 331452,
+  "output_tokens": 800,
+  "total_tokens": 332252,
+  "avg_latency_ms": 6980.53,
   "sources": [
     "cx"
   ],
@@ -15,9 +15,9 @@
     "codex"
   ],
   "source_breakdown": {
-    "cx": 4
+    "cx": 5
   },
   "client_breakdown": {
-    "codex": 4
+    "codex": 5
   }
 }

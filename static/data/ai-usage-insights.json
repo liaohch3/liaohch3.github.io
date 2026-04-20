@@ -1,13 +1,17 @@
 {
-  "updated_at": "2026-04-19T23:48:00.920562Z",
+  "updated_at": "2026-04-20T03:44:52.295189Z",
   "model_mix": [
     {
       "model": "gpt-5.4",
-      "total_tokens": 305099,
+      "total_tokens": 332252,
       "share": 100
     }
   ],
   "hour_mix": [
+    {
+      "hour": "02:00",
+      "total_tokens": 27153
+    },
     {
       "hour": "08:00",
       "total_tokens": 28870

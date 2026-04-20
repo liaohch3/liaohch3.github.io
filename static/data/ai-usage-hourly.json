@@ -13,7 +13,7 @@
       "total_tokens": 28870,
       "avg_latency_ms": 4276.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T23:48:00.920562Z"
+      "generated_at": "2026-04-20T03:44:52.295189Z"
     },
     {
       "hour": "2026-04-19T09:00:00Z",
@@ -28,7 +28,7 @@
       "total_tokens": 28874,
       "avg_latency_ms": 2948.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T23:48:00.920562Z"
+      "generated_at": "2026-04-20T03:44:52.295189Z"
     },
     {
       "hour": "2026-04-19T16:00:00Z",
@@ -43,7 +43,7 @@
       "total_tokens": 166881,
       "avg_latency_ms": 5710.666666666667,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T23:48:00.920562Z"
+      "generated_at": "2026-04-20T03:44:52.295189Z"
     },
     {
       "hour": "2026-04-19T17:00:00Z",
@@ -58,7 +58,22 @@
       "total_tokens": 80474,
       "avg_latency_ms": 11782.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-19T23:48:00.920562Z"
+      "generated_at": "2026-04-20T03:44:52.295189Z"
+    },
+    {
+      "hour": "2026-04-20T02:00:00Z",
+      "source": "cx",
+      "client": "codex",
+      "model": "gpt-5.4",
+      "requests": 1,
+      "success_requests": 0,
+      "failed_requests": 1,
+      "input_tokens": 27142,
+      "output_tokens": 11,
+      "total_tokens": 27153,
+      "avg_latency_ms": 10186.0,
+      "window_label": "hourly_v1",
+      "generated_at": "2026-04-20T03:44:52.295189Z"
     }
   ]
 }

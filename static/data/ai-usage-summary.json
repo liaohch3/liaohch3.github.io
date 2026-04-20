@@ -1,13 +1,16 @@
 {
-  "window_hours": 24,
-  "updated_at": "2026-04-20T14:04:21.621679Z",
-  "requests": 16,
-  "success_requests": 8,
+  "window_hours": 720,
+  "updated_at": "2026-04-20T14:34:37.966162Z",
+  "requests": 18,
+  "success_requests": 10,
   "failed_requests": 8,
-  "input_tokens": 436362,
-  "output_tokens": 945,
-  "total_tokens": 437307,
-  "avg_latency_ms": 10033.13,
+  "input_tokens": 494044,
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 0,
+  "output_tokens": 1007,
+  "total_tokens": 495051,
+  "tool_calls": 0,
+  "avg_latency_ms": 8198.52,
   "sources": [
     "cx"
   ],
@@ -15,9 +18,9 @@
     "codex"
   ],
   "source_breakdown": {
-    "cx": 5
+    "cx": 7
   },
   "client_breakdown": {
-    "codex": 5
+    "codex": 7
   }
 }

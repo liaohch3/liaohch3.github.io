@@ -1,113 +1,136 @@
 +++
 title = "AI 日常"
-description = "最近和 AI 一起写代码时的一些使用记录。"
+description = "最近 30 天和 AI 一起写代码的一些公开记录。"
 draft = false
 toc = false
 comments = false
 +++
 
-<p>这页就简单记一下我最近和 AI 一起写代码时的一些使用情况。</p>
+<p>这里只放最近 30 天的公开聚合指标：token、工具调用、模型分布和使用节奏，不放 prompt、代码内容或命令参数。</p>
 <div class="public-metrics">
   <div class="metric-hero">
     <div class="metric-hero-copy">
-      <div class="metric-overline">最近在用</div>
-      <h2>最近和 AI 一起写代码</h2>
-      <p>看几个简单的数字和图，大概就知道我这阵子用了多少、常用什么模型、通常在什么时候写。</p>
+      <div class="metric-overline">最近 30 天</div>
+      <h2>把和 AI 一起写代码的节奏，压成一张公开切片</h2>
+      <p>主图改成按时间顺序铺开的 30 天活动序列。对这种活跃日不多、但想看清单日强度和节奏变化的数据，它比 GitHub 式热力图更合适。</p>
     </div>
-    <div class="metric-updated" data-usage-field="updated_at">--</div>
+    <div class="metric-updated">
+      <div data-usage-field="updated_at">--</div>
+      <div class="metric-updated-subtle" data-usage-field="window_copy">--</div>
+    </div>
   </div>
-  <div class="metric-summary-grid">
+
+  <div class="metric-hero-note">
+    <span>公开内容：token、工具调用、模型占比、时间分布</span>
+    <span>不公开：prompt、代码内容、仓库路径、命令参数</span>
+    <span>刷新频率：每小时自动汇总</span>
+  </div>
+
+  <div class="metric-summary-grid metric-summary-grid-rich">
     <div class="metric-card">
-      <span>近 24 小时 token</span>
+      <span>近 30 天 token</span>
       <strong data-usage-field="total_tokens">--</strong>
       <em data-usage-field="token_breakdown">--</em>
-    </div>
-    <div class="metric-card metric-card-models">
-      <span>最近在用的模型</span>
-      <strong data-usage-field="model_count">--</strong>
-      <div class="model-chip-list" id="usage-model-chips"></div>
     </div>
     <div class="metric-card">
       <span>活跃天数</span>
       <strong data-usage-field="active_days">--</strong>
       <em data-usage-field="active_days_copy">--</em>
     </div>
+    <div class="metric-card">
+      <span>工具调用</span>
+      <strong data-usage-field="tool_calls">--</strong>
+      <em data-usage-field="tool_calls_copy">--</em>
+    </div>
+    <div class="metric-card metric-card-models">
+      <span>最近在用的模型</span>
+      <strong data-usage-field="model_count">--</strong>
+      <em data-usage-field="model_mix_copy">--</em>
+      <div class="model-chip-list" id="usage-model-chips"></div>
+    </div>
   </div>
-  <div class="metric-panel heatmap-card">
+
+  <div class="metric-panel activity-panel">
     <div class="metric-head">
       <div>
-        <div class="metric-overline">Token 墙</div>
-        <h3>每天消耗多少 token，一眼看出来</h3>
+        <div class="metric-overline">活动主图</div>
+        <h3>最近 30 天哪几天真正在写，强度有多高</h3>
       </div>
-      <div class="metric-caption">最近 30 天</div>
+      <div class="metric-caption" id="usage-activity-headline">hover 某一天看详情，click 锁定</div>
     </div>
-    <div class="heatmap-shell">
-      <div class="heatmap-weekdays">
-        <span></span>
-        <span>Mon</span>
-        <span></span>
-        <span>Wed</span>
-        <span></span>
-        <span>Fri</span>
-        <span></span>
+    <div class="activity-layout">
+      <div class="activity-spotlight" id="usage-activity-spotlight"></div>
+      <div class="activity-chart-shell">
+        <div class="activity-summary" id="usage-activity-summary"></div>
+        <div class="activity-sequence" id="usage-activity-sequence"></div>
+        <div class="activity-axis" id="usage-activity-axis"></div>
       </div>
-      <div class="heatmap-month-block">
-        <div class="heatmap-months" id="usage-heatmap-months"></div>
-        <div class="heatmap-grid" id="usage-heatmap-grid"></div>
-      </div>
-    </div>
-    <div class="heatmap-legend">
-      <span>less</span>
-      <i class="legend-swatch heat-l0"></i>
-      <i class="legend-swatch heat-l1"></i>
-      <i class="legend-swatch heat-l2"></i>
-      <i class="legend-swatch heat-l3"></i>
-      <i class="legend-swatch heat-l4"></i>
-      <span>more</span>
     </div>
   </div>
-  <div class="metric-chart-grid">
-    <div class="metric-panel chart-panel">
-      <div class="metric-overline">最近 7 天</div>
-      <h3>最近 7 天 token 趋势</h3>
-      <p class="chart-copy">有时候会突然高很多，通常就是那几天在集中写东西或者改东西。</p>
-      <svg class="trend-chart" id="usage-trend-chart" viewBox="0 0 640 180" preserveAspectRatio="none"></svg>
-      <div class="axis-row" id="usage-trend-axis"></div>
-    </div>
-    <div class="metric-panel chart-panel">
-      <div class="metric-overline">模型分布</div>
-      <h3>最近用哪些模型最多</h3>
-      <p class="chart-copy">基本就是最近这段时间最常开的几个模型。</p>
-      <div class="model-bars" id="usage-model-bars"></div>
-    </div>
+
+  <div class="metric-grid">
+  <div class="metric-panel chart-panel">
+  <div class="metric-overline">Token 结构</div>
+  <h3>输入和输出是主量，缓存读写单独看效率</h3>
+  <p class="chart-copy"><code>total_tokens</code> 只等于输入加输出，所以缓存命中和缓存写入不会被画成总量组成，而是作为额外的上下文效率指标单独公开。</p>
+  <div class="split-bar" id="usage-token-split"></div>
+  <div class="composition-list" id="usage-composition-list"></div>
+  <div class="cache-grid" id="usage-cache-grid"></div>
   </div>
   <div class="metric-panel chart-panel">
-    <div class="metric-overline">一天里的节奏</div>
-    <h3>一天里通常什么时候最常和 AI 一起写代码</h3>
-    <p class="chart-copy">只是看看我平时大概在什么时段用得比较多。</p>
-    <div class="hour-bars" id="usage-hour-bars"></div>
+  <div class="metric-overline">请求质量</div>
+  <h3>成功率、延迟和工具调用节奏</h3>
+  <p class="chart-copy">请求层只保留聚合指标。工具调用按天展开成一条迷你节奏线，hover 也会同步到上面的主图焦点。</p>
+  <div class="health-grid" id="usage-health-grid"></div>
+  <div class="mini-bars" id="usage-tool-bars"></div>
+  <div class="axis-row axis-row-compact" id="usage-tool-axis"></div>
   </div>
-  <div class="metric-panel metric-detail-panel">
-    <div class="metric-head">
-      <div>
-        <div class="metric-overline">单日下钻</div>
-        <h3 id="usage-detail-title">点某一天看细节</h3>
+  </div>
+
+  <div class="metric-grid">
+  <div class="metric-panel chart-panel">
+  <div class="metric-overline">模型分布</div>
+  <h3>最近 30 天最常开的模型</h3>
+  <p class="chart-copy">这是典型的类别排名数据，最适合用按占比排序的横向条形图。</p>
+  <div class="rank-list" id="usage-model-bars"></div>
+  </div>
+  <div class="metric-panel chart-panel">
+  <div class="metric-overline">一天里的节奏</div>
+  <h3>通常在什么时间段最常用</h3>
+  <p class="chart-copy">一天被切成 24 个顺序时间桶，最合适的是按小时排列的柱形图，而不是打散成无序类别列表。</p>
+  <div class="rhythm-chart" id="usage-hour-rhythm"></div>
+  <div class="rhythm-axis">
+  <span>00:00</span>
+  <span>06:00</span>
+  <span>12:00</span>
+  <span>18:00</span>
+  <span>23:00</span>
+  </div>
+  </div>
+  </div>
+
+  <div class="metric-panel boundary-panel">
+    <div class="metric-overline">公开边界</div>
+    <h3>这页适合放什么，不适合放什么</h3>
+    <div class="boundary-grid">
+      <div class="boundary-item">
+        <span>适合公开</span>
+        <strong>聚合量级</strong>
+        <p>token 总量、工具调用次数、模型偏好和时间分布，这些信息能看节奏，但不会直接暴露具体工作内容。</p>
       </div>
-      <div class="metric-caption" id="usage-detail-caption">从上面的热力图或者折线里选一天</div>
-    </div>
-    <p class="chart-copy" id="usage-detail-copy">先看整体，再点某一天，下面会展开那天按小时和按模型的分布。</p>
-    <div class="detail-summary-grid" id="usage-detail-summary"></div>
-    <div class="metric-chart-grid detail-chart-grid">
-      <div class="detail-block">
-        <div class="metric-overline">按小时</div>
-        <div class="hour-bars" id="usage-day-hour-bars"></div>
+      <div class="boundary-item">
+        <span>不适合公开</span>
+        <strong>过程细节</strong>
+        <p>prompt 文本、仓库路径、命令参数、工具输入输出、代码片段都不出现在这页里。</p>
       </div>
-      <div class="detail-block">
-        <div class="metric-overline">按模型</div>
-        <div class="model-bars" id="usage-day-model-bars"></div>
+      <div class="boundary-item">
+        <span>为什么这样画</span>
+        <strong>按数据类型选图</strong>
+        <p>稀疏时间数据用 30 天游序列，类别排名用横向条形图，24 小时时段用顺序柱形图，避免把空白本身画成大面积留白。</p>
       </div>
     </div>
   </div>
+
   <div class="metric-tooltip" id="usage-metric-tooltip" hidden></div>
 </div>
 
@@ -117,29 +140,56 @@ comments = false
   const hourlyUrl = "/data/ai-usage-hourly.json";
   const dailyUrl = "/data/ai-usage-daily.json";
   const insightUrl = "/data/ai-usage-insights.json";
+
   const state = {
     summary: null,
     hourlyRows: [],
     dailyRows: [],
     insights: null,
-    selectedDate: null,
+    dailyByDate: new Map(),
+    hourlyByDate: new Map(),
+    defaultDate: null,
+    hoverDate: null,
+    lockedDate: null,
+    activityNodes: new Map(),
+    toolNodes: new Map(),
   };
+
   const tooltip = document.getElementById("usage-metric-tooltip");
 
   const formatInt = (value) => new Intl.NumberFormat("en-US").format(Number(value || 0));
+  const formatPercent = (value, total) => {
+    if (!total) return "0%";
+    return `${Math.round((Number(value || 0) / Number(total)) * 100)}%`;
+  };
   const formatTime = (value) => {
     if (!value) return "--";
     const dt = new Date(value);
     if (Number.isNaN(dt.getTime())) return value;
     return `Updated ${dt.toLocaleString("zh-CN", { hour12: false })}`;
   };
+  const formatLatency = (value) => {
+    const ms = Number(value || 0);
+    if (!ms) return "--";
+    if (ms >= 1000) return `${(ms / 1000).toFixed(ms >= 10000 ? 1 : 2)}s`;
+    return `${Math.round(ms)}ms`;
+  };
   const formatDayLabel = (value) => {
     const dt = new Date(`${value}T00:00:00Z`);
     if (Number.isNaN(dt.getTime())) return value;
     return dt.toLocaleDateString("zh-CN", {
-      month: "short",
+      month: "numeric",
       day: "numeric",
       weekday: "short",
+      timeZone: "UTC",
+    });
+  };
+  const formatDayTick = (value) => {
+    const dt = new Date(`${value}T00:00:00Z`);
+    if (Number.isNaN(dt.getTime())) return value;
+    return dt.toLocaleDateString("zh-CN", {
+      month: "numeric",
+      day: "numeric",
       timeZone: "UTC",
     });
   };
@@ -152,6 +202,14 @@ comments = false
       "'": "&#39;",
     }[char]));
   const sumBy = (rows, key) => rows.reduce((total, row) => total + Number(row[key] || 0), 0);
+  const unique = (items) => [...new Set(items.filter(Boolean))];
+  const cacheHitRate = (readTokens, writeTokens) => {
+    const total = Number(readTokens || 0) + Number(writeTokens || 0);
+    if (!total) return null;
+    return Math.round((Number(readTokens || 0) / total) * 100);
+  };
+  const focusDate = () => state.hoverDate || state.lockedDate || state.defaultDate;
+
   const tooltipMarkup = (title, rows) => `
     <div class="metric-tooltip-title">${escapeHtml(title)}</div>
     ${rows
@@ -165,6 +223,7 @@ comments = false
       )
       .join("")}
   `;
+
   const showTooltipAtPoint = (clientX, clientY, html) => {
     if (!tooltip) return;
     tooltip.hidden = false;
@@ -182,6 +241,7 @@ comments = false
     tooltip.style.left = `${Math.max(12, left)}px`;
     tooltip.style.top = `${Math.max(12, top)}px`;
   };
+
   const showTooltipForEvent = (event, html) => showTooltipAtPoint(event.clientX, event.clientY, html);
   const showTooltipForNode = (node, html) => {
     const rect = node.getBoundingClientRect();
@@ -192,31 +252,9 @@ comments = false
     tooltip.hidden = true;
     tooltip.innerHTML = "";
   };
-  const wireTooltip = (node, getHtml, onClick = null) => {
-    node.addEventListener("mouseenter", (event) => showTooltipForEvent(event, getHtml()));
-    node.addEventListener("mousemove", (event) => showTooltipForEvent(event, getHtml()));
-    node.addEventListener("mouseleave", hideTooltip);
-    node.addEventListener("focus", () => showTooltipForNode(node, getHtml()));
-    node.addEventListener("blur", hideTooltip);
-
-    if (onClick) {
-      node.addEventListener("click", () => onClick());
-      node.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          onClick();
-        }
-      });
-    }
-  };
 
   const setField = (name, value) => {
     const node = document.querySelector(`[data-usage-field="${name}"]`);
-    if (node) node.textContent = value;
-  };
-
-  const setText = (id, value) => {
-    const node = document.getElementById(id);
     if (node) node.textContent = value;
   };
 
@@ -234,7 +272,8 @@ comments = false
       container.innerHTML = '<span class="usage-empty">暂时还没有模型数据。</span>';
       return;
     }
-    models.forEach((model) => {
+
+    models.slice(0, 4).forEach((model) => {
       const chip = document.createElement("span");
       chip.className = "model-chip";
       chip.textContent = model;
@@ -242,401 +281,578 @@ comments = false
     });
   };
 
-  const renderHeatmap = (rows) => {
-    const monthContainer = document.getElementById("usage-heatmap-months");
-    const grid = document.getElementById("usage-heatmap-grid");
-    if (!monthContainer || !grid) return;
-    monthContainer.innerHTML = "";
-    grid.innerHTML = "";
+  const buildSplitBar = (segments, total, compact = false) => `
+    <div class="split-track ${compact ? "split-track-compact" : ""}">
+      ${segments
+        .map((segment) => {
+          const width = total ? (Number(segment.value || 0) / total) * 100 : 0;
+          return `<span class="split-segment ${segment.className}" style="width:${width}%"></span>`;
+        })
+        .join("")}
+    </div>
+    <div class="split-legend ${compact ? "split-legend-compact" : ""}">
+      ${segments
+        .map(
+          (segment) => `
+            <div class="split-legend-item">
+              <i class="split-dot ${segment.className}"></i>
+              <span>${escapeHtml(segment.label)}</span>
+              <strong>${escapeHtml(formatInt(segment.value))}</strong>
+            </div>
+          `
+        )
+        .join("")}
+    </div>
+  `;
 
-    if (!rows.length) {
-      grid.innerHTML = '<div class="usage-empty">暂时还没有每日数据。</div>';
-      return;
-    }
+  const buildDayDetail = (date) => {
+    const daily = state.dailyByDate.get(date) || {
+      date,
+      input_tokens: 0,
+      cache_read_input_tokens: 0,
+      cache_creation_input_tokens: 0,
+      output_tokens: 0,
+      total_tokens: 0,
+      tool_calls: 0,
+    };
+    const hours = state.hourlyByDate.get(date) || [];
+    const requests = sumBy(hours, "requests");
+    const successRequests = sumBy(hours, "success_requests");
+    const failedRequests = sumBy(hours, "failed_requests");
+    const activeHours = hours.filter((row) => Number(row.total_tokens || 0) > 0).length;
+    const models = unique(hours.map((row) => row.model));
+    const peakHourRow = hours.reduce((best, row) => {
+      if (!best || Number(row.total_tokens || 0) > Number(best.total_tokens || 0)) return row;
+      return best;
+    }, null);
 
-    const maxTokens = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
-    let lastMonth = "";
+    return {
+      date,
+      totalTokens: Number(daily.total_tokens || 0),
+      inputTokens: Number(daily.input_tokens || 0),
+      outputTokens: Number(daily.output_tokens || 0),
+      cacheReadTokens: Number(daily.cache_read_input_tokens || 0),
+      cacheWriteTokens: Number(daily.cache_creation_input_tokens || 0),
+      toolCalls: Number(daily.tool_calls || 0),
+      requests,
+      successRequests,
+      failedRequests,
+      activeHours,
+      models,
+      peakHour: peakHourRow ? String(peakHourRow.hour).slice(11, 16) : "--",
+      shareOfWindow: Number(state.summary?.total_tokens || 0)
+        ? Math.round((Number(daily.total_tokens || 0) / Number(state.summary.total_tokens || 0)) * 100)
+        : 0,
+      successRate: requests ? Math.round((successRequests / requests) * 100) : 0,
+      cacheHitRate: cacheHitRate(daily.cache_read_input_tokens, daily.cache_creation_input_tokens),
+    };
+  };
 
-    rows.forEach((row) => {
-      const date = new Date(`${row.date}T00:00:00Z`);
-      if (date.getUTCDay() === 0) {
-        const month = date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" });
-        const node = document.createElement("span");
-        node.textContent = month === lastMonth ? "" : month;
-        lastMonth = month;
-        monthContainer.appendChild(node);
+  const buildDayTooltip = (detail) =>
+    tooltipMarkup(formatDayLabel(detail.date), [
+      ["Total", `${formatInt(detail.totalTokens)} tokens`],
+      ["Requests", formatInt(detail.requests)],
+      ["Tool calls", formatInt(detail.toolCalls)],
+      ["Peak hour", detail.peakHour],
+    ]);
+
+  const wireDateNode = (node, date) => {
+    const tooltipHtml = () => buildDayTooltip(buildDayDetail(date));
+
+    node.addEventListener("mouseenter", (event) => {
+      state.hoverDate = date;
+      renderInteractiveState();
+      showTooltipForEvent(event, tooltipHtml());
+    });
+    node.addEventListener("mousemove", (event) => showTooltipForEvent(event, tooltipHtml()));
+    node.addEventListener("mouseleave", () => {
+      if (state.hoverDate === date) {
+        state.hoverDate = null;
+        renderInteractiveState();
       }
-
-      const value = Number(row.total_tokens || 0);
-      let level = 0;
-      if (value > maxTokens * 0.15) level = 1;
-      if (value > maxTokens * 0.35) level = 2;
-      if (value > maxTokens * 0.6) level = 3;
-      if (value > maxTokens * 0.82) level = 4;
-
-      const cell = document.createElement("button");
-      cell.type = "button";
-      cell.className = `heat-cell heat-l${level}${row.date === state.selectedDate ? " is-active" : ""}`;
-      cell.setAttribute("aria-pressed", row.date === state.selectedDate ? "true" : "false");
-      cell.setAttribute("aria-label", `${formatDayLabel(row.date)} ${formatInt(value)} tokens`);
-      wireTooltip(
-        cell,
-        () =>
-          tooltipMarkup(formatDayLabel(row.date), [
-            ["Total", `${formatInt(value)} tokens`],
-            ["Status", value > 0 ? "Active day" : "No activity"],
-            ["Action", "Click to drill down"],
-          ]),
-        () => setSelectedDate(row.date)
-      );
-      grid.appendChild(cell);
+      hideTooltip();
+    });
+    node.addEventListener("focus", () => {
+      state.hoverDate = date;
+      renderInteractiveState();
+      showTooltipForNode(node, tooltipHtml());
+    });
+    node.addEventListener("blur", () => {
+      if (state.hoverDate === date) {
+        state.hoverDate = null;
+        renderInteractiveState();
+      }
+      hideTooltip();
+    });
+    node.addEventListener("click", () => {
+      state.lockedDate = state.lockedDate === date ? null : date;
+      renderInteractiveState();
+    });
+    node.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        state.lockedDate = state.lockedDate === date ? null : date;
+        renderInteractiveState();
+      }
     });
   };
 
-  const renderTrend = (rows) => {
-    const svg = document.getElementById("usage-trend-chart");
-    const axis = document.getElementById("usage-trend-axis");
-    if (!svg || !axis) return;
+  const renderOverview = () => {
+    const summary = state.summary || {};
+    const activeDays = state.dailyRows.filter((row) => Number(row.total_tokens || 0) > 0).length;
+    const quietDays = Math.max(state.dailyRows.length - activeDays, 0);
+    const models = state.insights?.model_mix?.map((row) => row.model) || [];
+    const avgToolsPerActiveDay = activeDays ? Math.round(Number(summary.tool_calls || 0) / activeDays) : 0;
+
+    setField("updated_at", formatTime(summary.updated_at));
+    setField("window_copy", `${activeDays} 天有记录 · ${quietDays} 天留白`);
+    setField("total_tokens", formatInt(summary.total_tokens));
+    setField(
+      "token_breakdown",
+      `输入 ${formatInt(summary.input_tokens)} · 输出 ${formatInt(summary.output_tokens)}`
+    );
+    setField("active_days", formatInt(activeDays));
+    setField("active_days_copy", `最近 30 天里有记录的天数`);
+    setField("tool_calls", formatInt(summary.tool_calls));
+    setField(
+      "tool_calls_copy",
+      activeDays ? `活跃日均 ${formatInt(avgToolsPerActiveDay)} 次` : "最近 30 天没有工具调用"
+    );
+    setField("model_count", formatInt(models.length));
+    setField("model_mix_copy", models[0] ? `最常用 ${models[0]}` : "暂时还没有模型数据");
+    renderModelChips(models);
+  };
+
+  const renderActivitySummary = () => {
+    const container = document.getElementById("usage-activity-summary");
+    const axis = document.getElementById("usage-activity-axis");
+    const rows = state.dailyRows;
+    if (!container || !axis) return;
 
     if (!rows.length) {
-      svg.innerHTML = "";
+      container.innerHTML = '<div class="usage-empty">暂时还没有每日数据。</div>';
       axis.innerHTML = "";
       return;
     }
 
-    const recent = rows.slice(-7);
-    const width = 640;
-    const baseline = 156;
-    const paddingX = 18;
-    const maxValue = Math.max(...recent.map((item) => Number(item.total_tokens || 0)), 1);
-    const step = (width - paddingX * 2) / Math.max(recent.length - 1, 1);
+    const activeRows = rows.filter((row) => Number(row.total_tokens || 0) > 0);
+    const biggestDay = activeRows.reduce((best, row) => {
+      if (!best || Number(row.total_tokens || 0) > Number(best.total_tokens || 0)) return row;
+      return best;
+    }, null);
+    const latestActive = [...activeRows].reverse()[0] || rows.at(-1);
 
-    const points = recent.map((item, index) => {
-      const x = paddingX + index * step;
-      const y = baseline - (Number(item.total_tokens || 0) / maxValue) * 112;
-      return { ...item, x, y };
-    });
-
-    const linePath = points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ");
-    const areaPath = `${linePath} L ${points.at(-1).x} ${baseline} L ${points[0].x} ${baseline} Z`;
-    svg.innerHTML = `
-      <path class="trend-area" d="${areaPath}"></path>
-      <path class="trend-line" d="${linePath}"></path>
-      ${points
-        .map(
-          (point) => `
-            <circle
-              class="trend-dot${point.date === state.selectedDate ? " is-active" : ""}"
-              cx="${point.x}"
-              cy="${point.y}"
-              r="5"
-              tabindex="0"
-              role="button"
-              data-date="${point.date}"
-              data-total="${Number(point.total_tokens || 0)}"
-            ></circle>
-          `
-        )
-        .join("")}
-    `;
-    svg.querySelectorAll(".trend-dot").forEach((dot) => {
-      const date = dot.getAttribute("data-date");
-      const totalTokens = Number(dot.getAttribute("data-total") || 0);
-      wireTooltip(
-        dot,
-        () =>
-          tooltipMarkup(formatDayLabel(date), [
-            ["Total", `${formatInt(totalTokens)} tokens`],
-            ["Action", "Click to drill down"],
-          ]),
-        () => setSelectedDate(date)
-      );
-    });
-    axis.innerHTML = recent
+    container.innerHTML = [
+      ["活跃天数", `${activeRows.length}/${rows.length}`],
+      ["最大单日", biggestDay ? formatInt(biggestDay.total_tokens) : "--"],
+      ["最近活跃", latestActive ? formatDayTick(latestActive.date) : "--"],
+    ]
       .map(
-        (item) => `
-          <span
-            class="${item.date === state.selectedDate ? "is-active" : ""}"
-            tabindex="0"
-            role="button"
-            data-date="${item.date}"
-          >${new Date(`${item.date}T00:00:00Z`).toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" })}</span>
+        ([label, value]) => `
+          <div class="activity-pill">
+            <span>${escapeHtml(label)}</span>
+            <strong>${escapeHtml(value)}</strong>
+          </div>
         `
       )
       .join("");
-    axis.querySelectorAll("span[data-date]").forEach((node) => {
-      const date = node.getAttribute("data-date");
-      wireTooltip(
-        node,
-        () =>
-          tooltipMarkup(formatDayLabel(date), [
-            ["Action", "Click to drill down"],
-          ]),
-        () => setSelectedDate(date)
-      );
-    });
+
+    const tickIndexes = unique([0, 5, 11, 17, 23, rows.length - 1]).sort((a, b) => a - b);
+    axis.innerHTML = tickIndexes
+      .map((index) => `<span>${escapeHtml(formatDayTick(rows[index].date))}</span>`)
+      .join("");
   };
 
-  const renderBars = (containerId, rows, fillClass, options = {}) => {
-    const container = document.getElementById(containerId);
+  const renderActivitySequence = () => {
+    const container = document.getElementById("usage-activity-sequence");
     if (!container) return;
     container.innerHTML = "";
-    if (!rows.length) {
-      container.innerHTML = '<div class="usage-empty">暂时还没有图表数据。</div>';
+    state.activityNodes = new Map();
+
+    if (!state.dailyRows.length) {
+      container.innerHTML = '<div class="usage-empty">暂时还没有每日数据。</div>';
       return;
     }
 
-    const maxValue = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
-    const getLabel = options.getLabel || ((row) => row.model || row.hour || "--");
-    const getValueText =
-      options.getValueText ||
-      ((row) => (row.share != null ? `${row.share}%` : formatInt(row.total_tokens)));
-    const getWidth =
-      options.getWidth ||
-      ((row) => (row.share != null ? Number(row.share) : (Number(row.total_tokens || 0) / maxValue) * 100));
-    const getTooltip = options.getTooltip || null;
-    const rowClass =
-      options.rowClass ||
-      (containerId.includes("hour-bars") ? "hour-bar-row" : "model-bar-row");
-
-    rows.forEach((row) => {
-      const item = document.createElement("div");
-      item.className = rowClass;
-      const label = getLabel(row);
-      const valueText = getValueText(row);
-      const width = getWidth(row);
-      item.innerHTML = `
-        <div class="row-label">${escapeHtml(label)}</div>
-        <div class="bar-track"><div class="bar-fill ${fillClass}" style="width:${width}%"></div></div>
-        <div class="row-value">${escapeHtml(valueText)}</div>
+    const maxValue = Math.max(...state.dailyRows.map((row) => Number(row.total_tokens || 0)), 0);
+    state.dailyRows.forEach((row) => {
+      const total = Number(row.total_tokens || 0);
+      const height = maxValue ? Math.max(total > 0 ? 14 : 6, (total / maxValue) * 100) : 6;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `activity-day ${total > 0 ? "is-active" : "is-idle"}`;
+      button.dataset.date = row.date;
+      button.setAttribute("aria-label", `${formatDayLabel(row.date)} ${formatInt(total)} tokens`);
+      button.style.setProperty("--activity-height", `${height}%`);
+      button.innerHTML = `
+        <span class="activity-day-frame">
+          <span class="activity-day-fill"></span>
+        </span>
       `;
-      if (getTooltip) {
-        item.tabIndex = 0;
-        wireTooltip(item, () => getTooltip(row));
-      }
-      container.appendChild(item);
+      wireDateNode(button, row.date);
+      state.activityNodes.set(row.date, button);
+      container.appendChild(button);
     });
   };
 
-  const buildDayDetail = (date) => {
-    const dailyRow = state.dailyRows.find((row) => row.date === date) || { date, total_tokens: 0 };
-    const dayRows = state.hourlyRows.filter((row) => String(row.hour || "").startsWith(date));
-    const hourBuckets = new Map();
-    const modelBuckets = new Map();
+  const renderSpotlight = (date) => {
+    const container = document.getElementById("usage-activity-spotlight");
+    const headline = document.getElementById("usage-activity-headline");
+    if (!container || !headline) return;
 
-    dayRows.forEach((row) => {
-      const hour = String(row.hour).slice(11, 16);
-      const hourBucket = hourBuckets.get(hour) || {
-        hour,
-        total_tokens: 0,
-        requests: 0,
-        success_requests: 0,
-        failed_requests: 0,
-      };
-      hourBucket.total_tokens += Number(row.total_tokens || 0);
-      hourBucket.requests += Number(row.requests || 0);
-      hourBucket.success_requests += Number(row.success_requests || 0);
-      hourBucket.failed_requests += Number(row.failed_requests || 0);
-      hourBuckets.set(hour, hourBucket);
-
-      const model = row.model || "unknown";
-      const modelBucket = modelBuckets.get(model) || {
-        model,
-        total_tokens: 0,
-        requests: 0,
-        success_requests: 0,
-        failed_requests: 0,
-      };
-      modelBucket.total_tokens += Number(row.total_tokens || 0);
-      modelBucket.requests += Number(row.requests || 0);
-      modelBucket.success_requests += Number(row.success_requests || 0);
-      modelBucket.failed_requests += Number(row.failed_requests || 0);
-      modelBuckets.set(model, modelBucket);
-    });
-
-    const hourRows = Array.from(hourBuckets.values()).sort((left, right) => left.hour.localeCompare(right.hour));
-    const modelRows = Array.from(modelBuckets.values()).sort((left, right) => right.total_tokens - left.total_tokens);
-    const busiestHour = hourRows.reduce(
-      (best, row) => (row.total_tokens > (best?.total_tokens || -1) ? row : best),
-      null
+    const detail = buildDayDetail(date);
+    const mode = state.hoverDate ? "hover" : state.lockedDate ? "locked" : "default";
+    const modeCopy =
+      mode === "hover"
+        ? "当前 hover"
+        : mode === "locked"
+          ? "已锁定"
+          : "默认焦点";
+    const splitMarkup = buildSplitBar(
+      [
+        { label: "输入", value: detail.inputTokens, className: "split-input" },
+        { label: "输出", value: detail.outputTokens, className: "split-output" },
+      ],
+      Math.max(detail.totalTokens, 1),
+      true
     );
-    const topModel = modelRows[0] || null;
+    const leadCopy = detail.totalTokens
+      ? `这一天贡献了最近 30 天公开 token 的 ${detail.shareOfWindow}%，总量 ${formatInt(detail.totalTokens)}。`
+      : "这一天没有公开记录。最近 30 天里，留白天本身也是节奏的一部分。";
 
-    return {
-      date,
-      totalTokens: Number(dailyRow.total_tokens || sumBy(dayRows, "total_tokens")),
-      requests: sumBy(dayRows, "requests"),
-      successRequests: sumBy(dayRows, "success_requests"),
-      failedRequests: sumBy(dayRows, "failed_requests"),
-      activeHours: hourRows.length,
-      busiestHour,
-      topModel,
-      hourRows,
-      modelRows,
-    };
+    headline.textContent = state.lockedDate
+      ? `已锁定 ${formatDayTick(state.lockedDate)} · 再点一次取消`
+      : "hover 某一天看详情，click 锁定";
+
+    container.innerHTML = `
+      <div class="spotlight-mode">${escapeHtml(modeCopy)}</div>
+      <h4>${escapeHtml(formatDayLabel(detail.date))}</h4>
+      <p class="spotlight-copy">${escapeHtml(leadCopy)}</p>
+
+      <div class="spotlight-stat-grid">
+        <div class="spotlight-stat">
+          <span>Total</span>
+          <strong>${escapeHtml(formatInt(detail.totalTokens))}</strong>
+        </div>
+        <div class="spotlight-stat">
+          <span>Requests</span>
+          <strong>${escapeHtml(formatInt(detail.requests))}</strong>
+        </div>
+        <div class="spotlight-stat">
+          <span>Tool calls</span>
+          <strong>${escapeHtml(formatInt(detail.toolCalls))}</strong>
+        </div>
+        <div class="spotlight-stat">
+          <span>Peak hour</span>
+          <strong>${escapeHtml(detail.peakHour)}</strong>
+        </div>
+      </div>
+
+      <div class="spotlight-structure">
+        ${splitMarkup}
+        <div class="spotlight-metadata">
+          <div class="spotlight-meta-row">
+            <span>成功率</span>
+            <strong>${escapeHtml(detail.requests ? `${detail.successRate}%` : "--")}</strong>
+          </div>
+          <div class="spotlight-meta-row">
+            <span>活跃小时</span>
+            <strong>${escapeHtml(formatInt(detail.activeHours))}</strong>
+          </div>
+          <div class="spotlight-meta-row">
+            <span>模型数</span>
+            <strong>${escapeHtml(formatInt(detail.models.length))}</strong>
+          </div>
+          <div class="spotlight-meta-row">
+            <span>Cache hit</span>
+            <strong>${escapeHtml(detail.cacheHitRate === null ? "--" : `${detail.cacheHitRate}%`)}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-footer">
+        <span>Cache read ${escapeHtml(formatInt(detail.cacheReadTokens))}</span>
+        <span>Cache write ${escapeHtml(formatInt(detail.cacheWriteTokens))}</span>
+        <span>失败 ${escapeHtml(formatInt(detail.failedRequests))}</span>
+      </div>
+    `;
   };
 
-  const renderDetailSummary = (detail) => {
-    const container = document.getElementById("usage-detail-summary");
-    if (!container) return;
-    if (!detail) {
-      container.innerHTML = '<div class="usage-empty">暂时还没有可下钻的数据。</div>';
-      return;
-    }
+  const renderTokenStructure = () => {
+    const split = document.getElementById("usage-token-split");
+    const list = document.getElementById("usage-composition-list");
+    const cacheGrid = document.getElementById("usage-cache-grid");
+    const summary = state.summary || {};
+    if (!split || !list || !cacheGrid) return;
 
-    const stats = [
+    const totalTokens = Number(summary.total_tokens || 0);
+    const tokenSegments = [
+      { label: "输入", value: Number(summary.input_tokens || 0), className: "split-input" },
+      { label: "输出", value: Number(summary.output_tokens || 0), className: "split-output" },
+    ];
+    split.innerHTML = buildSplitBar(tokenSegments, Math.max(totalTokens, 1));
+
+    list.innerHTML = tokenSegments
+      .map((item) => {
+        const width = totalTokens ? (Number(item.value || 0) / totalTokens) * 100 : 0;
+        return `
+          <div class="composition-row">
+            <div class="composition-meta">
+              <span>${escapeHtml(item.label)}</span>
+              <strong>${escapeHtml(formatInt(item.value))}</strong>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill ${item.className}" style="width:${width}%"></div>
+            </div>
+            <em>占总 token ${escapeHtml(formatPercent(item.value, totalTokens))}</em>
+          </div>
+        `;
+      })
+      .join("");
+
+    const readTokens = Number(summary.cache_read_input_tokens || 0);
+    const writeTokens = Number(summary.cache_creation_input_tokens || 0);
+    const hitRate = cacheHitRate(readTokens, writeTokens);
+    const cacheItems = [
       {
-        label: "当天 token",
-        value: formatInt(detail.totalTokens),
-        copy: detail.requests ? `${formatInt(detail.requests)} requests` : "当天还没有请求记录",
+        label: "Cache read",
+        value: formatInt(readTokens),
+        copy: summary.input_tokens ? `相当于 fresh input 的 ${formatPercent(readTokens, summary.input_tokens)}` : "最近 30 天没有 cache read",
       },
       {
-        label: "活跃小时",
-        value: detail.activeHours ? String(detail.activeHours) : "--",
-        copy: detail.busiestHour
-          ? `${detail.busiestHour.hour} 最忙`
-          : "当天还没有小时级明细",
+        label: "Cache write",
+        value: formatInt(writeTokens),
+        copy: summary.input_tokens ? `相当于 fresh input 的 ${formatPercent(writeTokens, summary.input_tokens)}` : "最近 30 天没有 cache write",
       },
       {
-        label: "请求状态",
-        value: detail.requests ? formatInt(detail.requests) : "--",
-        copy: detail.requests
-          ? `${formatInt(detail.successRequests)} ok · ${formatInt(detail.failedRequests)} failed`
-          : "当天还没有请求记录",
-      },
-      {
-        label: "最常用模型",
-        value: detail.topModel ? detail.topModel.model : "--",
-        copy: detail.topModel
-          ? `${formatInt(detail.topModel.total_tokens)} tokens`
-          : "当天还没有模型数据",
+        label: "Cache hit",
+        value: hitRate === null ? "--" : `${hitRate}%`,
+        copy: hitRate === null ? "最近 30 天没有缓存事件" : "按 cache read / (read + write) 计算",
       },
     ];
 
-    container.innerHTML = stats
+    cacheGrid.innerHTML = cacheItems
       .map(
-        (stat) => `
-          <div class="detail-stat">
-            <span>${stat.label}</span>
-            <strong>${stat.value}</strong>
-            <em>${stat.copy}</em>
+        (item) => `
+          <div class="micro-card">
+            <span>${escapeHtml(item.label)}</span>
+            <strong>${escapeHtml(item.value)}</strong>
+            <em>${escapeHtml(item.copy)}</em>
           </div>
         `
       )
       .join("");
   };
 
-  const renderDetail = (date) => {
-    const title = document.getElementById("usage-detail-title");
-    const caption = document.getElementById("usage-detail-caption");
-    const copy = document.getElementById("usage-detail-copy");
+  const renderHealth = () => {
+    const healthGrid = document.getElementById("usage-health-grid");
+    const toolBars = document.getElementById("usage-tool-bars");
+    const toolAxis = document.getElementById("usage-tool-axis");
+    const summary = state.summary || {};
+    if (!healthGrid || !toolBars || !toolAxis) return;
 
-    if (!title || !caption || !copy) return;
-    if (!date) {
-      title.textContent = "点某一天看细节";
-      caption.textContent = "从上面的热力图或者折线里选一天";
-      copy.textContent = "先看整体，再点某一天，下面会展开那天按小时和按模型的分布。";
-      renderDetailSummary(null);
-      renderBars("usage-day-hour-bars", [], "hour-fill");
-      renderBars("usage-day-model-bars", [], "model-fill");
+    const requests = Number(summary.requests || 0);
+    const successRate = requests
+      ? Math.round((Number(summary.success_requests || 0) / requests) * 100)
+      : 0;
+
+    healthGrid.innerHTML = [
+      ["Requests", formatInt(summary.requests)],
+      ["Success rate", requests ? `${successRate}%` : "--"],
+      ["Failures", formatInt(summary.failed_requests)],
+      ["Avg latency", formatLatency(summary.avg_latency_ms)],
+    ]
+      .map(
+        ([label, value]) => `
+          <div class="micro-card">
+            <span>${escapeHtml(label)}</span>
+            <strong>${escapeHtml(value)}</strong>
+          </div>
+        `
+      )
+      .join("");
+
+    toolBars.innerHTML = "";
+    toolAxis.innerHTML = "";
+    state.toolNodes = new Map();
+    if (!state.dailyRows.length) {
+      toolBars.innerHTML = '<div class="usage-empty">暂时还没有工具调用数据。</div>';
       return;
     }
 
-    const detail = buildDayDetail(date);
-    title.textContent = `${formatDayLabel(date)} 的明细`;
-    caption.textContent = detail.activeHours
-      ? `共 ${detail.activeHours} 个活跃小时`
-      : "当天还没有小时级明细";
-    copy.textContent = detail.activeHours
-      ? "上面的热力图和折线负责告诉你哪天最活跃，这里再展开看当天到底是哪些小时和哪些模型贡献了这些 token。"
-      : "这一天目前只有日级数据，还没有更细的小时分布可以展开。";
-
-    renderDetailSummary(detail);
-    renderBars("usage-day-hour-bars", detail.hourRows, "hour-fill", {
-      getValueText: (row) => `${formatInt(row.total_tokens)} tokens`,
-      getTooltip: (row) =>
-        tooltipMarkup(`${formatDayLabel(date)} ${row.hour}`, [
-          ["Total", `${formatInt(row.total_tokens)} tokens`],
-          ["Requests", formatInt(row.requests)],
-          ["Status", `${formatInt(row.success_requests)} ok · ${formatInt(row.failed_requests)} failed`],
-        ]),
+    const maxTools = Math.max(...state.dailyRows.map((row) => Number(row.tool_calls || 0)), 0);
+    state.dailyRows.forEach((row) => {
+      const toolCalls = Number(row.tool_calls || 0);
+      const height = maxTools ? Math.max(toolCalls > 0 ? 20 : 6, (toolCalls / maxTools) * 132) : 6;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `mini-bar-button ${toolCalls > 0 ? "is-active" : "is-idle"}`;
+      button.dataset.date = row.date;
+      button.setAttribute("aria-label", `${formatDayLabel(row.date)} ${formatInt(toolCalls)} tool calls`);
+      button.style.setProperty("--mini-height-px", `${height}px`);
+      button.innerHTML = '<span class="mini-bar-fill"></span>';
+      wireDateNode(button, row.date);
+      state.toolNodes.set(row.date, button);
+      toolBars.appendChild(button);
     });
-    renderBars("usage-day-model-bars", detail.modelRows, "model-fill", {
-      getValueText: (row) => `${formatInt(row.total_tokens)} tokens`,
-      getTooltip: (row) =>
-        tooltipMarkup(`${formatDayLabel(date)} ${row.model}`, [
+
+    const tickIndexes = unique([0, 5, 11, 17, 23, state.dailyRows.length - 1]).sort((a, b) => a - b);
+    toolAxis.innerHTML = tickIndexes
+      .map((index) => `<span>${escapeHtml(formatDayTick(state.dailyRows[index].date))}</span>`)
+      .join("");
+  };
+
+  const renderModelBars = () => {
+    const container = document.getElementById("usage-model-bars");
+    const rows = state.insights?.model_mix || [];
+    if (!container) return;
+    container.innerHTML = "";
+
+    if (!rows.length) {
+      container.innerHTML = '<div class="usage-empty">暂时还没有模型数据。</div>';
+      return;
+    }
+
+    const maxValue = Math.max(...rows.map((row) => Number(row.total_tokens || 0)), 1);
+    rows.forEach((row) => {
+      const item = document.createElement("div");
+      item.className = "rank-row";
+      item.tabIndex = 0;
+      item.innerHTML = `
+        <div class="rank-meta">
+          <span>${escapeHtml(row.model)}</span>
+          <strong>${escapeHtml(`${row.share}%`)}</strong>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill rank-fill" style="width:${(Number(row.total_tokens || 0) / maxValue) * 100}%"></div>
+        </div>
+        <div class="rank-value">${escapeHtml(formatInt(row.total_tokens))}</div>
+      `;
+      const tooltipHtml = () =>
+        tooltipMarkup(row.model, [
           ["Total", `${formatInt(row.total_tokens)} tokens`],
-          ["Requests", formatInt(row.requests)],
-          ["Status", `${formatInt(row.success_requests)} ok · ${formatInt(row.failed_requests)} failed`],
-        ]),
+          ["Share", `${row.share}%`],
+        ]);
+      item.addEventListener("mouseenter", (event) => showTooltipForEvent(event, tooltipHtml()));
+      item.addEventListener("mousemove", (event) => showTooltipForEvent(event, tooltipHtml()));
+      item.addEventListener("mouseleave", hideTooltip);
+      item.addEventListener("focus", () => showTooltipForNode(item, tooltipHtml()));
+      item.addEventListener("blur", hideTooltip);
+      container.appendChild(item);
     });
   };
 
-  const setSelectedDate = (date) => {
-    if (!date || date === state.selectedDate) return;
-    state.selectedDate = date;
-    renderHeatmap(state.dailyRows);
-    renderTrend(state.dailyRows);
-    renderDetail(state.selectedDate);
+  const renderHourRhythm = () => {
+    const container = document.getElementById("usage-hour-rhythm");
+    if (!container) return;
+    container.innerHTML = "";
+
+    const totals = new Map((state.insights?.hour_mix || []).map((row) => [row.hour, Number(row.total_tokens || 0)]));
+    const rows = Array.from({ length: 24 }, (_, hour) => ({
+      hour: `${String(hour).padStart(2, "0")}:00`,
+      total_tokens: totals.get(`${String(hour).padStart(2, "0")}:00`) || 0,
+    }));
+
+    if (!rows.length) {
+      container.innerHTML = '<div class="usage-empty">暂时还没有按小时的分布数据。</div>';
+      return;
+    }
+
+    const maxValue = Math.max(...rows.map((row) => row.total_tokens), 0);
+    rows.forEach((row) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `rhythm-bin ${row.total_tokens > 0 ? "is-active" : "is-idle"}`;
+      const height = maxValue ? Math.max(row.total_tokens > 0 ? 20 : 6, (row.total_tokens / maxValue) * 132) : 6;
+      button.style.setProperty("--rhythm-height-px", `${height}px`);
+      button.setAttribute("aria-label", `${row.hour} ${formatInt(row.total_tokens)} tokens`);
+      button.innerHTML = '<span class="rhythm-fill"></span>';
+      const tooltipHtml = () =>
+        tooltipMarkup(row.hour, [["Total", `${formatInt(row.total_tokens)} tokens`]]);
+      button.addEventListener("mouseenter", (event) => showTooltipForEvent(event, tooltipHtml()));
+      button.addEventListener("mousemove", (event) => showTooltipForEvent(event, tooltipHtml()));
+      button.addEventListener("mouseleave", hideTooltip);
+      button.addEventListener("focus", () => showTooltipForNode(button, tooltipHtml()));
+      button.addEventListener("blur", hideTooltip);
+      container.appendChild(button);
+    });
   };
 
-  Promise.all([requireJson(summaryUrl), requireJson(hourlyUrl), requireJson(dailyUrl), requireJson(insightUrl)])
-    .then(([summary, hourly, daily, insights]) => {
-      const hourlyRows = Array.isArray(hourly.rows) ? hourly.rows : [];
-      const dailyRows = Array.isArray(daily.rows) ? daily.rows : [];
-      const modelMix = Array.isArray(insights.model_mix) ? insights.model_mix : [];
-      const hourMix = Array.isArray(insights.hour_mix) ? insights.hour_mix : [];
-      state.summary = summary;
-      state.hourlyRows = hourlyRows;
-      state.dailyRows = dailyRows;
-      state.insights = insights;
-      state.selectedDate =
-        [...dailyRows].reverse().find((row) => Number(row.total_tokens || 0) > 0)?.date ||
-        dailyRows.at(-1)?.date ||
-        null;
+  const renderInteractiveState = () => {
+    const date = focusDate();
+    if (!date) return;
+    renderSpotlight(date);
 
-      setField("total_tokens", formatInt(summary.total_tokens));
-      setField("token_breakdown", `Input ${formatInt(summary.input_tokens)} · Output ${formatInt(summary.output_tokens)}`);
-      setField("updated_at", formatTime(insights.updated_at || summary.updated_at));
-
-      const models = [...new Set(hourlyRows.map((row) => row.model).filter(Boolean))];
-      setField("model_count", models.length ? String(models.length) : "--");
-      renderModelChips(models);
-
-      const activeDays = dailyRows.filter((row) => Number(row.total_tokens || 0) > 0).length;
-      setField("active_days", String(activeDays));
-      setField("active_days_copy", `最近 ${dailyRows.length || 0} 天里，有记录的天数`);
-
-      renderHeatmap(dailyRows);
-      renderTrend(dailyRows);
-      renderBars("usage-model-bars", modelMix, "model-fill", {
-        getTooltip: (row) =>
-          tooltipMarkup(row.model || "unknown", [
-            ["Total", `${formatInt(row.total_tokens)} tokens`],
-            ["Share", `${row.share}%`],
-          ]),
-      });
-      renderBars("usage-hour-bars", hourMix, "hour-fill", {
-        getTooltip: (row) =>
-          tooltipMarkup(row.hour || "--", [
-            ["Total", `${formatInt(row.total_tokens)} tokens`],
-          ]),
-      });
-      renderDetail(state.selectedDate);
-    })
-    .catch((error) => {
-      setField("updated_at", "数据暂时不可用");
-      setField("total_tokens", "--");
-      setField("token_breakdown", "--");
-      setField("model_count", "--");
-      setField("active_days", "--");
-      setField("active_days_copy", "--");
-      renderModelChips([]);
-      renderHeatmap([]);
-      renderTrend([]);
-      renderBars("usage-model-bars", [], "model-fill");
-      renderBars("usage-hour-bars", [], "hour-fill");
-      renderDetail(null);
+    state.activityNodes.forEach((node, nodeDate) => {
+      node.classList.toggle("is-focus", nodeDate === date);
+      node.classList.toggle("is-locked", nodeDate === state.lockedDate);
     });
+    state.toolNodes.forEach((node, nodeDate) => {
+      node.classList.toggle("is-focus", nodeDate === date);
+      node.classList.toggle("is-locked", nodeDate === state.lockedDate);
+    });
+  };
+
+  const renderErrorState = (message) => {
+    console.error(message);
+    setField("updated_at", "Data unavailable");
+    setField("window_copy", "请稍后重试");
+    [
+      "usage-activity-spotlight",
+      "usage-activity-summary",
+      "usage-activity-sequence",
+      "usage-token-split",
+      "usage-composition-list",
+      "usage-cache-grid",
+      "usage-health-grid",
+      "usage-tool-bars",
+      "usage-model-bars",
+      "usage-hour-rhythm",
+    ].forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) node.innerHTML = `<div class="usage-empty">${escapeHtml(message)}</div>`;
+    });
+  };
+
+  const load = async () => {
+    try {
+      const [summary, hourly, daily, insights] = await Promise.all([
+        requireJson(summaryUrl),
+        requireJson(hourlyUrl),
+        requireJson(dailyUrl),
+        requireJson(insightUrl),
+      ]);
+
+      state.summary = summary || {};
+      state.hourlyRows = Array.isArray(hourly?.rows) ? hourly.rows : [];
+      state.dailyRows = Array.isArray(daily?.rows) ? daily.rows : [];
+      state.insights = insights || { model_mix: [], hour_mix: [] };
+      state.dailyByDate = new Map(state.dailyRows.map((row) => [row.date, row]));
+      state.hourlyByDate = state.hourlyRows.reduce((map, row) => {
+        const key = String(row.hour || "").slice(0, 10);
+        if (!map.has(key)) map.set(key, []);
+        map.get(key).push(row);
+        return map;
+      }, new Map());
+
+      const latestActive = [...state.dailyRows]
+        .reverse()
+        .find((row) => Number(row.total_tokens || 0) > 0);
+      state.defaultDate = (latestActive || state.dailyRows.at(-1) || {}).date || null;
+
+      renderOverview();
+      renderActivitySummary();
+      renderActivitySequence();
+      renderTokenStructure();
+      renderHealth();
+      renderModelBars();
+      renderHourRhythm();
+      renderInteractiveState();
+    } catch (error) {
+      renderErrorState("暂时拉不到公开数据。");
+    }
+  };
+
+  load();
 })();
 </script>

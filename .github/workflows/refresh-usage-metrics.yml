@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
@@ -34,9 +35,11 @@ jobs:
         run: python scripts/export_usage_metrics.py
 
       - name: Commit refreshed data
+        id: commit_metrics
         run: |
           if git diff --quiet -- static/data/ai-usage-summary.json static/data/ai-usage-hourly.json static/data/ai-usage-daily.json static/data/ai-usage-insights.json; then
             echo "No metric changes"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -44,3 +47,10 @@ jobs:
           git add static/data/ai-usage-summary.json static/data/ai-usage-hourly.json static/data/ai-usage-daily.json static/data/ai-usage-insights.json
           git commit -m "chore(data): refresh public usage metrics"
           git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger Pages deploy
+        if: steps.commit_metrics.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api "repos/${{ github.repository }}/actions/workflows/gh-pages.yml/dispatches" -f ref="${{ github.ref_name }}"

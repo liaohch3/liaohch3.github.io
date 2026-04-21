@@ -2,10 +2,11 @@ name: Monitor Usage Metrics Freshness
 
 on:
   schedule:
-    - cron: "37 * * * *"
+    - cron: "13,28,43,58 * * * *"
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: read
   issues: write
 
@@ -26,8 +27,24 @@ jobs:
         run: |
           python scripts/check_usage_metrics_freshness.py \
             --summary-url "https://liaohch3.com/data/ai-usage-summary.json" \
-            --threshold-hours 2 \
+            --threshold-hours 1.1 \
             --github-output "$GITHUB_OUTPUT"
+
+      - name: Trigger refresh workflow when stale
+        if: steps.freshness.outputs.stale == 'true'
+        id: trigger_refresh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          refresh_status="$(gh run list --workflow 'Refresh Usage Metrics' --limit 1 --json status --jq '.[0].status')"
+          if [ "${refresh_status}" = "in_progress" ] || [ "${refresh_status}" = "queued" ]; then
+            echo "Refresh workflow already ${refresh_status}; skip dispatch."
+            echo "dispatched=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          gh api "repos/${{ github.repository }}/actions/workflows/refresh-usage-metrics.yml/dispatches" -f ref="${{ github.ref_name }}"
+          echo "dispatched=true" >> "$GITHUB_OUTPUT"
 
       - name: Create or update stale alert issue
         if: steps.freshness.outputs.stale == 'true'
@@ -46,6 +63,7 @@ jobs:
           - Threshold: \`${{ steps.freshness.outputs.threshold_minutes }} minutes\`
           - Status: \`${{ steps.freshness.outputs.status }}\`
           - Detail: \`${{ steps.freshness.outputs.detail }}\`
+          - Refresh dispatch: \`${{ steps.trigger_refresh.outputs.dispatched || 'false' }}\`
 
           This alert is emitted by \`.github/workflows/monitor-usage-metrics-freshness.yml\`.
           EOF

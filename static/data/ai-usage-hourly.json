@@ -16,7 +16,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 4276.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-19T09:00:00Z",
@@ -34,7 +34,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 2948.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-19T16:00:00Z",
@@ -52,7 +52,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 5710.666666666667,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-19T17:00:00Z",
@@ -70,7 +70,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 11782.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-20T02:00:00Z",
@@ -88,7 +88,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 739657.6666666666,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-20T06:00:00Z",
@@ -106,7 +106,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 11975.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-20T08:00:00Z",
@@ -124,7 +124,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 10512.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-21T02:00:00Z",
@@ -142,7 +142,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 9377.45945945946,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     },
     {
       "hour": "2026-04-21T08:00:00Z",
@@ -160,7 +160,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 12544.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-21T12:05:37.863243Z"
+      "generated_at": "2026-04-21T14:03:26.853607Z"
     }
   ]
 }

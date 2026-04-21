@@ -10,8 +10,8 @@ comments = false
   <div class="metric-hero metric-hero-refined">
     <div class="metric-hero-copy">
       <div class="metric-overline">AI 日常</div>
-      <h2>最近 30 天，我和 AI 一起写代码的公开节奏</h2>
-      <p>只看最近 30 天里哪天开工、强度多高、通常在哪个时段打开。</p>
+      <h2>最近 30 天的 AI 写码节奏</h2>
+      <p>只看哪天开工、强度多高、通常在哪个时段打开。</p>
     </div>
     <div class="metric-updated">
       <div data-usage-field="updated_at">--</div>
@@ -47,7 +47,7 @@ comments = false
     <div class="metric-head">
       <div>
         <div class="metric-overline">30 天节奏</div>
-        <h3>哪几天真的在写</h3>
+        <h3>最近哪几天在写</h3>
       </div>
       <div class="metric-caption" id="usage-activity-headline">hover 看当天卡片，click 锁定</div>
     </div>
@@ -66,7 +66,7 @@ comments = false
   <div class="metric-secondary-grid">
     <div class="metric-panel chart-panel signal-panel">
       <div class="metric-overline">总量信号</div>
-      <h3>输入输出和请求层表现</h3>
+      <h3>输入输出 / 请求层</h3>
       <div class="signal-layout">
         <div class="signal-block">
           <div class="signal-title">Token 结构</div>
@@ -82,12 +82,12 @@ comments = false
     </div>
     <div class="metric-panel chart-panel side-panel">
       <div class="metric-overline">模型</div>
-      <h3>最近主要开哪个模型</h3>
+      <h3>主力模型</h3>
       <div class="rank-list" id="usage-model-bars"></div>
     </div>
     <div class="metric-panel chart-panel side-panel">
       <div class="metric-overline">时段</div>
-      <h3>通常在什么时候打开</h3>
+      <h3>打开时段</h3>
       <div class="rhythm-chart" id="usage-hour-rhythm"></div>
       <div class="rhythm-axis">
         <span>00:00</span>

@@ -6,13 +6,12 @@ toc = false
 comments = false
 +++
 
-<p>这里只放最近 30 天的公开聚合指标：token、工具调用、模型分布和使用节奏，不放 prompt、代码内容或命令参数。</p>
-<div class="public-metrics">
-  <div class="metric-hero">
+<div class="public-metrics public-metrics-refined">
+  <div class="metric-hero metric-hero-refined">
     <div class="metric-hero-copy">
-      <div class="metric-overline">最近 30 天</div>
-      <h2>把和 AI 一起写代码的节奏，压成一张公开切片</h2>
-      <p>主图改成按时间顺序铺开的 30 天活动序列。对这种活跃日不多、但想看清单日强度和节奏变化的数据，它比 GitHub 式热力图更合适。</p>
+      <div class="metric-overline">AI 日常</div>
+      <h2>最近 30 天，我和 AI 一起写代码的公开节奏</h2>
+      <p>只看最近 30 天里哪天开工、强度多高、通常在哪个时段打开。</p>
     </div>
     <div class="metric-updated">
       <div data-usage-field="updated_at">--</div>
@@ -20,13 +19,7 @@ comments = false
     </div>
   </div>
 
-  <div class="metric-hero-note">
-    <span>公开内容：token、工具调用、模型占比、时间分布</span>
-    <span>不公开：prompt、代码内容、仓库路径、命令参数</span>
-    <span>刷新频率：每小时自动汇总</span>
-  </div>
-
-  <div class="metric-summary-grid metric-summary-grid-rich">
+  <div class="metric-summary-grid metric-summary-grid-refined">
     <div class="metric-card">
       <span>近 30 天 token</span>
       <strong data-usage-field="total_tokens">--</strong>
@@ -38,95 +31,70 @@ comments = false
       <em data-usage-field="active_days_copy">--</em>
     </div>
     <div class="metric-card">
-      <span>工具调用</span>
-      <strong data-usage-field="tool_calls">--</strong>
-      <em data-usage-field="tool_calls_copy">--</em>
+      <span>请求数</span>
+      <strong data-usage-field="requests_total">--</strong>
+      <em data-usage-field="requests_copy">--</em>
     </div>
     <div class="metric-card metric-card-models">
-      <span>最近在用的模型</span>
-      <strong data-usage-field="model_count">--</strong>
-      <em data-usage-field="model_mix_copy">--</em>
+      <span>主力模型</span>
+      <strong data-usage-field="primary_model">--</strong>
+      <em data-usage-field="primary_model_copy">--</em>
       <div class="model-chip-list" id="usage-model-chips"></div>
     </div>
   </div>
 
-  <div class="metric-panel activity-panel">
+  <div class="metric-panel activity-panel activity-panel-refined">
     <div class="metric-head">
       <div>
-        <div class="metric-overline">活动主图</div>
-        <h3>最近 30 天哪几天真正在写，强度有多高</h3>
+        <div class="metric-overline">30 天节奏</div>
+        <h3>哪几天真的在写</h3>
       </div>
-      <div class="metric-caption" id="usage-activity-headline">hover 某一天看详情，click 锁定</div>
+      <div class="metric-caption" id="usage-activity-headline">hover 看当天卡片，click 锁定</div>
     </div>
     <div class="activity-layout">
       <div class="activity-spotlight" id="usage-activity-spotlight"></div>
       <div class="activity-chart-shell">
         <div class="activity-summary" id="usage-activity-summary"></div>
-        <div class="activity-sequence" id="usage-activity-sequence"></div>
+        <div class="activity-sequence-wrap">
+          <div class="activity-sequence" id="usage-activity-sequence"></div>
+        </div>
         <div class="activity-axis" id="usage-activity-axis"></div>
       </div>
     </div>
   </div>
 
-  <div class="metric-grid">
-  <div class="metric-panel chart-panel">
-  <div class="metric-overline">Token 结构</div>
-  <h3>输入和输出是主量，缓存读写单独看效率</h3>
-  <p class="chart-copy"><code>total_tokens</code> 只等于输入加输出，所以缓存命中和缓存写入不会被画成总量组成，而是作为额外的上下文效率指标单独公开。</p>
-  <div class="split-bar" id="usage-token-split"></div>
-  <div class="composition-list" id="usage-composition-list"></div>
-  <div class="cache-grid" id="usage-cache-grid"></div>
-  </div>
-  <div class="metric-panel chart-panel">
-  <div class="metric-overline">请求质量</div>
-  <h3>成功率、延迟和工具调用节奏</h3>
-  <p class="chart-copy">请求层只保留聚合指标。工具调用按天展开成一条迷你节奏线，hover 也会同步到上面的主图焦点。</p>
-  <div class="health-grid" id="usage-health-grid"></div>
-  <div class="mini-bars" id="usage-tool-bars"></div>
-  <div class="axis-row axis-row-compact" id="usage-tool-axis"></div>
-  </div>
-  </div>
-
-  <div class="metric-grid">
-  <div class="metric-panel chart-panel">
-  <div class="metric-overline">模型分布</div>
-  <h3>最近 30 天最常开的模型</h3>
-  <p class="chart-copy">这是典型的类别排名数据，最适合用按占比排序的横向条形图。</p>
-  <div class="rank-list" id="usage-model-bars"></div>
-  </div>
-  <div class="metric-panel chart-panel">
-  <div class="metric-overline">一天里的节奏</div>
-  <h3>通常在什么时间段最常用</h3>
-  <p class="chart-copy">一天被切成 24 个顺序时间桶，最合适的是按小时排列的柱形图，而不是打散成无序类别列表。</p>
-  <div class="rhythm-chart" id="usage-hour-rhythm"></div>
-  <div class="rhythm-axis">
-  <span>00:00</span>
-  <span>06:00</span>
-  <span>12:00</span>
-  <span>18:00</span>
-  <span>23:00</span>
-  </div>
-  </div>
-  </div>
-
-  <div class="metric-panel boundary-panel">
-    <div class="metric-overline">公开边界</div>
-    <h3>这页适合放什么，不适合放什么</h3>
-    <div class="boundary-grid">
-      <div class="boundary-item">
-        <span>适合公开</span>
-        <strong>聚合量级</strong>
-        <p>token 总量、工具调用次数、模型偏好和时间分布，这些信息能看节奏，但不会直接暴露具体工作内容。</p>
+  <div class="metric-secondary-grid">
+    <div class="metric-panel chart-panel signal-panel">
+      <div class="metric-overline">总量信号</div>
+      <h3>输入输出和请求层表现</h3>
+      <div class="signal-layout">
+        <div class="signal-block">
+          <div class="signal-title">Token 结构</div>
+          <div class="split-bar" id="usage-token-split"></div>
+          <div class="composition-list" id="usage-composition-list"></div>
+        </div>
+        <div class="signal-block">
+          <div class="signal-title">请求质量</div>
+          <div class="health-grid" id="usage-health-grid"></div>
+          <div class="signal-pills" id="usage-signal-pills"></div>
+        </div>
       </div>
-      <div class="boundary-item">
-        <span>不适合公开</span>
-        <strong>过程细节</strong>
-        <p>prompt 文本、仓库路径、命令参数、工具输入输出、代码片段都不出现在这页里。</p>
-      </div>
-      <div class="boundary-item">
-        <span>为什么这样画</span>
-        <strong>按数据类型选图</strong>
-        <p>稀疏时间数据用 30 天游序列，类别排名用横向条形图，24 小时时段用顺序柱形图，避免把空白本身画成大面积留白。</p>
+    </div>
+    <div class="metric-panel chart-panel side-panel">
+      <div class="metric-overline">模型</div>
+      <h3>最近主要开哪个模型</h3>
+      <div class="rank-list" id="usage-model-bars"></div>
+    </div>
+    <div class="metric-panel chart-panel side-panel">
+      <div class="metric-overline">时段</div>
+      <h3>通常在什么时候打开</h3>
+      <div class="rhythm-chart" id="usage-hour-rhythm"></div>
+      <div class="rhythm-axis">
+        <span>00:00</span>
+        <span>06:00</span>
+        <span>12:00</span>
+        <span>18:00</span>
+        <span>23:00</span>
       </div>
     </div>
   </div>
@@ -152,7 +120,6 @@ comments = false
     hoverDate: null,
     lockedDate: null,
     activityNodes: new Map(),
-    toolNodes: new Map(),
   };
 
   const tooltip = document.getElementById("usage-metric-tooltip");
@@ -203,11 +170,6 @@ comments = false
     }[char]));
   const sumBy = (rows, key) => rows.reduce((total, row) => total + Number(row[key] || 0), 0);
   const unique = (items) => [...new Set(items.filter(Boolean))];
-  const cacheHitRate = (readTokens, writeTokens) => {
-    const total = Number(readTokens || 0) + Number(writeTokens || 0);
-    if (!total) return null;
-    return Math.round((Number(readTokens || 0) / total) * 100);
-  };
   const focusDate = () => state.hoverDate || state.lockedDate || state.defaultDate;
 
   const tooltipMarkup = (title, rows) => `
@@ -264,19 +226,19 @@ comments = false
     return response.json();
   };
 
-  const renderModelChips = (models) => {
+  const renderModelChips = (rows) => {
     const container = document.getElementById("usage-model-chips");
     if (!container) return;
     container.innerHTML = "";
-    if (!models.length) {
+    if (!rows.length) {
       container.innerHTML = '<span class="usage-empty">暂时还没有模型数据。</span>';
       return;
     }
 
-    models.slice(0, 4).forEach((model) => {
+    rows.slice(0, 3).forEach((row) => {
       const chip = document.createElement("span");
       chip.className = "model-chip";
-      chip.textContent = model;
+      chip.textContent = `${row.model} ${row.share}%`;
       container.appendChild(chip);
     });
   };
@@ -344,7 +306,6 @@ comments = false
         ? Math.round((Number(daily.total_tokens || 0) / Number(state.summary.total_tokens || 0)) * 100)
         : 0,
       successRate: requests ? Math.round((successRequests / requests) * 100) : 0,
-      cacheHitRate: cacheHitRate(daily.cache_read_input_tokens, daily.cache_creation_input_tokens),
     };
   };
 
@@ -352,7 +313,7 @@ comments = false
     tooltipMarkup(formatDayLabel(detail.date), [
       ["Total", `${formatInt(detail.totalTokens)} tokens`],
       ["Requests", formatInt(detail.requests)],
-      ["Tool calls", formatInt(detail.toolCalls)],
+      ["Success", detail.requests ? `${detail.successRate}%` : "--"],
       ["Peak hour", detail.peakHour],
     ]);
 
@@ -401,8 +362,11 @@ comments = false
     const summary = state.summary || {};
     const activeDays = state.dailyRows.filter((row) => Number(row.total_tokens || 0) > 0).length;
     const quietDays = Math.max(state.dailyRows.length - activeDays, 0);
-    const models = state.insights?.model_mix?.map((row) => row.model) || [];
-    const avgToolsPerActiveDay = activeDays ? Math.round(Number(summary.tool_calls || 0) / activeDays) : 0;
+    const modelMix = state.insights?.model_mix || [];
+    const primaryModel = modelMix[0] || null;
+    const requests = Number(summary.requests || 0);
+    const successRequests = Number(summary.success_requests || 0);
+    const failedRequests = Number(summary.failed_requests || 0);
 
     setField("updated_at", formatTime(summary.updated_at));
     setField("window_copy", `${activeDays} 天有记录 · ${quietDays} 天留白`);
@@ -413,14 +377,20 @@ comments = false
     );
     setField("active_days", formatInt(activeDays));
     setField("active_days_copy", `最近 30 天里有记录的天数`);
-    setField("tool_calls", formatInt(summary.tool_calls));
     setField(
-      "tool_calls_copy",
-      activeDays ? `活跃日均 ${formatInt(avgToolsPerActiveDay)} 次` : "最近 30 天没有工具调用"
+      "requests_total",
+      formatInt(requests)
     );
-    setField("model_count", formatInt(models.length));
-    setField("model_mix_copy", models[0] ? `最常用 ${models[0]}` : "暂时还没有模型数据");
-    renderModelChips(models);
+    setField(
+      "requests_copy",
+      requests ? `${formatInt(successRequests)} 成功 · ${formatInt(failedRequests)} 失败` : "最近 30 天没有请求"
+    );
+    setField("primary_model", primaryModel ? primaryModel.model : "--");
+    setField(
+      "primary_model_copy",
+      primaryModel ? `${primaryModel.share}% 的 token 来自 ${primaryModel.model}` : "暂时还没有模型数据"
+    );
+    renderModelChips(modelMix);
   };
 
   const renderActivitySummary = () => {
@@ -517,12 +487,21 @@ comments = false
       true
     );
     const leadCopy = detail.totalTokens
-      ? `这一天贡献了最近 30 天公开 token 的 ${detail.shareOfWindow}%，总量 ${formatInt(detail.totalTokens)}。`
+      ? `这一天占最近 30 天公开 token 的 ${detail.shareOfWindow}%，峰值出现在 ${detail.peakHour}。`
       : "这一天没有公开记录。最近 30 天里，留白天本身也是节奏的一部分。";
+    const footerItems = [
+      `输入 ${formatInt(detail.inputTokens)}`,
+      `输出 ${formatInt(detail.outputTokens)}`,
+      `Peak ${detail.peakHour}`,
+    ];
+    if (detail.failedRequests > 0) footerItems.push(`失败 ${formatInt(detail.failedRequests)}`);
+    if (detail.toolCalls > 0) footerItems.push(`工具 ${formatInt(detail.toolCalls)}`);
+    if (detail.cacheReadTokens > 0) footerItems.push(`Cache read ${formatInt(detail.cacheReadTokens)}`);
+    if (detail.cacheWriteTokens > 0) footerItems.push(`Cache write ${formatInt(detail.cacheWriteTokens)}`);
 
     headline.textContent = state.lockedDate
       ? `已锁定 ${formatDayTick(state.lockedDate)} · 再点一次取消`
-      : "hover 某一天看详情，click 锁定";
+      : "hover 看当天卡片，click 锁定";
 
     container.innerHTML = `
       <div class="spotlight-mode">${escapeHtml(modeCopy)}</div>
@@ -539,41 +518,19 @@ comments = false
           <strong>${escapeHtml(formatInt(detail.requests))}</strong>
         </div>
         <div class="spotlight-stat">
-          <span>Tool calls</span>
-          <strong>${escapeHtml(formatInt(detail.toolCalls))}</strong>
+          <span>Success</span>
+          <strong>${escapeHtml(detail.requests ? `${detail.successRate}%` : "--")}</strong>
         </div>
         <div class="spotlight-stat">
-          <span>Peak hour</span>
-          <strong>${escapeHtml(detail.peakHour)}</strong>
+          <span>Active hours</span>
+          <strong>${escapeHtml(formatInt(detail.activeHours))}</strong>
         </div>
       </div>
 
-      <div class="spotlight-structure">
-        ${splitMarkup}
-        <div class="spotlight-metadata">
-          <div class="spotlight-meta-row">
-            <span>成功率</span>
-            <strong>${escapeHtml(detail.requests ? `${detail.successRate}%` : "--")}</strong>
-          </div>
-          <div class="spotlight-meta-row">
-            <span>活跃小时</span>
-            <strong>${escapeHtml(formatInt(detail.activeHours))}</strong>
-          </div>
-          <div class="spotlight-meta-row">
-            <span>模型数</span>
-            <strong>${escapeHtml(formatInt(detail.models.length))}</strong>
-          </div>
-          <div class="spotlight-meta-row">
-            <span>Cache hit</span>
-            <strong>${escapeHtml(detail.cacheHitRate === null ? "--" : `${detail.cacheHitRate}%`)}</strong>
-          </div>
-        </div>
-      </div>
+      <div class="spotlight-structure">${splitMarkup}</div>
 
       <div class="spotlight-footer">
-        <span>Cache read ${escapeHtml(formatInt(detail.cacheReadTokens))}</span>
-        <span>Cache write ${escapeHtml(formatInt(detail.cacheWriteTokens))}</span>
-        <span>失败 ${escapeHtml(formatInt(detail.failedRequests))}</span>
+        ${footerItems.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}
       </div>
     `;
   };
@@ -581,9 +538,8 @@ comments = false
   const renderTokenStructure = () => {
     const split = document.getElementById("usage-token-split");
     const list = document.getElementById("usage-composition-list");
-    const cacheGrid = document.getElementById("usage-cache-grid");
     const summary = state.summary || {};
-    if (!split || !list || !cacheGrid) return;
+    if (!split || !list) return;
 
     const totalTokens = Number(summary.total_tokens || 0);
     const tokenSegments = [
@@ -609,47 +565,13 @@ comments = false
         `;
       })
       .join("");
-
-    const readTokens = Number(summary.cache_read_input_tokens || 0);
-    const writeTokens = Number(summary.cache_creation_input_tokens || 0);
-    const hitRate = cacheHitRate(readTokens, writeTokens);
-    const cacheItems = [
-      {
-        label: "Cache read",
-        value: formatInt(readTokens),
-        copy: summary.input_tokens ? `相当于 fresh input 的 ${formatPercent(readTokens, summary.input_tokens)}` : "最近 30 天没有 cache read",
-      },
-      {
-        label: "Cache write",
-        value: formatInt(writeTokens),
-        copy: summary.input_tokens ? `相当于 fresh input 的 ${formatPercent(writeTokens, summary.input_tokens)}` : "最近 30 天没有 cache write",
-      },
-      {
-        label: "Cache hit",
-        value: hitRate === null ? "--" : `${hitRate}%`,
-        copy: hitRate === null ? "最近 30 天没有缓存事件" : "按 cache read / (read + write) 计算",
-      },
-    ];
-
-    cacheGrid.innerHTML = cacheItems
-      .map(
-        (item) => `
-          <div class="micro-card">
-            <span>${escapeHtml(item.label)}</span>
-            <strong>${escapeHtml(item.value)}</strong>
-            <em>${escapeHtml(item.copy)}</em>
-          </div>
-        `
-      )
-      .join("");
   };
 
   const renderHealth = () => {
     const healthGrid = document.getElementById("usage-health-grid");
-    const toolBars = document.getElementById("usage-tool-bars");
-    const toolAxis = document.getElementById("usage-tool-axis");
+    const signalPills = document.getElementById("usage-signal-pills");
     const summary = state.summary || {};
-    if (!healthGrid || !toolBars || !toolAxis) return;
+    if (!healthGrid || !signalPills) return;
 
     const requests = Number(summary.requests || 0);
     const successRate = requests
@@ -672,34 +594,17 @@ comments = false
       )
       .join("");
 
-    toolBars.innerHTML = "";
-    toolAxis.innerHTML = "";
-    state.toolNodes = new Map();
-    if (!state.dailyRows.length) {
-      toolBars.innerHTML = '<div class="usage-empty">暂时还没有工具调用数据。</div>';
-      return;
-    }
+    const pills = [];
+    const toolCalls = Number(summary.tool_calls || 0);
+    const cacheRead = Number(summary.cache_read_input_tokens || 0);
+    const cacheWrite = Number(summary.cache_creation_input_tokens || 0);
 
-    const maxTools = Math.max(...state.dailyRows.map((row) => Number(row.tool_calls || 0)), 0);
-    state.dailyRows.forEach((row) => {
-      const toolCalls = Number(row.tool_calls || 0);
-      const height = maxTools ? Math.max(toolCalls > 0 ? 20 : 6, (toolCalls / maxTools) * 132) : 6;
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = `mini-bar-button ${toolCalls > 0 ? "is-active" : "is-idle"}`;
-      button.dataset.date = row.date;
-      button.setAttribute("aria-label", `${formatDayLabel(row.date)} ${formatInt(toolCalls)} tool calls`);
-      button.style.setProperty("--mini-height-px", `${height}px`);
-      button.innerHTML = '<span class="mini-bar-fill"></span>';
-      wireDateNode(button, row.date);
-      state.toolNodes.set(row.date, button);
-      toolBars.appendChild(button);
-    });
+    if (toolCalls > 0) pills.push(`Tool calls ${formatInt(toolCalls)}`);
+    if (cacheRead > 0) pills.push(`Cache read ${formatInt(cacheRead)}`);
+    if (cacheWrite > 0) pills.push(`Cache write ${formatInt(cacheWrite)}`);
 
-    const tickIndexes = unique([0, 5, 11, 17, 23, state.dailyRows.length - 1]).sort((a, b) => a - b);
-    toolAxis.innerHTML = tickIndexes
-      .map((index) => `<span>${escapeHtml(formatDayTick(state.dailyRows[index].date))}</span>`)
-      .join("");
+    signalPills.innerHTML = pills.map((item) => `<span>${escapeHtml(item)}</span>`).join("");
+    signalPills.hidden = pills.length === 0;
   };
 
   const renderModelBars = () => {
@@ -787,10 +692,6 @@ comments = false
       node.classList.toggle("is-focus", nodeDate === date);
       node.classList.toggle("is-locked", nodeDate === state.lockedDate);
     });
-    state.toolNodes.forEach((node, nodeDate) => {
-      node.classList.toggle("is-focus", nodeDate === date);
-      node.classList.toggle("is-locked", nodeDate === state.lockedDate);
-    });
   };
 
   const renderErrorState = (message) => {
@@ -803,9 +704,8 @@ comments = false
       "usage-activity-sequence",
       "usage-token-split",
       "usage-composition-list",
-      "usage-cache-grid",
       "usage-health-grid",
-      "usage-tool-bars",
+      "usage-signal-pills",
       "usage-model-bars",
       "usage-hour-rhythm",
     ].forEach((id) => {

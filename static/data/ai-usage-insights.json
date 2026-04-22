@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-04-22T03:24:58.183941Z",
+  "updated_at": "2026-04-22T05:47:04.900293Z",
   "model_mix": [
     {
       "model": "gpt-5.4",
-      "total_tokens": 3065737,
+      "total_tokens": 3384751,
       "share": 100
     }
   ],
@@ -11,6 +11,10 @@
     {
       "hour": "02:00",
       "total_tokens": 2466285
+    },
+    {
+      "hour": "03:00",
+      "total_tokens": 113337
     },
     {
       "hour": "06:00",
@@ -23,6 +27,14 @@
     {
       "hour": "09:00",
       "total_tokens": 28874
+    },
+    {
+      "hour": "14:00",
+      "total_tokens": 84337
+    },
+    {
+      "hour": "15:00",
+      "total_tokens": 121340
     },
     {
       "hour": "16:00",

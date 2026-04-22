@@ -1,15 +1,6 @@
 {
   "rows": [
     {
-      "date": "2026-03-22",
-      "input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "cache_creation_input_tokens": 0,
-      "output_tokens": 0,
-      "total_tokens": 0,
-      "tool_calls": 0
-    },
-    {
       "date": "2026-03-23",
       "input_tokens": 0,
       "cache_read_input_tokens": 0,
@@ -263,11 +254,20 @@
     },
     {
       "date": "2026-04-20",
-      "input_tokens": 189734,
+      "input_tokens": 392557,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
-      "output_tokens": 218,
-      "total_tokens": 189952,
+      "output_tokens": 2004,
+      "total_tokens": 394561,
+      "tool_calls": 0
+    },
+    {
+      "date": "2026-04-21",
+      "input_tokens": 2352583,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "output_tokens": 13494,
+      "total_tokens": 2366077,
       "tool_calls": 0
     }
   ]

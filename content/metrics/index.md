@@ -636,7 +636,6 @@ comments = false
       <div id="usage-stale" class="usage-empty" hidden></div>
     </div>
   </div>
-
   <div class="usage-kpi-grid">
     <div class="usage-kpi-card">
       <div class="usage-kpi-label">总 token</div>
@@ -664,20 +663,16 @@ comments = false
       <div class="usage-kpi-copy" id="kpi-latency-note">--</div>
     </div>
   </div>
-
   <div class="usage-main-grid">
     <div class="usage-panel">
       <h3>30 天活动节奏</h3>
       <div class="usage-panel-sub" id="day-caption">悬停看当天详情，点击锁定</div>
-
       <div class="usage-spotlight" id="day-spotlight"></div>
-
       <div class="usage-day-shell">
         <div class="usage-day-summary" id="day-summary"></div>
         <div class="usage-day-bars" id="day-bars"></div>
       </div>
       <div class="usage-axis" id="day-axis"></div>
-
       <div class="usage-drill">
         <h4>选中日期的下钻（按小时）</h4>
         <div class="usage-hour-grid" id="day-hour-chart"></div>
@@ -690,13 +685,11 @@ comments = false
         </div>
       </div>
     </div>
-
     <div class="usage-panel">
       <h3>模型偏好</h3>
       <div class="usage-panel-sub">近 30 天 token Top 6</div>
       <div class="usage-rank-list" id="model-list"></div>
     </div>
-
     <div class="usage-panel">
       <h3>时段偏好</h3>
       <div class="usage-panel-sub">近 30 天整体时间分布</div>
@@ -709,18 +702,15 @@ comments = false
         <span>23</span>
       </div>
     </div>
-
     <div class="usage-panel">
       <h3>请求质量</h3>
       <div class="usage-health" id="health-grid"></div>
     </div>
-
     <div class="usage-panel">
       <h3>来源与客户端</h3>
       <div class="usage-origin-grid" id="origin-grid"></div>
     </div>
   </div>
-
   <div class="usage-tooltip" id="usage-tooltip" hidden></div>
 </div>
 

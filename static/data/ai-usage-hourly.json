@@ -142,7 +142,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 9377.45945945946,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T05:58:01.182344Z"
+      "generated_at": "2026-04-24T06:18:11.861238Z"
     },
     {
       "hour": "2026-04-21T08:00:00Z",
@@ -160,7 +160,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 12544.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T05:58:01.182344Z"
+      "generated_at": "2026-04-24T06:18:11.861238Z"
     },
     {
       "hour": "2026-04-21T14:00:00Z",
@@ -178,7 +178,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 2127023.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T05:58:01.182344Z"
+      "generated_at": "2026-04-24T06:18:11.861238Z"
     },
     {
       "hour": "2026-04-21T15:00:00Z",
@@ -196,7 +196,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 3601080.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T05:58:01.182344Z"
+      "generated_at": "2026-04-24T06:18:11.861238Z"
     },
     {
       "hour": "2026-04-22T03:00:00Z",
@@ -214,7 +214,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 1599589.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T05:58:01.182344Z"
+      "generated_at": "2026-04-24T06:18:11.861238Z"
     },
     {
       "hour": "2026-04-22T16:00:00Z",
@@ -232,7 +232,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 14526.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T05:58:01.182344Z"
+      "generated_at": "2026-04-24T06:18:11.861238Z"
     },
     {
       "hour": "2026-04-24T01:00:00Z",
@@ -250,7 +250,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 15894.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T05:58:01.182344Z"
+      "generated_at": "2026-04-24T06:18:11.861238Z"
     }
   ]
 }

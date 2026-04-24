@@ -142,7 +142,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 9377.45945945946,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T08:19:30.497936Z"
+      "generated_at": "2026-04-24T08:54:50.172502Z"
     },
     {
       "hour": "2026-04-21T08:00:00Z",
@@ -160,7 +160,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 12544.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T08:19:30.497936Z"
+      "generated_at": "2026-04-24T09:04:55.650864Z"
     },
     {
       "hour": "2026-04-21T14:00:00Z",
@@ -178,7 +178,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 2127023.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T08:19:30.497936Z"
+      "generated_at": "2026-04-24T09:04:55.650864Z"
     },
     {
       "hour": "2026-04-21T15:00:00Z",
@@ -196,7 +196,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 3601080.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T08:19:30.497936Z"
+      "generated_at": "2026-04-24T09:04:55.650864Z"
     },
     {
       "hour": "2026-04-22T03:00:00Z",
@@ -214,7 +214,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 1599589.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T08:19:30.497936Z"
+      "generated_at": "2026-04-24T09:04:55.650864Z"
     },
     {
       "hour": "2026-04-22T16:00:00Z",
@@ -232,7 +232,7 @@
       "tool_calls": 0,
       "avg_latency_ms": 14526.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T08:19:30.497936Z"
+      "generated_at": "2026-04-24T09:04:55.650864Z"
     },
     {
       "hour": "2026-04-24T01:00:00Z",
@@ -250,7 +250,25 @@
       "tool_calls": 0,
       "avg_latency_ms": 15894.0,
       "window_label": "hourly_v1",
-      "generated_at": "2026-04-24T08:19:30.497936Z"
+      "generated_at": "2026-04-24T09:04:55.650864Z"
+    },
+    {
+      "hour": "2026-04-24T06:00:00Z",
+      "source": "cx",
+      "client": "codex",
+      "model": "gpt-5.5",
+      "requests": 1,
+      "success_requests": 0,
+      "failed_requests": 1,
+      "input_tokens": 30870,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "output_tokens": 84,
+      "total_tokens": 30954,
+      "tool_calls": 0,
+      "avg_latency_ms": 117313.0,
+      "window_label": "hourly_v1",
+      "generated_at": "2026-04-24T09:04:55.650864Z"
     }
   ]
 }

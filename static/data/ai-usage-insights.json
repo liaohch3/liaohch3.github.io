@@ -1,10 +1,15 @@
 {
-  "updated_at": "2026-04-24T09:04:55.650864Z",
+  "updated_at": "2026-04-24T10:40:49.015068Z",
   "model_mix": [
     {
       "model": "gpt-5.4",
       "total_tokens": 3409543,
-      "share": 98
+      "share": 96
+    },
+    {
+      "model": "gpt-5.3-codex-spark",
+      "total_tokens": 89703,
+      "share": 3
     },
     {
       "model": "gpt-5.5",
@@ -35,7 +40,7 @@
     },
     {
       "hour": "09:00",
-      "total_tokens": 28874
+      "total_tokens": 118577
     },
     {
       "hour": "14:00",

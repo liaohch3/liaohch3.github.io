@@ -1,24 +1,6 @@
 {
   "rows": [
     {
-      "date": "2026-03-24",
-      "input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "cache_creation_input_tokens": 0,
-      "output_tokens": 0,
-      "total_tokens": 0,
-      "tool_calls": 0
-    },
-    {
-      "date": "2026-03-25",
-      "input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "cache_creation_input_tokens": 0,
-      "output_tokens": 0,
-      "total_tokens": 0,
-      "tool_calls": 0
-    },
-    {
       "date": "2026-03-26",
       "input_tokens": 0,
       "cache_read_input_tokens": 0,
@@ -263,11 +245,29 @@
     },
     {
       "date": "2026-04-22",
-      "input_tokens": 113231,
+      "input_tokens": 138023,
       "cache_read_input_tokens": 0,
       "cache_creation_input_tokens": 0,
       "output_tokens": 106,
-      "total_tokens": 113337,
+      "total_tokens": 138129,
+      "tool_calls": 0
+    },
+    {
+      "date": "2026-04-23",
+      "input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "tool_calls": 0
+    },
+    {
+      "date": "2026-04-24",
+      "input_tokens": 26419,
+      "cache_read_input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 26419,
       "tool_calls": 0
     }
   ]

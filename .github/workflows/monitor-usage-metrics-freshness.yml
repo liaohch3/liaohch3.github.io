@@ -27,7 +27,7 @@ jobs:
         run: |
           python scripts/check_usage_metrics_freshness.py \
             --summary-url "https://liaohch3.com/data/ai-usage-summary.json" \
-            --threshold-hours 1.1 \
+            --threshold-hours 2.0 \
             --github-output "$GITHUB_OUTPUT"
 
       - name: Trigger refresh workflow when stale

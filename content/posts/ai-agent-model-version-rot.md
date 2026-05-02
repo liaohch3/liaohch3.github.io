@@ -62,9 +62,7 @@ def translate_faithful(english_text, prev_context=""):
     return call_llm([...], model="anthropic/claude-sonnet-4", timeout=120)
 ```
 
-<p style="background-color: #f8d7da; padding: 12px 16px; border-left: 4px solid #dc3545; border-radius: 4px; font-size: 1.05em;">
-❌ <strong>这些过时的模型导致执行性能明显低于预期</strong> — 转录准确率更低、翻译质量更差，但因为不报错、能跑通，很难被发现。
-</p>
+> 风险：这些过时的模型导致执行性能明显低于预期。转录准确率更低、翻译质量更差，但因为不报错、能跑通，很难被发现。
 
 ### SKILL.md 修复后
 
@@ -86,9 +84,7 @@ def translate_faithful(english_text, prev_context=""):
 如果 TOOLS.md 信息也过时，可通过 OpenRouter Models 查询各家最新模型。
 ```
 
-<p style="background-color: #d4edda; padding: 12px 16px; border-left: 4px solid #28a745; border-radius: 4px; font-size: 1.05em;">
-✅ <strong>关键变化：</strong>表格里只有语义描述（"Gemini 系列最强 Flash 模型"），完全没有具体版本号。Agent 执行时去 TOOLS.md 查最新模型名，TOOLS.md 过时则去 OpenRouter 查。
-</p>
+> 关键变化：表格里只有语义描述（"Gemini 系列最强 Flash 模型"），完全没有具体版本号。Agent 执行时去 TOOLS.md 查最新模型名，TOOLS.md 过时则去 OpenRouter 查。
 
 ### TOOLS.md 模型注册表
 
@@ -121,9 +117,7 @@ payload:
 sessionTarget: isolated
 ```
 
-<p style="background-color: #d1ecf1; padding: 12px 16px; border-left: 4px solid #17a2b8; border-radius: 4px; font-size: 1.05em;">
-💡 这个 cron job 让 Agent 每天自动检查模型更新。Agent 会调用 OpenRouter API 获取最新模型列表，对比当前 TOOLS.md，有变化就更新。人不需要手动维护。
-</p>
+> 这个 cron job 让 Agent 每天自动检查模型更新。Agent 会调用 OpenRouter API 获取最新模型列表，对比当前 TOOLS.md，有变化就更新。人不需要手动维护。
 
 ## 经验总结
 

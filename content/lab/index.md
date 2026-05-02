@@ -11,12 +11,11 @@ toc = false
 
 ### Personal AI telemetry stack
 
-从 `cc/cx` alias 开始捕获 trace，异步入队，原始数据进入私有云存储，经过白名单过滤后的聚合指标再发布到公开页面。
+从 `cc/cx` alias 开始捕获 trace，异步入队，原始数据进入私有云存储，用于私有复盘和调试。
 
 - Durable queue and retry-based worker
 - Private raw archive in cloud storage
-- Public metrics generated from allowlisted payloads only
-- Homepage consumes static snapshots instead of direct warehouse queries
+- Allowlist-based export boundary for internal reporting
 
 ### claude-tap
 
@@ -24,7 +23,7 @@ toc = false
 
 ### Usage hub
 
-负责异步上传、聚合、白名单扫描和公开快照。它让 metrics 成为一个受约束的副产品，而不是泄露风险。
+负责异步上传、聚合和白名单扫描。它让 trace 数据在可控边界内用于复盘，而不是变成对外展示。
 
 ### API-first workflows
 

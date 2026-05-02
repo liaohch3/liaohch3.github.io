@@ -1,5 +1,5 @@
 # liaohch3.github.io
 
-个人博客，基于 [Hugo](https://gohugo.io/) + [Diary](https://github.com/AmazingRise/hugo-theme-diary) 主题搭建。
+个人博客，基于 [Hugo](https://gohugo.io/) + [Stack](https://github.com/CaiJimmy/hugo-theme-stack) 主题搭建。
 
-📖 https://liaohch3.github.io
+📖 https://liaohch3.com/

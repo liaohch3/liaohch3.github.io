@@ -19,7 +19,7 @@ hasCJKLanguage = true
 
   [params.footer]
     since = 2024
-    customText = "写作优先，公开指标只是侧面的长期信号。"
+    customText = "记录工程实践、问题复盘和技术判断。"
 
   [params.dateFormat]
     published = "2006-01-02"
@@ -101,16 +101,10 @@ hasCJKLanguage = true
   weight = 30
 
 [[menu.main]]
-  identifier = "metrics"
-  name = "AI 日常"
-  url = "/metrics/"
-  weight = 40
-
-[[menu.main]]
   identifier = "about"
   name = "关于"
   url = "/about/"
-  weight = 50
+  weight = 40
 
 [[menu.social]]
   identifier = "github"

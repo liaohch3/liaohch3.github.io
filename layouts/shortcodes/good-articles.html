@@ -1,0 +1,84 @@
+{{- $items := default (slice) site.Data.good_articles.articles -}}
+{{- $tags := slice -}}
+{{- range $items -}}
+  {{- range .tags -}}
+    {{- $tags = $tags | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- $tags = sort (uniq $tags) -}}
+
+<div class="reading-log" data-reading-log>
+  {{- if gt (len $tags) 0 -}}
+    <div class="reading-filter" aria-label="标签筛选">
+      {{- range $tags -}}
+        <label>
+          <input type="checkbox" value="{{ . }}">
+          <span>{{ . }}</span>
+        </label>
+      {{- end -}}
+      <button type="button" data-reading-clear>清除</button>
+    </div>
+  {{- end -}}
+
+  <div class="reading-table-wrap">
+    <table class="reading-table">
+      <thead>
+        <tr>
+          <th>标题</th>
+          <th>一句评价</th>
+          <th>标签</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{- range $items -}}
+          {{- $rowTags := default (slice) .tags -}}
+          <tr data-tags="{{ delimit $rowTags "," }}">
+            <td>
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
+            </td>
+            <td>{{ .comment }}</td>
+            <td>
+              <span class="reading-tags">
+                {{- range $rowTags -}}
+                  <span>{{ . }}</span>
+                {{- end -}}
+              </span>
+            </td>
+          </tr>
+        {{- else -}}
+          <tr>
+            <td class="reading-empty" colspan="3">暂无记录</td>
+          </tr>
+        {{- end -}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(() => {
+  document.querySelectorAll("[data-reading-log]").forEach((root) => {
+    const checks = Array.from(root.querySelectorAll(".reading-filter input[type='checkbox']"));
+    const rows = Array.from(root.querySelectorAll("tbody tr[data-tags]"));
+    const clear = root.querySelector("[data-reading-clear]");
+
+    const apply = () => {
+      const selected = checks.filter((item) => item.checked).map((item) => item.value);
+      rows.forEach((row) => {
+        const tags = (row.dataset.tags || "").split(",").filter(Boolean);
+        row.hidden = selected.length > 0 && !selected.some((tag) => tags.includes(tag));
+      });
+    };
+
+    checks.forEach((item) => item.addEventListener("change", apply));
+    if (clear) {
+      clear.addEventListener("click", () => {
+        checks.forEach((item) => {
+          item.checked = false;
+        });
+        apply();
+      });
+    }
+  });
+})();
+</script>

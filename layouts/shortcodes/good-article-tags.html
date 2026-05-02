@@ -1,0 +1,29 @@
+{{- $items := default (slice) site.Data.good_articles.articles -}}
+{{- $tags := slice -}}
+{{- range $items -}}
+  {{- range .tags -}}
+    {{- $tags = $tags | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- $tags = sort (uniq $tags) -}}
+
+<div class="reading-tag-index">
+  {{- range $tags -}}
+    {{- $tag := . -}}
+    <section class="reading-tag-group">
+      <h2>{{ $tag }}</h2>
+      <ul>
+        {{- range $items -}}
+          {{- if in (default (slice) .tags) $tag -}}
+            <li>
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
+              <span>{{ .comment }}</span>
+            </li>
+          {{- end -}}
+        {{- end -}}
+      </ul>
+    </section>
+  {{- else -}}
+    <p class="reading-empty">暂无记录</p>
+  {{- end -}}
+</div>

@@ -100,18 +100,6 @@ hasCJKLanguage = true
   url = "/reading/"
   weight = 30
 
-[[menu.main]]
-  identifier = "lab"
-  name = "实验室"
-  url = "/lab/"
-  weight = 40
-
-[[menu.main]]
-  identifier = "about"
-  name = "关于"
-  url = "/about/"
-  weight = 50
-
 [[menu.social]]
   identifier = "github"
   name = "GitHub"

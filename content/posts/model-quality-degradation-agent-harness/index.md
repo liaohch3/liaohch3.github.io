@@ -4,6 +4,7 @@ description = '读完 Anthropic、OpenAI、智谱几篇线上问题复盘后，�
 date = 2026-05-05T10:50:22+08:00
 draft = false
 tags = ["AI", "Agent", "LLM", "Claude Code", "OpenAI", "GLM"]
+image = "cover.png"
 +++
 
 最近 Anthropic、OpenAI、智谱都发布了一篇各自线上问题的复盘：

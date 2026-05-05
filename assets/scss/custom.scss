@@ -281,7 +281,7 @@
 .reading-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 680px;
+  min-width: 900px;
 }
 
 .reading-table th,
@@ -302,6 +302,19 @@
 
 .reading-table tr:last-child td {
   border-bottom: 0;
+}
+
+.reading-table th:first-child,
+.reading-table td:first-child,
+.reading-table th:nth-child(3),
+.reading-table td:nth-child(3) {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.reading-table td:first-child {
+  color: var(--card-text-color-tertiary);
+  font-family: var(--code-font-family);
 }
 
 .reading-tags {

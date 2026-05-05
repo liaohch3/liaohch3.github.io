@@ -9,6 +9,11 @@ articles:
     source: "Anthropic / Claude Code"
     comment: "把 prompt caching 讲成 Agent 产品设计约束：上下文组织、工具定义、模型切换和压缩策略都会影响命中率。"
     tags: ["AI", "Agent", "Prompt Caching", "Claude Code"]
+  - title: "How We Cut LLM Costs by 59% With Prompt Caching"
+    url: "https://projectdiscovery.io/blog/how-we-cut-llm-cost-with-prompt-caching"
+    source: "ProjectDiscovery / Parth Malhotra"
+    comment: "很实在的 Prompt Caching 降本复盘：省成本不是简单打开缓存，而是要把稳定前缀、动态上下文和对话窗口组织好。"
+    tags: ["AI", "Agent", "Prompt Caching", "Context Engineering", "LLM Infra"]
 
 # Add records like this:
 # - title: "Article title"

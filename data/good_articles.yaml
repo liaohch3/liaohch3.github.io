@@ -1,4 +1,12 @@
-articles: []
+articles:
+  - title: "Continually improving our agent harness"
+    url: "https://cursor.com/blog/continually-improving-agent-harness"
+    comment: "非常好的 Agent harness 工程复盘，讲评测、真实使用指标、故障修复，以及不同模型的 harness 适配。"
+    tags: ["AI", "Agent", "Harness", "Engineering"]
+  - title: "Lessons from building Claude Code: Prompt caching is everything"
+    url: "https://claude.com/blog/lessons-from-building-claude-code-prompt-caching-is-everything"
+    comment: "把 prompt caching 讲成 Agent 产品设计约束：上下文组织、工具定义、模型切换和压缩策略都会影响命中率。"
+    tags: ["AI", "Agent", "Prompt Caching", "Claude Code"]
 
 # Add records like this:
 # - title: "Article title"

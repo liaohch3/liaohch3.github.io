@@ -25,6 +25,7 @@
       <thead>
         <tr>
           <th>标题</th>
+          <th>来源/作者</th>
           <th>一句评价</th>
           <th>标签</th>
         </tr>
@@ -36,6 +37,7 @@
             <td>
               <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
             </td>
+            <td>{{ default "—" .source }}</td>
             <td>{{ .comment }}</td>
             <td>
               <span class="reading-tags">
@@ -47,7 +49,7 @@
           </tr>
         {{- else -}}
           <tr>
-            <td class="reading-empty" colspan="3">暂无记录</td>
+            <td class="reading-empty" colspan="4">暂无记录</td>
           </tr>
         {{- end -}}
       </tbody>

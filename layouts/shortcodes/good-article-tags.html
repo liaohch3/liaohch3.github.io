@@ -17,7 +17,7 @@
           {{- if in (default (slice) .tags) $tag -}}
             <li>
               <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
-              <span>{{ .comment }}</span>
+              <span>{{ default "—" .source }}：{{ .comment }}</span>
             </li>
           {{- end -}}
         {{- end -}}

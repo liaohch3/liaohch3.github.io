@@ -1,0 +1,80 @@
+{{- $page := .Page -}}
+{{- $record := $page.Params.decision_record -}}
+{{- if $record -}}
+    {{- $evidence := default (slice) $record.evidence -}}
+    {{- $rejected := default (slice) $record.rejected_approach -}}
+    {{- $experiments := default (slice) $record.experiment -}}
+    {{- $status := default "待追踪" $record.follow_up_status -}}
+    {{- if or (gt (len $evidence) 0) $record.uncertainty $record.follow_up (gt (len $rejected) 0) -}}
+        <aside class="claim-ledger" id="claim-ledger" aria-labelledby="claim-ledger-title">
+            <div class="claim-ledger__head">
+                <span>Claim ledger</span>
+                <h2 id="claim-ledger-title">正文证据账本</h2>
+                <p>每条来源先落到正文段落，再保留不确定、未采用和后续动作。</p>
+            </div>
+
+            {{ with $evidence }}
+                <ol class="claim-ledger__sections" aria-label="按正文顺序排列的证据">
+                    {{ range first 6 . }}
+                        {{- $section := default "article-content" .section_anchor -}}
+                        <li>
+                            <a href="#{{ $section }}" data-claim-ledger-link="{{ $section }}">
+                                <span>{{ default "证据" .role }} · {{ default "正文段落" .section_label }}</span>
+                                <strong>{{ .title }}</strong>
+                                <em>{{ default "打开对应段落核对这条来源。" .note }}</em>
+                            </a>
+                        </li>
+                    {{ end }}
+                </ol>
+            {{ end }}
+
+            <details class="claim-ledger__checks" aria-label="复核状态" open>
+                <summary>
+                    <span>复核队列</span>
+                    <strong>{{ add (add (cond $record.uncertainty 1 0) (cond $record.follow_up 1 0)) (add (cond (gt (len $rejected) 0) 1 0) (cond (gt (len $experiments) 0) 1 0)) }} 条</strong>
+                </summary>
+                <div class="claim-ledger__checks-grid">
+                {{ with $record.uncertainty }}
+                    <div>
+                        <span>Uncertainty</span>
+                        <p>{{ . }}</p>
+                    </div>
+                {{ end }}
+                {{ with $record.follow_up }}
+                    <div>
+                        <span>Follow-up · {{ $status }}</span>
+                        <p>{{ . }}</p>
+                    </div>
+                {{ end }}
+                {{ with first 1 $rejected }}
+                    {{ range . }}
+                        <div>
+                            <span>Rejected path</span>
+                            <p>{{ . }}</p>
+                        </div>
+                    {{ end }}
+                {{ end }}
+                {{ with first 1 $experiments }}
+                    {{ range . }}
+                        <div>
+                            <span>Experiment</span>
+                            <p>{{ with .result }}<strong>{{ . }}</strong> · {{ end }}{{ .note }}</p>
+                        </div>
+                    {{ end }}
+                {{ end }}
+                </div>
+            </details>
+        </aside>
+
+        <script type="application/json" data-claim-ledger-json>
+            {{- dict
+                "evidence" $evidence
+                "uncertainty" $record.uncertainty
+                "followUp" $record.follow_up
+                "followUpStatus" $status
+                "rejected" $rejected
+                "experiments" $experiments
+            | jsonify | safeJS -}}
+        </script>
+    {{- end -}}
+{{- end -}}

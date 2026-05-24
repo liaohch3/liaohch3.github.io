@@ -5,6 +5,48 @@ date = 2026-05-05T10:50:22+08:00
 draft = false
 tags = ["AI", "Agent", "LLM", "Claude Code", "OpenAI", "GLM"]
 image = "cover.png"
+
+[decision_record]
+claim = "用户感到模型变差，通常要按模型、推理系统、Agent harness 三层排查。"
+assumption = "端到端体验不是裸权重表现；长上下文、工具调用和默认配置都会把同一个模型变成不同产品。"
+uncertainty = "公开复盘只能覆盖已披露事故，真实线上链路里的指标、流量和回滚策略仍然不可见。"
+follow_up = "把用户反馈转成可复现 bad case，并记录模型版本、harness 配置、工具轨迹和失败步骤。"
+follow_up_status = "开放"
+rejected_approach = [
+  "只用 benchmark 解释用户体感下降。",
+  "把所有异常都归因到模型权重变化。"
+]
+
+[[decision_record.evidence]]
+title = "Claude Code 质量报告复盘"
+url = "https://www.anthropic.com/engineering/april-23-postmortem"
+source = "Anthropic"
+role = "证据"
+section_anchor = "问题可能发生在哪一层"
+section_label = "harness 层"
+note = "默认思考等级、历史清理和系统提示词都在产品层改变输出。"
+
+[[decision_record.evidence]]
+title = "Scaling Pain：超大规模 Coding Agent 推理实践"
+url = "https://www.zhipuai.cn/zh/research/159"
+source = "智谱"
+role = "证据"
+section_anchor = "推理系统层"
+section_label = "推理系统"
+note = "高并发长上下文场景会把底层状态问题放大成质量问题。"
+
+[[decision_record.evidence]]
+title = "Sycophancy in GPT-4o"
+url = "https://openai.com/index/sycophancy-in-gpt-4o/"
+source = "OpenAI"
+role = "背景"
+section_anchor = "模型层"
+section_label = "模型层"
+note = "模型风格和奖励信号也会造成可感知的质量偏移。"
+
+[[decision_record.experiment]]
+result = "可执行"
+note = "把反馈闭环拆成模型版本、harness 配置、工具轨迹、用户反馈四个字段。"
 +++
 
 最近 Anthropic、OpenAI、智谱都发布了一篇各自线上问题的复盘：

@@ -100,6 +100,18 @@ hasCJKLanguage = true
   url = "/reading/"
   weight = 30
 
+[[menu.main]]
+  identifier = "tags"
+  name = "主题"
+  url = "/tags/"
+  weight = 40
+
+[[menu.main]]
+  identifier = "archives"
+  name = "归档"
+  url = "/archives/"
+  weight = 50
+
 [[menu.social]]
   identifier = "github"
   name = "GitHub"
@@ -119,6 +131,9 @@ hasCJKLanguage = true
     newTab = true
 
 [markup]
+  [markup.highlight]
+    noClasses = false
+
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true

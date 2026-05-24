@@ -4,6 +4,35 @@ description = '本文介绍 Golang 中使用 defer 关键字容易踩坑的三�
 date = 2024-04-25T13:13:41+08:00
 draft = false
 tags = ["golang", "code"]
+
+[decision_record]
+claim = "defer 的参数在声明时求值，日志这类后置动作要用闭包读取最终变量。"
+assumption = "读者已经知道 defer 会在函数返回前执行，但容易混淆执行时机和参数求值时机。"
+uncertainty = "本文没有展开 runtime 底层实现，只保留日常编码时最容易踩坑的行为规则。"
+follow_up = "后续如果写 Go runtime 笔记，再补 defer 编译和栈管理的底层机制。"
+follow_up_status = "搁置"
+rejected_approach = [
+  "把 defer 只解释成函数退出时执行。",
+  "用复杂 runtime 细节替代可复现的小例子。"
+]
+
+[[decision_record.evidence]]
+title = "defer 参数求值示例"
+url = "#43-defer-的参数求值时机"
+source = "本文代码"
+role = "证据"
+section_anchor = "43-defer-的参数求值时机"
+section_label = "参数求值"
+note = "直接调用 logReq 会捕获声明时的零值。"
+
+[[decision_record.evidence]]
+title = "Go defer 底层实现"
+url = "https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-defer/"
+source = "Draveness"
+role = "背景"
+section_anchor = "6-参考"
+section_label = "参考"
+note = "用于补充本文没有展开的底层实现。"
 +++
 
 这是我第一篇正式的技术博客，灵感来自前段时间某位同事向我请教的问题：为什么 Golang defer 函数没有按预期执行？我觉得这是一个很容易踩坑的点，所以我在网上学习后，写出这篇博客。

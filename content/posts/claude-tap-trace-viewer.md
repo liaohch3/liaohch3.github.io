@@ -4,6 +4,39 @@ description = '我做 Agent 开发时经常需要研究 Claude Code / Codex 的�
 date = 2026-05-03T23:42:53+08:00
 draft = false
 tags = ["AI", "Agent", "Claude Code", "Codex", "claude-tap"]
+
+[decision_record]
+claim = "研究 Agent harness 时，先抓真实请求比从终端表现反推更可靠。"
+assumption = "Claude Code / Codex 发给模型的上下文包含提示词、工具、历史、结果和 token 信息，肉眼看到的交互只是压缩后的表面。"
+uncertainty = "本地 trace viewer 适合研发复盘，但还不是生产监控、权限审计或团队级指标系统。"
+follow_up = "继续补强 diff、token 分布和敏感字段遮罩，让 trace 能用于安全的团队内复盘。"
+follow_up_status = "进行中"
+rejected_approach = [
+  "只复制终端输出做问题复盘。",
+  "默认把 trace 上传到云端再分析。"
+]
+
+[[decision_record.evidence]]
+title = "claude-tap trace viewer"
+url = "https://github.com/liaohch3/claude-tap"
+source = "本地工具"
+role = "证据"
+section_anchor = "claude-tap-做什么"
+section_label = "工具边界"
+note = "真实请求、JSONL trace 和自包含 HTML 是这篇笔记的核心工件。"
+
+[[decision_record.evidence]]
+title = "连续请求 diff 截图"
+url = "/images/claude-tap/diff-view.jpg"
+source = "本文截图"
+role = "证据"
+section_anchor = "对比连续请求"
+section_label = "diff"
+note = "用连续调用差异检查上下文如何增长、回灌和复用。"
+
+[[decision_record.experiment]]
+result = "已验证"
+note = "Claude Code 与 Codex 两种客户端都可通过本地 proxy 记录请求。"
 +++
 
 今天发了一条推文介绍 [claude-tap](https://github.com/liaohch3/claude-tap)。这里把背景和截图整理成一篇博客，方便以后回看。

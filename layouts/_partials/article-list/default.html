@@ -1,0 +1,32 @@
+<article class="blog-article-row">
+    <a class="blog-article-row__link" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+        <span class="blog-article-row__marker" aria-hidden="true"></span>
+    </a>
+    <div class="blog-article-row__date">
+        {{ if not .Date.IsZero }}
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format .Site.Params.dateFormat.published }}</time>
+        {{ else }}
+            <span>未注明日期</span>
+        {{ end }}
+        <span class="blog-article-row__kind">现场笔记</span>
+    </div>
+    <div class="blog-article-row__body">
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ with .Params.description }}
+            <p>{{ . }}</p>
+        {{ else }}
+            <p>{{ .Summary | plainify | truncate 128 }}</p>
+        {{ end }}
+        <footer class="blog-article-row__meta">
+            <span>{{ .ReadingTime }} 分钟</span>
+            {{ with .GetTerms "tags" }}
+                <span class="blog-tags" aria-label="Topic trail">
+                    {{ range first 4 . }}
+                        <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                    {{ end }}
+                </span>
+            {{ end }}
+            <a class="blog-row-action" href="{{ .RelPermalink }}">打开路径</a>
+        </footer>
+    </div>
+</article>

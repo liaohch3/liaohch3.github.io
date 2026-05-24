@@ -40,3 +40,10 @@ kitex_remote_config.json
 coverage.html
 coverage.out
 .dlv
+/artifacts/design-runs/
+/tools/bin/
+node_modules/
+tools/blog-harness/node_modules/
+tools/blog-harness/package-lock.json
+/.codex
+/resources/_gen/

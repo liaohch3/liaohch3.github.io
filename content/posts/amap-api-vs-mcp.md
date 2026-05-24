@@ -4,33 +4,6 @@ date: 2026-02-22
 draft: false
 tags: ["AI", "Agent", "MCP", "高德地图", "OpenClaw"]
 description: "给 OpenClaw 接入高德地图 API 做租房通勤规划，发现直接调 API + 文件系统比 MCP 好用得多。"
-decision_record:
-  claim: "对有文件系统的 Agent，直接调 API 并沉淀脚本，比先封装 MCP 更适合探索型任务。"
-  assumption: "任务需要组合路径规划、地理编码、批量测距和 POI 搜索；固定 tool schema 会增加上下文成本。"
-  uncertainty: "结论来自个人租房规划场景，团队协作、权限控制和长期复用场景仍可能需要 MCP。"
-  follow_up: "补房源采集链路，把高德通勤数据和浏览器自动化结果交叉验证。"
-  follow_up_status: "待实验"
-  rejected_approach:
-    - "让模型继续用站数和路网距离估算通勤。"
-    - "为了调用地图能力先加载一整组 MCP tool schema。"
-  evidence:
-    - title: "高德 API 实测报告"
-      url: "/images/amap-api/test-report.jpg"
-      source: "本文测试"
-      role: "证据"
-      section_anchor: "高德-api-能力测试"
-      section_label: "API 测试"
-      note: "14 项 API 能力全部通过，足够支撑租房通勤探索。"
-    - title: "估算误差截图"
-      url: "/images/amap-api/hallucination.jpg"
-      source: "本文截图"
-      role: "反例"
-      section_anchor: "没有-api-时ai-靠猜"
-      section_label: "无 API"
-      note: "未接 API 时，模型输出看似完整但没有真实数据来源。"
-  experiment:
-    - result: "通过"
-      note: "路径规划、批量测距和周边搜索可以由脚本组合完成。"
 ---
 
 今天想通过 OpenClaw 找深圳地图上适合租房的位置。需求是两个人在不同地方上班，一个开车一个坐地铁，要找一个对两边通勤都合理的片区。但发现 Agent 自己无法准确输出通勤时间——全靠估算，数据不靠谱。所以就想给 Agent 接上高德地图 API，让它基于真实行程数据来回答。

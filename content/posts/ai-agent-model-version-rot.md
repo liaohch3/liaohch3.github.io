@@ -4,39 +4,6 @@ description = '当 AI Agent 用预训练知识中的过时模型名生成代码�
 date = 2026-02-20T21:00:00+08:00
 draft = false
 tags = ["ai", "agent", "llm"]
-
-[decision_record]
-claim = "Agent 写代码时不能硬编码记忆中的模型名，模型选择要运行时查注册表。"
-assumption = "旧模型通常还能调用成功，所以版本腐烂不会以报错形式暴露，只会悄悄拉低质量和性价比。"
-uncertainty = "注册表本身也可能过期，自动更新需要连通性测试和人工可读的变更记录。"
-follow_up = "把 TOOLS.md 的旗舰选型和 cron 更新结果做成 Agent 启动前检查项。"
-follow_up_status = "已落地"
-rejected_approach = [
-  "在 Skill 文档里写死具体模型版本。",
-  "等调用失败后再人工排查模型名。"
-]
-
-[[decision_record.evidence]]
-title = "过时模型截图"
-url = "/images/model-version-rot/problem.jpg"
-source = "本文工件"
-role = "证据"
-section_anchor = "问题"
-section_label = "问题"
-note = "Agent 生成的 Skill 和脚本都写入了过期模型名。"
-
-[[decision_record.evidence]]
-title = "修复后的 Skill 片段"
-url = "#skillmd-修复后"
-source = "本文代码"
-role = "证据"
-section_anchor = "skillmd-修复后"
-section_label = "修复"
-note = "模型用途改成语义描述，执行时再解析具体版本。"
-
-[[decision_record.experiment]]
-result = "首次运行通过"
-note = "Cron 拉取模型列表后更新 TOOLS.md，并输出新增模型和连通性报告。"
 +++
 
 ## 问题

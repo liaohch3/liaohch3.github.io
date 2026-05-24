@@ -1,9 +1,0 @@
-<section class="article-content blog-annotated-content">
-    <!-- Refer to https://discourse.gohugo.io/t/responsive-tables-in-markdown/10639/5 -->
-    {{ $wrappedTable := printf "<div class=\"table-wrapper\">${1}</div>" }}
-    {{ $sectionMarker := printf "<h2 id=\"${1}\"><span>${2}</span><span class=\"claim-ref\"><a href=\"#source-ledger\">来源</a><a href=\"#adjacent-notes\">续读</a></span></h2>" }}
-    {{ if .Params.decision_record }}
-        {{ $sectionMarker = printf "<h2 id=\"${1}\"><span>${2}</span><span class=\"claim-ref\"><a href=\"#claim-ledger\">账本</a><a href=\"#decision-record-detail\">复核</a></span></h2>" }}
-    {{ end }}
-    {{ .Content | replaceRE "<h2 id=\"([^\"]+)\">([^<]+)\\s*</h2>" $sectionMarker | replaceRE "(<table>(?:.|\n)+?</table>)" $wrappedTable | safeHTML }}
-</section>

@@ -4,36 +4,24 @@ articles:
     source: "Cursor"
     read_at: "2026-05-05"
     comment: "非常好的 Agent harness 工程复盘，讲评测、真实使用指标、故障修复，以及不同模型的 harness 适配。"
-    relation: "证据"
-    route_note: "连接到 Agent harness 评测与线上修复闭环。"
-    routes: ["Agent", "Harness", "LLM Evaluation"]
     tags: ["AI", "Agent", "Harness", "Engineering"]
   - title: "Lessons from building Claude Code: Prompt caching is everything"
     url: "https://claude.com/blog/lessons-from-building-claude-code-prompt-caching-is-everything"
     source: "Anthropic / Claude Code"
     read_at: "2026-05-05"
     comment: "把 prompt caching 讲成 Agent 产品设计约束：上下文组织、工具定义、模型切换和压缩策略都会影响命中率。"
-    relation: "背景"
-    route_note: "连接到 Claude Code、上下文组织和 prompt caching 的设计约束。"
-    routes: ["Claude Code", "Prompt Caching", "Context Engineering"]
     tags: ["AI", "Agent", "Prompt Caching", "Claude Code"]
   - title: "How We Cut LLM Costs by 59% With Prompt Caching"
     url: "https://projectdiscovery.io/blog/how-we-cut-llm-cost-with-prompt-caching"
     source: "ProjectDiscovery / Parth Malhotra"
     read_at: "2026-05-05"
     comment: "很实在的 Prompt Caching 降本复盘：省成本不是简单打开缓存，而是要把稳定前缀、动态上下文和对话窗口组织好。"
-    relation: "案例"
-    route_note: "连接到 LLM 成本、稳定前缀和上下文工程。"
-    routes: ["Prompt Caching", "LLM Infra", "Context Engineering"]
     tags: ["AI", "Agent", "Prompt Caching", "Context Engineering", "LLM Infra"]
   - title: "Which Model Reviews Code Best?"
     url: "https://factory.ai/news/code-review-benchmark"
     source: "Factory Research / Nizar Alrifai"
     read_at: "2026-05-05"
     comment: "很喜欢这种评测方式：把 Code Review 的质量、成本和性价比数字化呈现，方便比较不同模型在真实工程任务里的取舍。"
-    relation: "背景"
-    route_note: "连接到代码评审、模型评测和成本取舍。"
-    routes: ["Code Review", "Benchmark", "LLM Evaluation"]
     tags: ["AI", "Agent", "Code Review", "Benchmark", "LLM Evaluation"]
 
 # Add records like this:

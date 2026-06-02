@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://liaohch3.com/sitemap.xml
+Sitemap: https://liaohch3.com/claude-tap/sitemap.xml
